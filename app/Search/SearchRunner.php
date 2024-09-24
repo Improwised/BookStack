@@ -82,11 +82,31 @@ class SearchRunner
             $results = $results->merge($searchResults);
         }
 
+        //  Set High Priority Based on mutltiwords Contains
+        foreach ($results as $result) {
+            $flag = 0;
+
+            foreach ($searchOpts->searches as $searchoption) {
+                if ($result->first()->getTable() === 'pages') {
+                    if (strpos(strtolower($result->name), strtolower($searchoption)) !== false || strpos(strtolower($result->text), strtolower($searchoption)) !== false) {
+                        $flag++;
+                        
+                    }
+                } else {
+                    if (strpos(strtolower($result->name), strtolower($searchoption)) !== false || strpos(strtolower($result->description), strtolower($searchoption)) !== false) {
+                        $flag++;
+                    }
+                }
+            }
+
+            $result->wordScore = $flag;
+        }
+
         return [
             'total'    => $total,
             'count'    => count($results),
             'has_more' => $hasMore,
-            'results'  => $results->sortByDesc('score')->values(),
+            'results'  => $results->sortByDesc(['wordScore','score'])->values(),
         ];
     }
 
