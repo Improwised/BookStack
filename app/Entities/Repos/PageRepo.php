@@ -57,6 +57,13 @@ class PageRepo
             $page->forceFill([
                 'html'  => $defaultTemplate->html,
                 'markdown' => $defaultTemplate->markdown,
+                'editor' => 'markdown',
+            ]);
+        }
+        // assigning the default value to draft at the time of draft creation
+        else {
+            $page->forceFill([
+                'editor' => 'wysiwyg',
             ]);
         }
 
