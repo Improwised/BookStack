@@ -426,6 +426,24 @@ class EntitySearchTest extends TestCase
         $this->withHtml($search)->assertElementContains('.entity-list > .page:nth-child(2)', 'Test page A');
     }
 
+    public function test_mutliwords_contains_page_have_high_order()
+    {
+        $this->entities->newPage(['name'=>'Test page 1','html'=>'<p>Hello how r u? i am fine, what about you</p>']);
+        $this->entities->newPage(['name'=>'Test page 2','html'=>'<p>what going on?</p>']);
+        $this->entities->newPage(['name'=>'Test page 3','html'=>'<p>what are you doing?</p>']);
+        $this->entities->newBook(['name'=>'test book','description'=>'what is testing']);
+
+        $search = $this->asEditor()->get('/search?term='.urlencode('what you'));
+
+        $wordScoreByTerm = $search->baseResponse->original->getData()['entities']->pluck('wordScore', 'name');
+        
+        $this->assertEquals(2,$wordScoreByTerm->get('Test page 1'));
+        $this->assertEquals(2,$wordScoreByTerm->get('Test page 3'));
+        $this->assertEquals(1,$wordScoreByTerm->get('Test page 2'));
+        $this->assertEquals(1,$wordScoreByTerm->get('test book'));
+
+    }
+
     public function test_terms_in_headers_have_an_adjusted_index_score()
     {
         $page = $this->entities->newPage(['name' => 'Test page A', 'html' => '

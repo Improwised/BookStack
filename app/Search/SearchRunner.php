@@ -83,6 +83,33 @@ class SearchRunner
         }
 
         //  Set High Priority Based on mutltiwords Contains
+        // Results Stores this Arrays
+        // Pages Array
+        // "name" => "Non temporibus consequatur necessitatibus eos maiores et consequatur velit."
+        // "id" => 4022
+        // "slug" => "QICRblceCl"
+        // "book_id" => 7
+        // "chapter_id" => 103
+        // "draft" => 0
+        // "template" => 0
+        // "text" => "Repellendus sunt rerum perspiciatis et debitis aut laboriosam. Et veniam earum in quidem. Esse porro quisquam ipsam praesentium voluptatibus quasi officiis. Et nam eaque omnis ut. Ex occaecati aliquam dignissimos perferendis.Voluptatem nesciunt magnam quisquam enim autem. Quia nobis rerum voluptas eaque velit. Sed suscipit corporis ad qui. Omnis autem fugit ut qui velit impedit magni.Ut sequi magnam nemo eaque. Iste qui ipsam nobis. Recusandae dolores maxime praesentium quo esse architecto. Laborum quos tenetur nobis ducimus quas vero.Et sed et ut nihil impedit aut quasi. Et sint asperiores dolores rem sed aut id. Placeat cupiditate nemo quam. Molestiae aut provident quisquam sed quis.Doloribus quia accusamus dolore vel est voluptatem facere quo. Voluptatem officia sint sapiente dolorem officiis. Alias sunt facilis et doloribus."
+        // "created_at" => "2024-09-19 13:11:47"
+        // "updated_at" => "2024-09-19 13:11:47"
+        // "priority" => 0
+        // "owned_by" => 0
+        // "book_slug" => "eAIqN4dcnl"
+        // "score" => "46.53342"
+
+        //Book, Chapter, bookshelves Array
+        // "id" => 10
+        // "slug" => "j0YTXNaUVf"
+        // "name" => "Officiis magni illum laudantium enim earum dolor velit."
+        // "description" => "Consequatur aut nihil sunt enim id. Quo at odio inventore consectetur harum."
+        // "created_at" => "2024-09-19 13:11:18"
+        // "updated_at" => "2024-09-19 13:11:18"
+        // "image_id" => null
+        // "owned_by" => 3
+        // "score" => "26.05248"
         foreach ($results as $result) {
             $flag = 0;
 
@@ -101,7 +128,7 @@ class SearchRunner
 
             $result->wordScore = $flag;
         }
-
+        
         return [
             'total'    => $total,
             'count'    => count($results),
