@@ -81,11 +81,11 @@ class EntitySearchTest extends TestCase
     {
         $newTags = [
             new Tag([
-                'name'  => 'animal',
+                'name' => 'animal',
                 'value' => 'cat',
             ]),
             new Tag([
-                'name'  => 'color',
+                'name' => 'color',
                 'value' => 'red',
             ]),
         ];
@@ -426,27 +426,73 @@ class EntitySearchTest extends TestCase
         $this->withHtml($search)->assertElementContains('.entity-list > .page:nth-child(2)', 'Test page A');
     }
 
-    public function test_mutliwords_contains_page_have_high_order()
+    public function test_mutliwords_contains_page_have_high_ranking()
     {
-        $this->entities->newPage(['name'=>'Test page 1','html'=>'<p>Hello how r u? i am fine, what about you</p>']);
-        $this->entities->newPage(['name'=>'Test page 2','html'=>'<p>what going on?</p>']);
-        $this->entities->newPage(['name'=>'Test page 3','html'=>'<p>what are you doing?</p>']);
-        $this->entities->newBook(['name'=>'test book','description'=>'what is testing']);
+        $this->entities->newPage([
+            'name' => 'The Dream',
+            'html' => '<h1>The Dream</h1>
+<p>Once upon a time, there was a shepherd named Santiago.</p>
+<p>His dream prompted him to embark on a journey across the desert.</p>'
+        ]);
+        $this->entities->newPage([
+            'name' => 'The Journey',
+            'html' => '<h1>The Journey</h1>
+<p>Santiago faced many challenges as he traveled through the desert.</p>'
+        ]);
+        $this->entities->newPage([
+            'name' => 'The Treasure',
+            'html' => '<h1>The Treasure</h1>
+<p>After a long and arduous journey, Santiago finally reached the pyramids.</p>
+<p>He realized that true fulfillment comes from following dreams.</p>'
+        ]);
+        $this->entities->newBook(['name' => 'The Alchemist', 'description' => 'A journey of self-discovery that follows a shepherd named Santiago as he pursues his dreams and learns about the importance of listening to his heart.']);
 
-        $search = $this->asEditor()->get('/search?term='.urlencode('what you'));
+        $search = $this->asEditor()->get('/search?term=' . urlencode('Journey Dream'));
 
-        $wordScoreByTerm = $search->baseResponse->original->getData()['entities']->pluck('wordScore', 'name');
-        
-        $this->assertEquals(2,$wordScoreByTerm->get('Test page 1'));
-        $this->assertEquals(2,$wordScoreByTerm->get('Test page 3'));
-        $this->assertEquals(1,$wordScoreByTerm->get('Test page 2'));
-        $this->assertEquals(1,$wordScoreByTerm->get('test book'));
+        $output = $search->baseResponse->original->getData()['entities'];
+        $wordScoreByTerm = $output->pluck('wordScore', 'name');
+        $expectedOutput = [
+            [
+                "name" => "The Dream",
+                "description" => "The Dream\nOnce upon a time, there was a shepherd named Santiago.\nHis dream prompted him to embark on a journey across the desert.",
+                "wordScore" => 2,
+            ],
+            [
+                "name" => "The Alchemist",
+                "description" => "A journey of self-discovery that follows a shepherd named Santiago as he pursues his dreams and learns about the importance of listening to his heart.",
+                "wordScore" => 2,
+            ],
+            [
+                "name" => "The Treasure",
+                "description" => "The Treasure\nAfter a long and arduous journey, Santiago finally reached the pyramids.\nHe realized that true fulfillment comes from following dreams.",
+                "wordScore" => 2,
+            ],
+            [
+                "name" => "The Journey",
+                "description" => "The Journey\nSantiago faced many challenges as he traveled through the desert.",
+                "wordScore" => 1,
+            ],
+        ];
+
+
+        $output = collect($search->baseResponse->original->getData()['entities'])->map(function ($item) {
+            return ['name' => $item['name'], 'description' => $item[$item['text'] !== null ? 'text' : 'description'], 'wordScore' => $item['wordScore']];
+        })->toArray();
+
+
+        $this->assertEquals($expectedOutput, $output);
+        $this->assertEquals(2, $wordScoreByTerm->get('The Alchemist'));
+        $this->assertEquals(2, $wordScoreByTerm->get('The Treasure'));
+        $this->assertEquals(2, $wordScoreByTerm->get('The Dream'));
+        $this->assertEquals(1, $wordScoreByTerm->get('The Journey'));
 
     }
 
     public function test_terms_in_headers_have_an_adjusted_index_score()
     {
-        $page = $this->entities->newPage(['name' => 'Test page A', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'Test page A',
+            'html' => '
             <p>TermA</p>
             <h1>TermB <strong>TermNested</strong></h1>
             <h2>TermC</h2>
@@ -454,7 +500,8 @@ class EntitySearchTest extends TestCase
             <h4>TermE</h4>
             <h5>TermF</h5>
             <h6>TermG</h6>
-        ']);
+        '
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
 
@@ -471,9 +518,12 @@ class EntitySearchTest extends TestCase
 
     public function test_name_and_content_terms_are_merged_to_single_score()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>TermA</p>
-        ']);
+        '
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
 
@@ -483,10 +533,14 @@ class EntitySearchTest extends TestCase
 
     public function test_tag_names_and_values_are_indexed_for_search()
     {
-        $page = $this->entities->newPage(['name' => 'PageA', 'html' => '<p>content</p>', 'tags' => [
-            ['name' => 'Animal', 'value' => 'MeowieCat'],
-            ['name' => 'SuperImportant'],
-        ]]);
+        $page = $this->entities->newPage([
+            'name' => 'PageA',
+            'html' => '<p>content</p>',
+            'tags' => [
+                ['name' => 'Animal', 'value' => 'MeowieCat'],
+                ['name' => 'SuperImportant'],
+            ]
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
         $this->assertEquals(5, $scoreByTerm->get('MeowieCat'));
@@ -496,10 +550,14 @@ class EntitySearchTest extends TestCase
 
     public function test_matching_terms_in_search_results_are_highlighted()
     {
-        $this->entities->newPage(['name' => 'My Meowie Cat', 'html' => '<p>A superimportant page about meowieable animals</p>', 'tags' => [
-            ['name' => 'Animal', 'value' => 'MeowieCat'],
-            ['name' => 'SuperImportant'],
-        ]]);
+        $this->entities->newPage([
+            'name' => 'My Meowie Cat',
+            'html' => '<p>A superimportant page about meowieable animals</p>',
+            'tags' => [
+                ['name' => 'Animal', 'value' => 'MeowieCat'],
+                ['name' => 'SuperImportant'],
+            ]
+        ]);
 
         $search = $this->asEditor()->get('/search?term=SuperImportant+Meowie');
         // Title
@@ -534,9 +592,12 @@ class EntitySearchTest extends TestCase
 
     public function test_words_adjacent_to_lines_breaks_can_be_matched_with_normal_terms()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>TermA<br>TermB<br>TermC</p>
-        ']);
+        '
+        ]);
 
         $search = $this->asEditor()->get('/search?term=' . urlencode('TermB TermC'));
 
@@ -545,9 +606,12 @@ class EntitySearchTest extends TestCase
 
     public function test_backslashes_can_be_searched_upon()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>More info is at the path \\\\cat\\dog\\badger</p>
-        ']);
+        '
+        ]);
         $page->tags()->save(new Tag(['name' => '\\Category', 'value' => '\\animals\\fluffy']));
 
         $search = $this->asEditor()->get('/search?term=' . urlencode('\\\\cat\\dog'));
