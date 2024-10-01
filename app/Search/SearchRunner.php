@@ -83,10 +83,10 @@ class SearchRunner
         }
 
         return [
-            'total'    => $total,
-            'count'    => count($results),
+            'total' => $total,
+            'count' => count($results),
             'has_more' => $hasMore,
-            'results'  => $results->sortByDesc('score')->values(),
+            'results' => $results->sortByDesc('score')->values(),
         ];
     }
 
@@ -190,6 +190,7 @@ class SearchRunner
      */
     protected function applyTermSearch(EloquentBuilder $entityQuery, SearchOptions $options, string $entityType): void
     {
+        $punctuation = ['-', '.', ',', '!', '?', '—', ';', ':', '@', '#', '/', '$'];
         $terms = $options->searches;
         if (count($terms) === 0) {
             return;
@@ -207,10 +208,16 @@ class SearchRunner
         $subQuery->addBinding($scoreSelect['bindings'], 'select');
 
         $subQuery->where('entity_type', '=', $entityType);
-        $subQuery->where(function (Builder $query) use ($terms) {
+        $subQuery->where(function (Builder $query) use ($terms, $punctuation) {
             foreach ($terms as $inputTerm) {
                 $inputTerm = str_replace('\\', '\\\\', $inputTerm);
-                $query->orWhere('term', 'like', $inputTerm . '%');
+
+                $likeClauses = array_map(function ($punct) use ($inputTerm) {
+                    return "term LIKE '%{$punct}{$inputTerm}%'";
+                }, $punctuation);
+
+                $query->orWhere('term', 'like', $inputTerm . '%')
+                    ->orWhereRaw(implode(' OR ', $likeClauses));
             }
         });
         $subQuery->groupBy('entity_type', 'entity_id');
@@ -243,7 +250,7 @@ class SearchRunner
 
         return [
             'statement' => 'SUM(' . $ifChain . ') as score',
-            'bindings'  => array_reverse($bindings),
+            'bindings' => array_reverse($bindings),
         ];
     }
 
