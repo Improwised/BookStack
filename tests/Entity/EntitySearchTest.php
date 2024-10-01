@@ -624,16 +624,15 @@ class EntitySearchTest extends TestCase
 
         $search = $this->asEditor()->get('/search?term=' . urlencode('green ocean'));
         $output = $search->baseResponse->original['entities'];
-        $flag = 0;
         
         foreach ($output as $value) {
             if(!(strpos($value->text,'green-ocean') || strpos($value->name,'green-ocean')))
             {
-                $flag=1;
+                $this->assertTrue(false);
             }
         }
 
-        $this->assertTrue($flag === 0 ? true : false);
+        $this->assertTrue(true);
 
     }
 }
