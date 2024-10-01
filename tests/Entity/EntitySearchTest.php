@@ -81,11 +81,11 @@ class EntitySearchTest extends TestCase
     {
         $newTags = [
             new Tag([
-                'name'  => 'animal',
+                'name' => 'animal',
                 'value' => 'cat',
             ]),
             new Tag([
-                'name'  => 'color',
+                'name' => 'color',
                 'value' => 'red',
             ]),
         ];
@@ -428,7 +428,9 @@ class EntitySearchTest extends TestCase
 
     public function test_terms_in_headers_have_an_adjusted_index_score()
     {
-        $page = $this->entities->newPage(['name' => 'Test page A', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'Test page A',
+            'html' => '
             <p>TermA</p>
             <h1>TermB <strong>TermNested</strong></h1>
             <h2>TermC</h2>
@@ -436,7 +438,8 @@ class EntitySearchTest extends TestCase
             <h4>TermE</h4>
             <h5>TermF</h5>
             <h6>TermG</h6>
-        ']);
+        '
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
 
@@ -453,9 +456,12 @@ class EntitySearchTest extends TestCase
 
     public function test_name_and_content_terms_are_merged_to_single_score()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>TermA</p>
-        ']);
+        '
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
 
@@ -465,10 +471,14 @@ class EntitySearchTest extends TestCase
 
     public function test_tag_names_and_values_are_indexed_for_search()
     {
-        $page = $this->entities->newPage(['name' => 'PageA', 'html' => '<p>content</p>', 'tags' => [
-            ['name' => 'Animal', 'value' => 'MeowieCat'],
-            ['name' => 'SuperImportant'],
-        ]]);
+        $page = $this->entities->newPage([
+            'name' => 'PageA',
+            'html' => '<p>content</p>',
+            'tags' => [
+                ['name' => 'Animal', 'value' => 'MeowieCat'],
+                ['name' => 'SuperImportant'],
+            ]
+        ]);
 
         $scoreByTerm = $page->searchTerms()->pluck('score', 'term');
         $this->assertEquals(5, $scoreByTerm->get('MeowieCat'));
@@ -478,10 +488,14 @@ class EntitySearchTest extends TestCase
 
     public function test_matching_terms_in_search_results_are_highlighted()
     {
-        $this->entities->newPage(['name' => 'My Meowie Cat', 'html' => '<p>A superimportant page about meowieable animals</p>', 'tags' => [
-            ['name' => 'Animal', 'value' => 'MeowieCat'],
-            ['name' => 'SuperImportant'],
-        ]]);
+        $this->entities->newPage([
+            'name' => 'My Meowie Cat',
+            'html' => '<p>A superimportant page about meowieable animals</p>',
+            'tags' => [
+                ['name' => 'Animal', 'value' => 'MeowieCat'],
+                ['name' => 'SuperImportant'],
+            ]
+        ]);
 
         $search = $this->asEditor()->get('/search?term=SuperImportant+Meowie');
         // Title
@@ -516,9 +530,12 @@ class EntitySearchTest extends TestCase
 
     public function test_words_adjacent_to_lines_breaks_can_be_matched_with_normal_terms()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>TermA<br>TermB<br>TermC</p>
-        ']);
+        '
+        ]);
 
         $search = $this->asEditor()->get('/search?term=' . urlencode('TermB TermC'));
 
@@ -527,9 +544,12 @@ class EntitySearchTest extends TestCase
 
     public function test_backslashes_can_be_searched_upon()
     {
-        $page = $this->entities->newPage(['name' => 'TermA', 'html' => '
+        $page = $this->entities->newPage([
+            'name' => 'TermA',
+            'html' => '
             <p>More info is at the path \\\\cat\\dog\\badger</p>
-        ']);
+        '
+        ]);
         $page->tags()->save(new Tag(['name' => '\\Category', 'value' => '\\animals\\fluffy']));
 
         $search = $this->asEditor()->get('/search?term=' . urlencode('\\\\cat\\dog'));
@@ -578,5 +598,42 @@ class EntitySearchTest extends TestCase
         $resp = $this->asEditor()->get('/search/suggest?term=spaghettisaurusrex');
         $this->withHtml($resp)->assertElementCount('a', 0);
         $resp->assertSee('No items available');
+    }
+
+    public function test_word_with_punctuation_searchable()
+    {
+        $this->entities->newPage([
+            'name' => 'A Day at the Beach',
+            'html' => '<p>The sun shines brightly over the blue-green-ocean, inviting visitors to relax on the shore.</p><p>The waves crash gently, offering a peaceful rhythm.</p>'
+        ]);
+
+        $this->entities->newPage([
+            'name' => 'Hiking Through the Forest',
+            'html' => '<p>The trail winds through towering trees, with the sound of birds filling the air.</p><p>The blue-green-ocean peeks through the horizon, offering a glimpse of serenity.</p>'
+        ]);
+
+        $this->entities->newPage([
+            'name' => 'Sunset by the Cliffs',
+            'html' => '<p>The sun dips below the horizon, casting warm hues over the blue-green-ocean.</p><p>The scene is tranquil, with a soft breeze brushing the cliffs.</p>'
+        ]);
+
+        $this->entities->newPage([
+            'name' => 'Exploring the City',
+            'html' => '<p>Bustling streets are full of life, with a blend of modern architecture and historical landmarks.</p><p>Cafes and shops line the sidewalks, offering a variety of experiences.</p>'
+        ]);
+
+        $search = $this->asEditor()->get('/search?term=' . urlencode('green ocean'));
+        $output = $search->baseResponse->original['entities'];
+        $flag = 0;
+        
+        foreach ($output as $value) {
+            if(!(strpos($value->text,'green-ocean') || strpos($value->name,'green-ocean')))
+            {
+                $flag=1;
+            }
+        }
+
+        $this->assertTrue($flag === 0 ? true : false);
+
     }
 }

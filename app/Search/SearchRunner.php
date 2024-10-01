@@ -212,11 +212,13 @@ class SearchRunner
             foreach ($terms as $inputTerm) {
                 $inputTerm = str_replace('\\', '\\\\', $inputTerm);
 
+                //for every term make array for punctuation with term 
                 $likeClauses = array_map(function ($punct) use ($inputTerm) {
                     return "term LIKE '%{$punct}{$inputTerm}%'";
                 }, $punctuation);
 
                 $query->orWhere('term', 'like', $inputTerm . '%')
+                    // Add WhereRaw as only single raw can add to query and aviod multiple orWhere chaining and all punctuation with term sperate with "OR"
                     ->orWhereRaw(implode(' OR ', $likeClauses));
             }
         });
