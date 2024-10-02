@@ -632,6 +632,5 @@ class EntitySearchTest extends TestCase
         }
 
         $this->assertTrue(true);
-
     }
 }
