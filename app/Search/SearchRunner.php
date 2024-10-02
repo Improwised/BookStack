@@ -83,10 +83,10 @@ class SearchRunner
         }
 
         return [
-            'total'    => $total,
-            'count'    => count($results),
+            'total' => $total,
+            'count' => count($results),
             'has_more' => $hasMore,
-            'results'  => $results->sortByDesc('score')->values(),
+            'results' => $results->sortByDesc('score')->values(),
         ];
     }
 
@@ -210,7 +210,9 @@ class SearchRunner
         $subQuery->where(function (Builder $query) use ($terms) {
             foreach ($terms as $inputTerm) {
                 $inputTerm = str_replace('\\', '\\\\', $inputTerm);
-                $query->orWhere('term', 'like', $inputTerm . '%');
+
+                $query->orWhere('term', 'like', $inputTerm . '%')
+                    ->orWhere(DB::raw("REGEXP_REPLACE(term, '[[:punct:]]', ' ')"), 'like', '% ' . $inputTerm . '%');
             }
         });
         $subQuery->groupBy('entity_type', 'entity_id');
@@ -243,7 +245,7 @@ class SearchRunner
 
         return [
             'statement' => 'SUM(' . $ifChain . ') as score',
-            'bindings'  => array_reverse($bindings),
+            'bindings' => array_reverse($bindings),
         ];
     }
 
