@@ -609,12 +609,12 @@ class EntitySearchTest extends TestCase
 
         $this->entities->newPage([
             'name' => 'Hiking Through the Forest',
-            'html' => '<p>The trail winds through towering trees, with the sound of birds filling the air.</p><p>The blue-green-ocean peeks through the horizon, offering a glimpse of serenity.</p>'
+            'html' => '<p>The trail winds through towering trees, with the sound of birds filling the air.</p><p>The blue/green/ocean peeks through the horizon, offering a glimpse of serenity.</p>'
         ]);
 
         $this->entities->newPage([
             'name' => 'Sunset by the Cliffs',
-            'html' => '<p>The sun dips below the horizon, casting warm hues over the blue-green-ocean.</p><p>The scene is tranquil, with a soft breeze brushing the cliffs.</p>'
+            'html' => '<p>The sun dips below the horizon, casting warm hues over the blue@green@ocean.</p><p>The scene is tranquil, with a soft breeze brushing the cliffs.</p>'
         ]);
 
         $this->entities->newPage([
@@ -626,7 +626,7 @@ class EntitySearchTest extends TestCase
         $output = $search->baseResponse->original['entities'];
         
         foreach ($output as $value) {
-            if(!(strpos($value->text,'green-ocean') || strpos($value->name,'green-ocean')))
+            if(!(strpos($value->text,'green-ocean') || strpos($value->name,'green-ocean') || strpos($value->text,'green@ocean') || strpos($value->name,'green@ocean') || strpos($value->text,'green/ocean') || strpos($value->name,'green/ocean')))
             {
                 $this->assertTrue(false);
             }

@@ -190,7 +190,6 @@ class SearchRunner
      */
     protected function applyTermSearch(EloquentBuilder $entityQuery, SearchOptions $options, string $entityType): void
     {
-        $punctuation = ['-', '.', ',', '!', '?', '—', ';', ':', '@', '#', '/', '$'];
         $terms = $options->searches;
         if (count($terms) === 0) {
             return;
@@ -208,18 +207,12 @@ class SearchRunner
         $subQuery->addBinding($scoreSelect['bindings'], 'select');
 
         $subQuery->where('entity_type', '=', $entityType);
-        $subQuery->where(function (Builder $query) use ($terms, $punctuation) {
+        $subQuery->where(function (Builder $query) use ($terms) {
             foreach ($terms as $inputTerm) {
                 $inputTerm = str_replace('\\', '\\\\', $inputTerm);
 
-                //for every term make array for punctuation with term 
-                $likeClauses = array_map(function ($punct) use ($inputTerm) {
-                    return "term LIKE '%{$punct}{$inputTerm}%'";
-                }, $punctuation);
-
                 $query->orWhere('term', 'like', $inputTerm . '%')
-                    // Add WhereRaw as only single raw can add to query and aviod multiple orWhere chaining and all punctuation with term sperate with "OR"
-                    ->orWhereRaw(implode(' OR ', $likeClauses));
+                    ->orWhere(DB::raw("REGEXP_REPLACE(term, '[[:punct:]]', ' ')"), 'like', '% ' . $inputTerm . '%');
             }
         });
         $subQuery->groupBy('entity_type', 'entity_id');
