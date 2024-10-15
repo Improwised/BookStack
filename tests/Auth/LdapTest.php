@@ -29,7 +29,7 @@ class LdapTest extends TestCase
             'auth.defaults.guard'                  => 'ldap',
             'services.ldap.base_dn'                => 'dc=ldap,dc=local',
             'services.ldap.email_attribute'        => 'mail',
-            'services.ldap.display_name_attribute' => 'cn',
+            'services.ldap.display_name_attribute' => 'givenName',
             'services.ldap.id_attribute'           => 'uid',
             'services.ldap.user_to_groups'         => false,
             'services.ldap.version'                => '3',
@@ -590,6 +590,8 @@ class LdapTest extends TestCase
             ->andReturn(['count' => 1, 0 => [
                 'uid'         => [$this->mockUser->name],
                 'cn'          => [$this->mockUser->name],
+                'givenName'   => [explode(" ",$this->mockUser)[0]],
+                'sn'          => [explode(" ",$this->mockUser)[1]],
                 'dn'          => 'dc=test' . config('services.ldap.base_dn'),
                 'displayname' => 'displayNameAttribute',
             ]]);
