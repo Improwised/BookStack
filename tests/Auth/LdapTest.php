@@ -590,8 +590,8 @@ class LdapTest extends TestCase
             ->andReturn(['count' => 1, 0 => [
                 'uid'         => [$this->mockUser->name],
                 'cn'          => [$this->mockUser->name],
-                'givenName'   => [explode(" ",$this->mockUser)[0]],
-                'sn'          => [explode(" ",$this->mockUser)[1]],
+                'givenName'   => [explode(" ", $this->mockUser)[0]],
+                'sn'          => [explode(" ", $this->mockUser)[1]],
                 'dn'          => 'dc=test' . config('services.ldap.base_dn'),
                 'displayname' => 'displayNameAttribute',
             ]]);

@@ -82,8 +82,8 @@ class LdapService
         $idAttr = $this->config['id_attribute'];
         $emailAttr = $this->config['email_attribute'];
         $displayNameAttr = $this->config['display_name_attribute'];
-        $firstName = explode(',',$displayNameAttr)[0];
-        $lastName = explode(',',$displayNameAttr)[0];
+        $firstName = explode(',', $displayNameAttr)[0];
+        $lastName = explode(',', $displayNameAttr)[0];
         $thumbnailAttr = $this->config['thumbnail_attribute'];
 
         $user = $this->getUserWithAttributes($userName, array_filter([
@@ -93,13 +93,13 @@ class LdapService
         if (is_null($user)) {
             return null;
         }
-        
+
         $userCn = $this->getUserResponseProperty($user, 'cn', null);
 
-        if($userCn === null)
+        if ($userCn === null)
         {
             $userCn = $this->getUserResponseProperty($user, $firstName, null) . ' ' . $this->getUserResponseProperty($user, $lastName, null);
-        }
+        } 
 
         $formatted = [
             'uid'   => $this->getUserResponseProperty($user, $idAttr, $user['dn']),
