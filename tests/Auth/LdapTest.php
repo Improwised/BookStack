@@ -590,6 +590,8 @@ class LdapTest extends TestCase
             ->andReturn(['count' => 1, 0 => [
                 'uid'         => [$this->mockUser->name],
                 'cn'          => [$this->mockUser->name],
+                'givenName'   => [explode(" ", $this->mockUser)[0]],
+                'sn'          => [explode(" ", $this->mockUser)[1]],
                 'dn'          => 'dc=test' . config('services.ldap.base_dn'),
                 'displayname' => 'displayNameAttribute',
             ]]);
@@ -631,6 +633,46 @@ class LdapTest extends TestCase
             'name'             => $this->mockUser->name,
         ]);
     }
+
+    public function test_login_uses_givenName_and_sn_merge_if_display_name_is_not_present()
+    {
+        app('config')->set([
+            'services.ldap.display_name_attribute' => 'displayName',
+        ]);
+
+        $this->mockUser->firstName = explode(" ", $this->mockUser->name)[0];
+        $this->mockUser->lastName = explode(" ", $this->mockUser->name)[1];
+
+        $this->commonLdapMocks(1, 1, 2, 4, 2);
+        $this->mockLdap->shouldReceive('searchAndGetEntries')->times(2)
+            ->with($this->resourceId, config('services.ldap.base_dn'), \Mockery::type('string'), \Mockery::type('array'))
+            ->andReturn(['count' => 1, 0 => [
+                'uid' => [$this->mockUser->name],
+                'cn'  => [$this->mockUser->name],
+                'givenName' => [$this->mockUser->firstName],
+                'sn' => [$this->mockUser->lastName],
+                'dn'  => 'dc=test' . config('services.ldap.base_dn'),
+            ]]);
+
+        $this->mockUserLogin()->assertRedirect('/login');
+        $this->get('/login')->assertSee('Please enter an email to use for this account.');
+
+        $resp = $this->mockUserLogin($this->mockUser->email);
+        $resp->assertRedirect('/');
+
+        $expectedDisplayName = $this->mockUser->firstName . ' ' . $this->mockUser->lastName;
+
+        $this->get('/')->assertSee($expectedDisplayName);
+
+        $this->assertDatabaseHas('users', [
+            'email'            => $this->mockUser->email,
+            'email_confirmed'  => false,
+            'external_auth_id' => $this->mockUser->name,
+            'name'             => $this->mockUser->name,
+        ]);
+    }
+
+
 
     protected function checkLdapReceivesCorrectDetails($serverString, $expectedHostString): void
     {
