@@ -653,13 +653,13 @@ class LdapTest extends TestCase
                 'sn' => [$this->mockUser->lastName],
                 'dn'  => 'dc=test' . config('services.ldap.base_dn'),
             ]]);
-            
+
         $this->mockUserLogin()->assertRedirect('/login');
         $this->get('/login')->assertSee('Please enter an email to use for this account.');
-        
+
         $resp = $this->mockUserLogin($this->mockUser->email);
         $resp->assertRedirect('/');
-        
+
         $expectedDisplayName = $this->mockUser->firstName . ' ' . $this->mockUser->lastName;
 
         $this->get('/')->assertSee($expectedDisplayName);
