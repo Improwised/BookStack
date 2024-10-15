@@ -96,8 +96,7 @@ class LdapService
 
         $userCn = $this->getUserResponseProperty($user, 'cn', null);
 
-        if ($userCn === null) 
-        {
+        if ($userCn === null) {
             $userCn = $this->getUserResponseProperty($user, $firstName, null) . ' ' . $this->getUserResponseProperty($user, $lastName, null);
         }
 
