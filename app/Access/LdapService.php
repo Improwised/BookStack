@@ -83,7 +83,7 @@ class LdapService
         $emailAttr = $this->config['email_attribute'];
         $displayNameAttr = $this->config['display_name_attribute'];
         $firstName = explode(',', $displayNameAttr)[0];
-        $lastName = explode(',', $displayNameAttr)[0];
+        $lastName = explode(',', $displayNameAttr)[1];
         $thumbnailAttr = $this->config['thumbnail_attribute'];
 
         $user = $this->getUserWithAttributes($userName, array_filter([
