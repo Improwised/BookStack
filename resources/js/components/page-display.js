@@ -2,10 +2,29 @@ import * as DOM from '../services/dom';
 import {scrollAndHighlightElement} from '../services/util';
 import {Component} from './component';
 
+let currentHighlighElement = null;
+
 function toggleAnchorHighlighting(elementId, shouldHighlight) {
+    if(shouldHighlight && currentHighlighElement !== null)
+    {
+        currentHighlighElement.closest('li').classList.toggle('current-heading', false);
+        currentHighlighElement = null;
+    }
     DOM.forEach(`#page-navigation a[href="#${elementId}"]`, anchor => {
         anchor.closest('li').classList.toggle('current-heading', shouldHighlight);
+        checkForCurrentHeading(anchor);
     });
+}
+
+function checkForCurrentHeading(element)
+{
+  let pageNavItem = document.querySelectorAll('.page-nav-item');
+  let pageNavItemCurrentHeadingCount = Array.from(pageNavItem).filter(element=>element.classList.contains('current-heading')).length;
+  if(pageNavItemCurrentHeadingCount === 0)
+  {
+      currentHighlighElement = element;
+      element.closest("li").classList.toggle("current-heading", true);
+  }
 }
 
 function headingVisibilityChange(entries) {
