@@ -2,9 +2,25 @@ import * as DOM from '../services/dom';
 import {scrollAndHighlightElement} from '../services/util';
 import {Component} from './component';
 
+let currentHighlighElement = null;
+
+function checkForCurrentHeading(element) {
+    const pageNavItem = document.querySelectorAll('.page-nav-item');
+    const pageNavItemCurrentHeadingCount = Array.from(pageNavItem).filter(navItem => navItem.classList.contains('current-heading')).length;
+    if (pageNavItemCurrentHeadingCount === 0) {
+        currentHighlighElement = element;
+        element.closest('li').classList.toggle('current-heading', true);
+    }
+}
+
 function toggleAnchorHighlighting(elementId, shouldHighlight) {
+    if (shouldHighlight && currentHighlighElement !== null) {
+        currentHighlighElement.closest('li').classList.toggle('current-heading', false);
+        currentHighlighElement = null;
+    }
     DOM.forEach(`#page-navigation a[href="#${elementId}"]`, anchor => {
         anchor.closest('li').classList.toggle('current-heading', shouldHighlight);
+        checkForCurrentHeading(anchor);
     });
 }
 
@@ -16,14 +32,12 @@ function headingVisibilityChange(entries) {
 }
 
 function addNavObserver(headings) {
-    // Setup the intersection observer.
     const intersectOpts = {
         rootMargin: '0px 0px 0px 0px',
         threshold: 1.0,
     };
     const pageNavObserver = new IntersectionObserver(headingVisibilityChange, intersectOpts);
 
-    // observe each heading
     for (const heading of headings) {
         pageNavObserver.observe(heading);
     }
@@ -38,13 +52,11 @@ export class PageDisplay extends Component {
         window.importVersioned('code').then(Code => Code.highlight());
         this.setupNavHighlighting();
 
-        // Check the hash on load
         if (window.location.hash) {
             const text = window.location.hash.replace(/%20/g, ' ').substring(1);
             this.goToText(text);
         }
 
-        // Sidebar page nav click event
         const sidebarPageNav = document.querySelector('.sidebar-page-nav');
         if (sidebarPageNav) {
             DOM.onChildEvent(sidebarPageNav, 'a', 'click', (event, child) => {
@@ -77,10 +89,7 @@ export class PageDisplay extends Component {
 
     setupNavHighlighting() {
         const pageNav = document.querySelector('.sidebar-page-nav');
-
-        // fetch all the headings.
         const headings = document.querySelector('.page-content').querySelectorAll('h1, h2, h3, h4, h5, h6');
-        // if headings are present, add observers.
         if (headings.length > 0 && pageNav !== null) {
             addNavObserver(headings);
         }
