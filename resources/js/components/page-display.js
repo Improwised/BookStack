@@ -44,6 +44,7 @@ function addNavObserver(headings) {
 }
 
 export class PageDisplay extends Component {
+
     setup() {
         this.container = this.$el;
         this.pageId = this.$opts.pageId;
@@ -93,4 +94,5 @@ export class PageDisplay extends Component {
             addNavObserver(headings);
         }
     }
+
 }
