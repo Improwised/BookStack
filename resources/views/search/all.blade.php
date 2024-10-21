@@ -28,12 +28,12 @@
                             @include('search.parts.type-filter', ['checked' => !$hasTypes || in_array('book', $types), 'entity' => 'book', 'transKey' => 'book'])
                             @include('search.parts.type-filter', ['checked' => !$hasTypes || in_array('bookshelf', $types), 'entity' => 'bookshelf', 'transKey' => 'shelf'])
                         </div>
-
+                        
                         <h6>{{ trans('entities.search_exact_matches') }}</h6>
                         @include('search.parts.term-list', ['type' => 'exact', 'currentList' => $options->exacts->nonNegated()->toValueArray()])
 
                         <h6>{{ trans('entities.search_tags') }}</h6>
-                        @include('search.parts.term-list', ['type' => 'tags', 'currentList' => $options->tags->nonNegated()->toValueArray()])
+                        @include('search.parts.term-list', ['type' => 'tags', 'currentList' => $options->tags->nonNegated()->toValueArray(),'tags' => $tags])
 
                         @if(!user()->isGuest())
                             <h6>{{ trans('entities.search_options') }}</h6>
