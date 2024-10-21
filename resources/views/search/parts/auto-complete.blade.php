@@ -1,7 +1,7 @@
 
     <div class="mt-xxs px-s pt-s card hidden"  style="background-color:#fff;position:absolute;width:100%;z-index:999;"  refs="tags-suggestions@suggestionBox">
         
-        <div class="tags-suggestion  editor-content-wrap" refs="tags-suggestions@tags" style="max-height: 210px;">
+        <div class="tags-suggestion {{count($tags) > 3 ? 'editor-content-wrap' : ''}} " refs="tags-suggestions@tags" style="max-height: 180px;">
             @foreach ($tags as $tag)
             <?php
                 $value = array_search(strtolower($tag->name), array_map('strtolower', $currentList));
@@ -17,5 +17,8 @@
                 </label>
             </div>
             @endforeach
+        </div>
+        <div class="no-tags m-s {{ count($tags) !== 0 ? 'hidden' : '' }}">
+            <label>No Tags Found</label>
         </div>
     </div>
