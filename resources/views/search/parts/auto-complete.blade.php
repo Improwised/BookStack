@@ -1,5 +1,5 @@
 
-    <div class="mt-xxs px-s pt-s card hidden"  style="background-color:#fff;position:absolute;width:100%;z-index:999;"  refs="tags-suggestions@suggestionBox">
+    <div class="mt-xxs px-s pt-s card hidden"  style="position:absolute;width:100%;z-index:999;"  refs="tags-suggestions@suggestionBox">
         
         <div class="tags-suggestion {{count($tags) > 3 ? 'editor-content-wrap' : ''}} " refs="tags-suggestions@tags" style="max-height: 180px;">
             @foreach ($tags as $tag)
