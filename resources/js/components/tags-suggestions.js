@@ -82,6 +82,6 @@ export class TagsSuggestions extends Component {
                 this.tags.append(clone2);
             }
         });
-
     }
+
 }
