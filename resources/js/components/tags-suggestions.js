@@ -22,7 +22,7 @@ export class TagsSuggestions extends Component {
         this.input.addEventListener('click', () => {
             const {value} = this.input;
             if (value.length === 0) {
-              this.suggestionBox.classList.toggle('hidden', false);
+                this.suggestionBox.classList.toggle('hidden', false);
             }
         });
 
@@ -58,7 +58,7 @@ export class TagsSuggestions extends Component {
                     this.input.value = tagName;
                     checkbox.closest('form').submit();
                 }
-          }
+            }
         });
     }
 
@@ -82,5 +82,6 @@ export class TagsSuggestions extends Component {
                 this.tags.append(clone2);
             }
         });
+
     }
 }
