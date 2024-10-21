@@ -52,6 +52,7 @@ export {SortableList} from './sortable-list';
 export {SubmitOnChange} from './submit-on-change';
 export {Tabs} from './tabs';
 export {TagManager} from './tag-manager';
+export {TagsSuggestions} from './tags-suggestions'
 export {TemplateManager} from './template-manager';
 export {ToggleSwitch} from './toggle-switch';
 export {TriLayout} from './tri-layout';

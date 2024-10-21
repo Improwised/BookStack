@@ -2,6 +2,7 @@
 
 namespace BookStack\Search;
 
+use BookStack\Activity\Models\Tag;
 use BookStack\Entities\Queries\PageQueries;
 use BookStack\Entities\Queries\QueryPopular;
 use BookStack\Entities\Tools\SiblingFetcher;
@@ -31,6 +32,8 @@ class SearchController extends Controller
         $results = $this->searchRunner->searchEntities($searchOpts, 'all', $page, 20);
         $formatter->format($results['results']->all(), $searchOpts);
 
+        $tags = Tag::select(['entity_type','name'])->get();
+
         return view('search.all', [
             'entities'     => $results['results'],
             'totalResults' => $results['total'],
@@ -38,6 +41,7 @@ class SearchController extends Controller
             'hasNextPage'  => $results['has_more'],
             'nextPageLink' => $nextPageLink,
             'options'      => $searchOpts,
+            'tags'         => $tags,
         ]);
     }
 
