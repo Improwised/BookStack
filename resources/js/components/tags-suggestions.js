@@ -24,9 +24,9 @@ export class TagsSuggestions extends Component {
             if (value.length === 0) {
                 this.suggestionBox.classList.toggle('hidden', false);
             }
-            if(JSON.parse(this.selectedTags).length === tags.length) {
-                this.input.parentNode.querySelector(".no-tags").classList.toggle("hidden", false);
-                this.input.parentNode.querySelector(".no-tags").querySelector('label').innerHTML = 'No Other Tags Found';
+            if (JSON.parse(this.selectedTags).length === tags.length) {
+                this.input.parentNode.querySelector('.no-tags').classList.toggle('hidden', false);
+                this.input.parentNode.querySelector('.no-tags').querySelector('label').innerHTML = 'No Other Tags Found';
             }
         });
 
@@ -38,12 +38,12 @@ export class TagsSuggestions extends Component {
                 if (suggestions.length > 0) {
                     this.updateSuggestions(suggestions);
                 } else {
-                    this.input.parentNode.querySelector(".no-tags").classList.toggle("hidden", false);
-                    this.input.parentNode.querySelector(".tags-suggestion").classList.toggle("hidden", true);
+                    this.input.parentNode.querySelector('.no-tags').classList.toggle('hidden', false);
+                    this.input.parentNode.querySelector('.tags-suggestion').classList.toggle('hidden', true);
                 }
             } else {
-                this.input.parentNode.querySelector(".tags-suggestion").classList.toggle("hidden", false);
-                this.input.parentNode.querySelector(".no-tags").classList.toggle("hidden", true);
+                this.input.parentNode.querySelector('.tags-suggestion').classList.toggle('hidden', false);
+                this.input.parentNode.querySelector('.no-tags').classList.toggle('hidden', true);
                 this.suggestionBox.classList.toggle('hidden', false);
                 this.updateSuggestions(tags);
             }
