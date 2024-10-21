@@ -1,4 +1,4 @@
-import { Component } from "./component";
+import { Component } from './component';
 
 /**
  * Global (header) search box handling.
@@ -18,65 +18,68 @@ export class TagsSuggestions extends Component {
 
   setupListeners() {
     const tags = JSON.parse(this.allTags);
-    this.input.addEventListener("click", () => {
+    this.input.addEventListener('click', () => {
       const { value } = this.input;
       if (value.length === 0) {
-        this.suggestionBox.classList.toggle("hidden", false);
+        this.suggestionBox.classList.toggle('hidden', false);
       }
     });
-    this.input.addEventListener("input", () => {
+
+    this.input.addEventListener('input', () => {
       const { value } = this.input;
       const suggestions = tags.filter((item) =>
         item.name.toLowerCase().includes(value.toLowerCase())
       );
+
       if (value.length > 0) {
         if (suggestions.length > 0) {
           this.updateSuggestions(suggestions);
         } else {
-          this.input.parentNode
-            .querySelector(".card")
-            .classList.toggle("hidden", true);
+          this.input.parentNode.querySelector('.card').classList.toggle('hidden', true);
         }
       } else {
-        this.suggestionBox.classList.toggle("hidden", false);
+        this.suggestionBox.classList.toggle('hidden', false);
         this.updateSuggestions(tags);
       }
     });
-    document.addEventListener("click", (event) => {
+
+    document.addEventListener('click', (event) => {
       if (!this.input.contains(event.target)) {
-        this.suggestionBox.classList.add("hidden");
+        this.suggestionBox.classList.add('hidden');
       }
     });
-    this.tags.addEventListener("click", (event) => {
-      if (event.target.matches("input[type=checkbox][data-id]")) {
+
+    this.tags.addEventListener('click', (event) => {
+      if (event.target.matches('input[type=checkbox][data-id]')) {
         const checkbox = event.target;
-        const tagName = checkbox.getAttribute("data-id");
+        const tagName = checkbox.getAttribute('data-id');
         const isChecked = checkbox.checked;
+
         if (isChecked) {
           this.input.value = tagName;
-          checkbox.closest("form").submit();
+          checkbox.closest('form').submit();
         }
       }
     });
   }
+
   /**
    * @param {Array} suggestions
    */
-  async updateSuggestions(sugeestions) {
-    this.tags.innerHTML = "";
-    sugeestions.forEach((element) => {
-      let isTagSelected = JSON.parse(this.selectedTags).some(
+  async updateSuggestions(suggestions) {
+    this.tags.innerHTML = '';
+    suggestions.forEach((element) => {
+      const isTagSelected = JSON.parse(this.selectedTags).some(
         (item) => item.toLowerCase() === element.name.toLowerCase()
       );
+
       if (!isTagSelected) {
-        let clone2 = this.suggestionsTagModel.cloneNode(true);
-        clone2.classList.toggle("hidden", isTagSelected);
-        clone2.querySelector(".toggle-switch").id = element.name;
-        clone2.querySelector(".label").innerHTML = element.name;
-        clone2.querySelector("input[type=checkbox]").checked = isTagSelected;
-        clone2
-          .querySelector("input[type=checkbox]")
-          .setAttribute("data-id", element.name);
+        const clone2 = this.suggestionsTagModel.cloneNode(true);
+        clone2.classList.toggle('hidden', isTagSelected);
+        clone2.querySelector('.toggle-switch').id = element.name;
+        clone2.querySelector('.label').innerHTML = element.name;
+        clone2.querySelector('input[type=checkbox]').checked = isTagSelected;
+        clone2.querySelector('input[type=checkbox]').setAttribute('data-id', element.name);
         this.tags.append(clone2);
       }
     });
