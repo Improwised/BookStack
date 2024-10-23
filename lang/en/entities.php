@@ -192,6 +192,7 @@ return [
     'chapters_permissions_success' => 'Chapter Permissions Updated',
     'chapters_search_this' => 'Search this chapter',
     'chapter_sort_book' => 'Sort Book',
+    'chapter_cover_image' => 'Chapter Cover Image',
 
     // Pages
     'page' => 'Page',

@@ -2,6 +2,9 @@
 {{--To ensure that the pages have been loaded efficiently with permissions taken into account.--}}
 <a href="{{ $chapter->getUrl() }}" class="chapter entity-list-item @if($chapter->visible_pages->count() > 0) has-children @endif" data-entity-type="chapter" data-entity-id="{{$chapter->id}}">
     <span class="icon text-chapter">@icon('chapter')</span>
+    <div class="cover-image">
+        @include('entities.cover-image',['image'=> (isset($chapter) && $chapter->cover) ? $chapter->getChapterCover() : '','width'=>100,'entity'=>'chapter'])
+    </div>
     <div class="content">
         <h4 class="entity-list-item-name break-text">{{ $chapter->name }}</h4>
         <div class="entity-item-snippet">

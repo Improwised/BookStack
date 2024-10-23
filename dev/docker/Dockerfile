@@ -7,17 +7,22 @@ RUN <<EOR
 # Install additional dependencies
 apt-get update
 apt-get install -y \
-	git \
-	zip \
-	unzip \
-	libpng-dev \
-	libldap2-dev \
-	libzip-dev \
-	wait-for-it
+    git \
+    zip \
+    unzip \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libwebp-dev \
+    libldap2-dev \
+    libzip-dev \
+    wait-for-it
 rm -rf /var/lib/apt/lists/*
 
-# Configure apache
-docker-php-ext-configure ldap --with-libdir="lib/$(gcc -dumpmachine)"
+# Configure GD Php extension with proper image format support
+docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
+
+# Install GD and other PHP extensions
 docker-php-ext-install pdo_mysql gd ldap zip
 pecl install xdebug
 docker-php-ext-enable xdebug

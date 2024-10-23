@@ -2,6 +2,7 @@
 
 namespace BookStack\Entities\Models;
 
+use BookStack\Uploads\Image;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,8 +14,9 @@ use Illuminate\Support\Collection;
  * @property Collection<Page> $pages
  * @property ?int             $default_template_id
  * @property ?Page            $defaultTemplate
+ * @property Image|null       $cover
  */
-class Chapter extends BookChild
+class Chapter extends BookChild implements HasCoverImage
 {
     use HasFactory;
     use HasHtmlDescription;
@@ -68,5 +70,29 @@ class Chapter extends BookChild
         ->orderBy('draft', 'desc')
         ->orderBy('priority', 'asc')
         ->get();
+    }
+
+    public function cover(): BelongsTo
+    {
+        return $this->belongsTo(Image::class, 'image_id');
+    }
+
+    public function coverImageTypeKey(): string
+    {
+        return 'cover_chapter';
+    }
+
+    public function getChapterCover(int $width = 440, int $height = 250): string
+    {
+        $default = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        if (!$this->image_id || !$this->cover) {
+            return $default;
+        }
+
+        try {
+            return $this->cover->getThumb($width, $height, false) ?? $default;
+        } catch (Exception $err) {
+            return $default;
+        }
     }
 }

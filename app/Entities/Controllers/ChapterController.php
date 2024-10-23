@@ -58,6 +58,7 @@ class ChapterController extends Controller
         $validated = $this->validate($request, [
             'name'                => ['required', 'string', 'max:255'],
             'description_html'    => ['string', 'max:2000'],
+            'image'               => array_merge(['nullable'], $this->getImageValidationRules()),
             'tags'                => ['array'],
             'default_template_id' => ['nullable', 'integer'],
         ]);
@@ -124,11 +125,17 @@ class ChapterController extends Controller
             'description_html'    => ['string', 'max:2000'],
             'tags'                => ['array'],
             'default_template_id' => ['nullable', 'integer'],
+            'image'               => array_merge(['nullable'], $this->getImageValidationRules()),
         ]);
 
         $chapter = $this->queries->findVisibleBySlugsOrFail($bookSlug, $chapterSlug);
         $this->checkOwnablePermission('chapter-update', $chapter);
-
+        
+        if ($request->has('image_reset')) {
+            $validated['image'] = null;
+        } elseif (array_key_exists('image', $validated) && is_null($validated['image'])) {
+            unset($validated['image']);
+        }
         $this->chapterRepo->update($chapter, $validated);
 
         return redirect($chapter->getUrl());
