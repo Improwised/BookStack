@@ -21,8 +21,8 @@
         ]])
     </div>
 
-    <main class="content-wrap card">
-        <h1 class="break-text">{{ $chapter->name }}</h1>
+    <main class="content-wrap card cover-image-title">
+        <h1 class="break-text ">{{ $chapter->name }}</h1>
         <div refs="entity-search@contentView" class="chapter-content">
             <div class="text-muted break-text">{!! $chapter->descriptionHtml() !!}</div>
             @if(count($pages) > 0)
@@ -63,7 +63,15 @@
 @stop
 
 @section('right')
-
+    @if(isset($chapter) && $chapter->cover)
+        <div class="card p-m">
+            <h5 class="breal-text">Cover Image</h5>
+            <hr>
+            <div class="cover-image">
+                @include('entities.cover-image',['image'=> (isset($chapter) && $chapter->cover) ? $chapter->getChapterCover() : '','width'=>200])
+            </div>
+        </div>
+    @endif
     <div class="mb-xl">
         <h5>{{ trans('common.details') }}</h5>
         <div class="blended-links">

@@ -5,6 +5,7 @@ namespace Tests\Entity;
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
+use BookStack\Entities\Repos\BaseRepo;
 use Tests\TestCase;
 
 class ChapterTest extends TestCase
@@ -26,7 +27,19 @@ class ChapterTest extends TestCase
         $resp = $this->post($book->getUrl('/create-chapter'), $chapter->only('name', 'description_html'));
         $resp->assertRedirect($book->getUrl('/chapter/my-first-chapter'));
 
+        $chapter = Chapter::where('name', 'My First Chapter')->firstOrFail();
+
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
+
+        $baseRepo->updateCoverImage($chapter, $coverImageFile);
+
+        $this->assertNotNull($chapter->cover);
+        $this->assertEquals('chapter_cover.png', $chapter->cover->name);
+
         $resp = $this->get($book->getUrl('/chapter/my-first-chapter'));
+        $resp->assertSee('Cover Image');
         $resp->assertSee($chapter->name);
         $resp->assertSee($chapter->description_html, false);
     }
@@ -160,5 +173,39 @@ class ChapterTest extends TestCase
 
         $resp = $this->asEditor()->get($chapter->getUrl());
         $this->withHtml($resp)->assertLinkExists($chapter->book->getUrl('sort'));
+    }
+
+    public function test_update_cover_image()
+    {
+        $chapter = $this->entities->chapter();
+
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
+
+        $baseRepo->updateCoverImage($chapter, $coverImageFile);
+
+        $this->assertNotNull($chapter->cover);
+        $this->assertEquals('chapter_cover.png', $chapter->cover->name);
+    }
+
+    public function test_for_reset_image()
+    {
+        $chapter = $this->entities->chapter();
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
+
+        $baseRepo->updateCoverImage($chapter, $coverImageFile);
+
+        $this->assertNotNull($chapter->cover);
+        $this->assertEquals('chapter_cover.png', $chapter->cover->name);
+
+        $chapter = $this->entities->chapter()->find($chapter->id);
+
+        // Third argument specify for reset image is true or false
+        $baseRepo->updateCoverImage($chapter, null, true);
+
+        $this->assertNull($chapter->cover);
     }
 }

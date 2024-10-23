@@ -31,6 +31,7 @@ class ChapterRepo
         $chapter->book_id = $parentBook->id;
         $chapter->priority = (new BookContents($parentBook))->getLastPriority() + 1;
         $this->baseRepo->create($chapter, $input);
+        $this->baseRepo->updateCoverImage($chapter, $input['image'] ?? null);
         $this->baseRepo->updateDefaultTemplate($chapter, intval($input['default_template_id'] ?? null));
         Activity::add(ActivityType::CHAPTER_CREATE, $chapter);
 
@@ -46,6 +47,10 @@ class ChapterRepo
 
         if (array_key_exists('default_template_id', $input)) {
             $this->baseRepo->updateDefaultTemplate($chapter, intval($input['default_template_id']));
+        }
+
+        if (array_key_exists('image', $input)) {
+            $this->baseRepo->updateCoverImage($chapter, $input['image'], $input['image'] === null);
         }
 
         Activity::add(ActivityType::CHAPTER_UPDATE, $chapter);
