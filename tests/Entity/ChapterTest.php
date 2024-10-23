@@ -32,12 +32,12 @@ class ChapterTest extends TestCase
         $baseRepo = $this->app->make(BaseRepo::class);
 
         $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
-        
+
         $baseRepo->updateCoverImage($chapter, $coverImageFile);
 
         $this->assertNotNull($chapter->cover);
         $this->assertEquals('chapter_cover.png', $chapter->cover->name);
-        
+
         $resp = $this->get($book->getUrl('/chapter/my-first-chapter'));
         $resp->assertSee('Cover Image');
         $resp->assertSee($chapter->name);
@@ -178,11 +178,11 @@ class ChapterTest extends TestCase
     public function test_update_cover_image()
     {
         $chapter = $this->entities->chapter();
-        
+
         $baseRepo = $this->app->make(BaseRepo::class);
 
         $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
-        
+
         $baseRepo->updateCoverImage($chapter, $coverImageFile);
 
         $this->assertNotNull($chapter->cover);
@@ -193,18 +193,18 @@ class ChapterTest extends TestCase
     {
         $chapter = $this->entities->chapter();
         $baseRepo = $this->app->make(BaseRepo::class);
-        
+
         $coverImageFile = $this->files->uploadedImage('chapter_cover.png');
-        
+
         $baseRepo->updateCoverImage($chapter, $coverImageFile);
-        
+
         $this->assertNotNull($chapter->cover);
         $this->assertEquals('chapter_cover.png', $chapter->cover->name);
-        
+
         $chapter = $this->entities->chapter()->find($chapter->id);
 
         // Third argument specify for reset image is true or false
-        $baseRepo->updateCoverImage($chapter,null,true);
+        $baseRepo->updateCoverImage($chapter, null, true);
 
         $this->assertNull($chapter->cover);
     }

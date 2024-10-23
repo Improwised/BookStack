@@ -130,7 +130,7 @@ class ChapterController extends Controller
 
         $chapter = $this->queries->findVisibleBySlugsOrFail($bookSlug, $chapterSlug);
         $this->checkOwnablePermission('chapter-update', $chapter);
-        
+
         if ($request->has('image_reset')) {
             $validated['image'] = null;
         } elseif (array_key_exists('image', $validated) && is_null($validated['image'])) {
