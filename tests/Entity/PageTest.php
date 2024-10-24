@@ -383,7 +383,7 @@ class PageTest extends TestCase
         $page = Page::findOrFail($page->id);
 
         // Third argument specify for reset image is true or false
-        $baseRepo->updateCoverImage($page, null,true);
+        $baseRepo->updateCoverImage($page, null, true);
 
         $this->assertNull($page->cover);
     }
@@ -417,8 +417,8 @@ class PageTest extends TestCase
 
         $book = $this->entities->book();
 
-        $chapter = $this->entities->chapter()->where('book_id',$book->id)->get();
-        
+        $chapter = $this->entities->chapter()->where('book_id', $book->id)->get();
+
         $resp = $this->actingAs($editor)->get("/books/{$book->slug}/chapter/{$chapter->first()->slug}");
 
         $this->withHtml($resp)->assertElementContains('form[action$="/preferences/change-view/pages"]', 'Grid View');

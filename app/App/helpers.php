@@ -129,21 +129,17 @@ function sortUrl(string $path, array $data, array $overrideData = []): string
     return url($path . '?' . implode('&', $queryStringSections));
 }
 
-function getCover($entity,$type)
+function getCover($entity, $type)
 {
-    if(!in_array($type,['page','book','bookshelf']))
-    {
+    if (!in_array($type, ['page', 'book', 'bookshelf'])) {
         return '';
     }
-    
-    if($type === 'page')
-    {
+
+    if ($type === 'page') {
         return $entity->getPageCover();
     }
 
-    if($type === 'book' || $type === 'bookshelf')
-    {
+    if ($type === 'book' || $type === 'bookshelf') {
         return $entity->getBookCover();
     }
-
 }
