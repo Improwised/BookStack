@@ -15,7 +15,7 @@ class PageQueries implements ProvidesEntityQueries
     ];
     protected static array $listAttributes = [
         'name', 'id', 'slug', 'book_id', 'chapter_id', 'draft',
-        'template', 'text', 'created_at', 'updated_at', 'priority', 'owned_by',
+        'template', 'text', 'created_at', 'updated_at', 'priority', 'owned_by','image_id',
     ];
 
     public function start(): Builder
@@ -75,7 +75,7 @@ class PageQueries implements ProvidesEntityQueries
 
     public function visibleForChapterList(int $chapterId): Builder
     {
-        return $this->visibleForList()
+        return $this->visibleForListWithCover()
             ->where('chapter_id', '=', $chapterId)
             ->orderBy('draft', 'desc')
             ->orderBy('priority', 'asc');
@@ -108,5 +108,10 @@ class PageQueries implements ProvidesEntityQueries
                 ->from('books')
                 ->whereColumn('books.id', '=', 'pages.book_id');
         }]);
+    }
+
+    public function visibleForListWithCover(): Builder
+    {
+        return $this->visibleForList()->with('cover');
     }
 }

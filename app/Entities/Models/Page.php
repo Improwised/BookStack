@@ -2,10 +2,12 @@
 
 namespace BookStack\Entities\Models;
 
+use BookStack\Uploads\Image;
 use BookStack\Entities\Tools\PageContent;
 use BookStack\Entities\Tools\PageEditorType;
 use BookStack\Permissions\PermissionApplicator;
 use BookStack\Uploads\Attachment;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,12 +26,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property bool         $draft
  * @property int          $revision_count
  * @property string       $editor
+ * @property Image|null   $cover
  * @property Chapter      $chapter
  * @property Collection   $attachments
  * @property Collection   $revisions
  * @property PageRevision $currentRevision
  */
-class Page extends BookChild
+class Page extends BookChild implements HasCoverImage
 {
     use HasFactory;
 
@@ -142,5 +145,29 @@ class Page extends BookChild
         $refreshed->html = (new PageContent($refreshed))->render();
 
         return $refreshed;
+    }
+
+    public function getPageCover(int $width = 440, int $height = 250): string
+    {
+        $default = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        if (!$this->image_id || !$this->cover) {
+            return $default;
+        }
+
+        try {
+            return $this->cover->getThumb($width, $height, false) ?? $default;
+        } catch (Exception $err) {
+            return $default;
+        }
+    }
+
+    public function cover(): BelongsTo
+    {
+        return $this->belongsTo(Image::class, 'image_id');
+    }
+
+    public function coverImageTypeKey(): string
+    {
+        return 'cover_page';
     }
 }

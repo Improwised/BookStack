@@ -4,6 +4,7 @@ namespace Tests\Entity;
 
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Page;
+use BookStack\Entities\Repos\BaseRepo;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -26,6 +27,15 @@ class PageTest extends TestCase
             ->orderBy('created_at', 'desc')
             ->first();
         $resp->assertRedirect($draftPage->getUrl());
+
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('page_cover.png');
+
+        $baseRepo->updateCoverImage($draftPage, $coverImageFile);
+
+        $this->assertNotNull($draftPage->cover);
+        $this->assertEquals('page_cover.png', $draftPage->cover->name);
 
         $resp = $this->get($draftPage->getUrl());
         $this->withHtml($resp)->assertElementContains('form[action="' . $draftPage->getUrl() . '"][method="POST"]', 'Save Page');
@@ -355,5 +365,75 @@ class PageTest extends TestCase
 
         $resp = $this->get('/');
         $this->withHtml($resp)->assertElementContains('#recently-updated-pages', $page->name);
+    }
+
+    public function test_page_cover_image_reset()
+    {
+        $page = $this->entities->page();
+
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('page_cover.png');
+
+        $baseRepo->updateCoverImage($page, $coverImageFile);
+
+        $this->assertNotNull($page->cover);
+        $this->assertEquals('page_cover.png', $page->cover->name);
+
+        $page = Page::findOrFail($page->id);
+
+        // Third argument specify for reset image is true or false
+        $baseRepo->updateCoverImage($page, null,true);
+
+        $this->assertNull($page->cover);
+    }
+
+    public function test_page_cover_image_update()
+    {
+        $page = $this->entities->page();
+
+        $baseRepo = $this->app->make(BaseRepo::class);
+
+        $coverImageFile = $this->files->uploadedImage('page_cover.png');
+
+        $baseRepo->updateCoverImage($page, $coverImageFile);
+
+        $this->assertNotNull($page->cover);
+        $this->assertEquals('page_cover.png', $page->cover->name);
+
+        $coverImageFile = $this->files->uploadedImage('updated_page_cover.png');
+
+        $baseRepo->updateCoverImage($page, $coverImageFile);
+
+        $this->assertNotNull($page->cover);
+        $this->assertEquals('updated_page_cover.png', $page->cover->name);
+    }
+
+    public function test_pages_in_chapter_view_shows_view_toggle_option()
+    {
+        $editor = $this->users->editor();
+        setting()->putUser($editor, 'pages_view_type', 'list');
+
+
+        $book = $this->entities->book();
+
+        $chapter = $this->entities->chapter()->where('book_id',$book->id)->get();
+        
+        $resp = $this->actingAs($editor)->get("/books/{$book->slug}/chapter/{$chapter->first()->slug}");
+
+        $this->withHtml($resp)->assertElementContains('form[action$="/preferences/change-view/pages"]', 'Grid View');
+        $this->withHtml($resp)->assertElementExists('button[name="view"][value="grid"]');
+
+        $resp = $this->patch("/preferences/change-view/pages", ['view' => 'grid']);
+        $resp->assertRedirect();
+        $this->assertEquals('grid', setting()->getUser($editor, 'pages_view_type'));
+
+        $resp = $this->actingAs($editor)->get("/books/{$book->slug}/chapter/{$chapter->first()->slug}");
+        $this->withHtml($resp)->assertElementContains('form[action$="/preferences/change-view/pages"]', 'List View');
+        $this->withHtml($resp)->assertElementExists('button[name="view"][value="list"]');
+
+        $resp = $this->patch("/preferences/change-view/pages", ['view_type' => 'list']);
+        $resp->assertRedirect();
+        $this->assertEquals('list', setting()->getUser($editor, 'pages_view_type'));
     }
 }

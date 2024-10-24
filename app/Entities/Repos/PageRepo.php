@@ -78,6 +78,10 @@ class PageRepo
         $this->updateTemplateStatusAndContentFromInput($draft, $input);
         $this->baseRepo->update($draft, $input);
 
+        if (array_key_exists('image', $input)) {
+            $this->baseRepo->updateCoverImage($draft, $input['image'], $input['image'] === null);
+        }
+
         $summary = trim($input['summary'] ?? '') ?: trans('entities.pages_initial_revision');
         $this->revisionRepo->storeNewForPage($draft, $summary);
         $draft->refresh();
@@ -114,6 +118,10 @@ class PageRepo
         $markdownChanged = isset($input['markdown']) && $input['markdown'] !== $oldMarkdown;
         if ($htmlChanged || $nameChanged || $markdownChanged || $summary) {
             $this->revisionRepo->storeNewForPage($page, $summary);
+        }
+
+        if (array_key_exists('image', $input)) {
+            $this->baseRepo->updateCoverImage($page, $input['image'], $input['image'] === null);
         }
 
         Activity::add(ActivityType::PAGE_UPDATE, $page);
