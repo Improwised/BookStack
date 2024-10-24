@@ -26,11 +26,19 @@
         <div refs="entity-search@contentView" class="chapter-content">
             <div class="text-muted break-text">{!! $chapter->descriptionHtml() !!}</div>
             @if(count($pages) > 0)
-                <div class="entity-list book-contents">
-                    @foreach($pages as $page)
-                        @include('pages.parts.list-item', ['page' => $page])
-                    @endforeach
-                </div>
+                @if($view === 'list')
+                    <div class="entity-list book-contents">
+                        @foreach($pages as $page)
+                            @include('pages.parts.list-item', ['page' => $page])
+                        @endforeach
+                    </div>
+                @else
+                    <div class="grid third">
+                        @foreach($pages as $page)
+                            @include('entities.grid-item', ['entity' => $page])
+                        @endforeach
+                    </div>
+                @endif   
             @else
                 <div class="mt-xl">
                     <hr>
@@ -106,6 +114,8 @@
     <div class="actions mb-xl">
         <h5>{{ trans('common.actions') }}</h5>
         <div class="icon-list text-link">
+
+            @include('entities.view-toggle', ['view' => $view, 'type' => 'pages'])
 
             @if(userCan('page-create', $chapter))
                 <a href="{{ $chapter->getUrl('/create-page') }}" data-shortcut="new" class="icon-list-item">
