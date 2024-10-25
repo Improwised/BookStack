@@ -46,6 +46,15 @@ abstract class Controller extends BaseController
     }
 
     /**
+     * Adds the page title for chapter and page with book name into the view.
+     */
+    public function setTitle(string $content, string $book)
+    {
+        $title = $book.' | '.$content;
+        view()->share('pageTitle', $title);
+    }
+
+    /**
      * On a permission error redirect to home and display.
      * the error as a notification.
      *

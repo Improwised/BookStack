@@ -158,7 +158,7 @@ class PageController extends Controller
         $nextPreviousLocator = new NextPreviousContentLocator($page, $sidebarTree);
 
         View::incrementFor($page);
-        $this->setPageTitle($page->getShortName());
+        $this->setTitle($page->getShortName(), $page->book->getShortName());
 
         return view('pages.show', [
             'page'            => $page,

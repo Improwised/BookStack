@@ -84,7 +84,7 @@ class ChapterController extends Controller
         $nextPreviousLocator = new NextPreviousContentLocator($chapter, $sidebarTree);
         View::incrementFor($chapter);
 
-        $this->setPageTitle($chapter->getShortName());
+        $this->setTitle($chapter->getShortName(), $chapter->book->getShortName());
 
         return view('chapters.show', [
             'book'           => $chapter->book,
