@@ -50,7 +50,7 @@ abstract class Controller extends BaseController
      */
     public function setTitle(string $content, string $book)
     {
-        $title = $book.' | '.$content;
+        $title = $book . ' | ' . $content;
         view()->share('pageTitle', $title);
     }
 
