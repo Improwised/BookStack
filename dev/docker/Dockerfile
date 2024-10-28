@@ -21,6 +21,7 @@ apt-get install -y \
     wait-for-it
 rm -rf /var/lib/apt/lists/*
 
+docker-php-ext-configure ldap --with-libdir="lib/$(gcc -dumpmachine)"
 docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 docker-php-ext-install pdo_mysql gd ldap zip
 
