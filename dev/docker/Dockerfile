@@ -7,18 +7,26 @@ RUN <<EOR
 # Install additional dependencies
 apt-get update
 apt-get install -y \
-	git \
-	zip \
-	unzip \
-	libpng-dev \
-	libldap2-dev \
-	libzip-dev \
-	wait-for-it
+    git \
+    zip \
+    unzip \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libwebp-dev \
+    libldap2-dev \
+    libzip-dev \
+    imagemagick \
+    libmagickwand-dev \
+    wait-for-it
 rm -rf /var/lib/apt/lists/*
 
-# Configure apache
-docker-php-ext-configure ldap --with-libdir="lib/$(gcc -dumpmachine)"
+docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 docker-php-ext-install pdo_mysql gd ldap zip
+
+pecl install imagick
+docker-php-ext-enable imagick
+
 pecl install xdebug
 docker-php-ext-enable xdebug
 a2enmod rewrite
