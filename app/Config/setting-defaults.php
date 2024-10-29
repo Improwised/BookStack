@@ -32,7 +32,7 @@ return [
     'page-draft-color-dark' => '#a66ce8',
     'app-custom-head'      => false,
     'registration-enabled' => false,
-    'default_page_cover_image' => ENV('DEFAULT_PAGE_COVER_IMAGE','data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='),
+    'default_page_cover_image' => ENV('DEFAULT_PAGE_COVER_IMAGE', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='),
 
     // User-level default settings
     'user' => [
