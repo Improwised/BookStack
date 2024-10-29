@@ -85,7 +85,7 @@ class Chapter extends BookChild implements HasCoverImage
 
     public function getChapterCover(int $width = 440, int $height = 250): string
     {
-        $default = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        $default = setting()->getDefaultChapterCoverImage();
         if (!$this->image_id || !$this->cover) {
             return $default;
         }
