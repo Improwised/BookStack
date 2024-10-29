@@ -75,7 +75,7 @@ class UserRepo
             $this->setUserRoles($user, $data['roles']);
         }
 
-        $this->downloadAndAssignUserAvatar($user,$data['avatar_url']??null);
+        $this->downloadAndAssignUserAvatar($user, $data['avatar_url'] ?? null);
 
         return $user;
     }
@@ -201,10 +201,10 @@ class UserRepo
      * Get an avatar image for a user and set it as their avatar.
      * Returns early if avatars disabled or not set in config.
      */
-    protected function downloadAndAssignUserAvatar(User $user,String $avatar_url = null): void
+    protected function downloadAndAssignUserAvatar(User $user, string $avatar_url = null): void
     {
         try {
-            $this->userAvatar->fetchAndAssignToUser($user,$avatar_url);
+            $this->userAvatar->fetchAndAssignToUser($user, $avatar_url);
         } catch (Exception $e) {
             Log::error('Failed to save user avatar image');
         }

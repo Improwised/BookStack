@@ -22,7 +22,7 @@ class UserAvatars
     /**
      * Fetch and assign an avatar image to the given user.
      */
-    public function fetchAndAssignToUser(User $user,String $avatar_url = null): void
+    public function fetchAndAssignToUser(User $user, string $avatar_url = null): void
     {
         if (!$this->avatarFetchEnabled()) {
             return;
@@ -30,7 +30,7 @@ class UserAvatars
 
         try {
             $this->destroyAllForUser($user);
-            $avatar = $this->saveAvatarImage($user,500,$avatar_url);
+            $avatar = $this->saveAvatarImage($user, 500, $avatar_url);
             $user->avatar()->associate($avatar);
             $user->save();
         } catch (Exception $e) {
@@ -72,7 +72,7 @@ class UserAvatars
      *
      * @throws HttpFetchException
      */
-    protected function saveAvatarImage(User $user, int $size = 500,String $avatar_url = null): Image
+    protected function saveAvatarImage(User $user, int $size = 500, string $avatar_url = null): Image
     {
         $avatarUrl = $avatar_url ? $avatar_url : $this->getAvatarUrl() ;
         $email = strtolower(trim($user->email));
