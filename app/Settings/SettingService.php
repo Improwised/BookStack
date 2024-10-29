@@ -277,7 +277,7 @@ class SettingService
         $this->localCache = [];
     }
 
-    public function getDefaultChapterCoverImage() 
+    public function getDefaultChapterCoverImage()
     {
         return config('setting-defaults.default_chapter_cover_image');
     }
