@@ -149,7 +149,7 @@ class Page extends BookChild implements HasCoverImage
 
     public function getPageCover(int $width = 440, int $height = 250): string
     {
-        $default = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        $default = setting()->getDefaultPageCoverImage();
         if (!$this->image_id || !$this->cover) {
             return $default;
         }
