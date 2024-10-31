@@ -75,7 +75,7 @@ class UserRepo
             $this->setUserRoles($user, $data['roles']);
         }
 
-        $this->downloadAndAssignUserAvatar($user, $data['avatar_url'] ?? null);
+        $this->downloadAndAssignUserAvatar($user);
 
         return $user;
     }

@@ -5,6 +5,7 @@ namespace BookStack\Access\Controllers;
 use BookStack\Access\LoginService;
 use BookStack\Access\RegistrationService;
 use BookStack\Access\SocialAuthService;
+use BookStack\Activity\SetSocialProfilePhotoAsUserAvatarJob;
 use BookStack\Exceptions\SocialDriverNotConfigured;
 use BookStack\Exceptions\SocialSignInAccountNotUsed;
 use BookStack\Exceptions\SocialSignInException;
@@ -130,6 +131,7 @@ class SocialController extends Controller
         }
 
         $user = $this->registrationService->registerUser($userData, $socialAccount, $emailVerified);
+        dispatch(new SetSocialProfilePhotoAsUserAvatarJob($user,$socialUser->getAvatar()));
         $this->showSuccessNotification(trans('auth.register_success'));
         $this->loginService->login($user, $socialDriver);
 

@@ -2,7 +2,9 @@
 
 namespace BookStack\Users\Controllers;
 
+use BookStack\Access\SocialAccount;
 use BookStack\Access\SocialDriverManager;
+use BookStack\Activity\UpdateSocialUserAvatarJob;
 use BookStack\Http\Controller;
 use BookStack\Permissions\PermissionApplicator;
 use BookStack\Settings\UserNotificationPreferences;
@@ -60,10 +62,17 @@ class UserAccountController extends Controller
             'email'            => ['min:2', 'email', 'unique:users,email,' . $user->id],
             'language'         => ['string', 'max:15', 'alpha_dash'],
             'profile_image'    => array_merge(['nullable'], $this->getImageValidationRules()),
+            'custom-avatar'    => ['nullable', 'boolean'],
         ]);
 
         $this->userRepo->update($user, $validated, userCan('users-manage'));
 
+        SocialAccount::where('user_id', $user->id)->update(['custom_avatar' => array_key_exists('custom-avatar', $validated) ? $validated['custom-avatar'] : 1]);
+
+        if (array_key_exists('custom-avatar', $validated)) {
+            dispatch(new UpdateSocialUserAvatarJob($user->id));
+        }        
+        
         // Save profile image if in request
         if ($request->hasFile('profile_image')) {
             $imageUpload = $request->file('profile_image');
@@ -74,7 +83,7 @@ class UserAccountController extends Controller
         }
 
         // Delete the profile image if reset option is in request
-        if ($request->has('profile_image_reset')) {
+        if ($request->has('profile_image_reset') && !array_key_exists('custom-avatar',$validated)) {
             $imageRepo->destroyImage($user->avatar);
             $user->image_id = 0;
             $user->save();

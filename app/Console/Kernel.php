@@ -2,6 +2,7 @@
 
 namespace BookStack\Console;
 
+use BookStack\Activity\UpdateSocialUserAvatarJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,7 +17,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+
+        $schedule->call(function () {
+            dispatch(new UpdateSocialUserAvatarJob());
+        })->daily();
+
     }
 
     /**

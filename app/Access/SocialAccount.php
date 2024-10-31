@@ -14,7 +14,7 @@ use BookStack\Users\Models\User;
  */
 class SocialAccount extends Model implements Loggable
 {
-    protected $fillable = ['user_id', 'driver', 'driver_id', 'timestamps'];
+    protected $fillable = ['user_id', 'driver', 'driver_id', 'custom_avatar', 'timestamps'];
 
     public function user()
     {

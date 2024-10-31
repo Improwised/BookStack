@@ -43,6 +43,14 @@
                     @endif
                 </div>
 
+                <div component="custom-avatar-checkbox">
+                <label  class="toggle-switch">
+                    <input type="checkbox" name="custom-avatar" value="{{user()->socialAccounts()->get()->first()->custom_avatar}}" @if(user()->socialAccounts()->first()->custom_avatar === 0 ? true : false) checked="checked" @endif>
+                    <span tabindex="0" role="checkbox"
+                          aria-checked="{{ user()->socialAccounts()->get()->first()->custom_avatar === 0 ? 'true' : 'false' }}"
+                          class="custom-checkbox text-primary">@icon('check')</span>
+                    <span class="label">Use Social Account Avatar</span>
+                </label>
                 <div class="grid half gap-xl">
                     <div>
                         <label for="user-avatar"
@@ -61,6 +69,7 @@
                             'imageClass' => 'avatar large'
                         ])
                     </div>
+                </div>
                 </div>
 
                 @include('users.parts.language-option-row', ['value' => old('language') ?? user()->getLocale()->appLocale()])

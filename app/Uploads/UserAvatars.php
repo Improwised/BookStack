@@ -152,4 +152,59 @@ class UserAvatars
 
         return $url;
     }
+
+    public function getSocialAccountAvatar(string $driver, string $driver_id)
+    {
+        if ($driver === 'google') {
+            $response = \Http::get("https://people.googleapis.com/v1/people/{$driver_id}?personFields=names,photos", [
+                'personFields' => 'photos',
+                'key' => config('services.google.api_key'),
+            ]);
+            if ($response->ok()) {
+                $data = $response->json();
+                $avatarUrl = $data['photos'][0]['url'];
+                return $avatarUrl;
+            } else {
+                \Log::info('Social User Error : ' . json_encode($response->json()));
+                return null;
+            }
+        } else if ($driver === 'github') {
+            $response = \Http::get("https://api.github.com/user/{$driver_id}");
+
+            if ($response->successful()) {
+                $avatarUrl = $response->json()['avatar_url'];
+                return $avatarUrl;
+            } else {
+                \Log::info('Social User Error : ' . json_encode($response->json()));
+                return null;
+            }
+        } else if ($driver === 'gitlab') {
+            $response = \Http::get("https://gitlab.com/api/v4/users/{$driver_id}");
+
+            if ($response->successful()) {
+                $avatarUrl = $response->json()['avatar_url'];
+                return $avatarUrl;
+            } else {
+                \Log::info('Social User Error : ' . json_encode($response->json()));
+                return null;
+            }
+        } else if ($driver === 'facebook') {
+            $accessToken = config('services.facebook.access_token');
+            $response = \Http::get("https://graph.facebook.com/{$driver_id}/picture", [
+                'access_token' => $accessToken,
+                'redirect' => false,
+                'type' => 'large', // Options are small, normal, large, square
+            ]);
+
+            if ($response->successful()) {
+                $avatarUrl = $response->json()['data']['url'];
+                return $avatarUrl;
+            } else {
+                \Log::info('Social User Error : ' . json_encode($response->json()));
+                return null;
+            }
+        }
+
+        return null;
+    }
 }
