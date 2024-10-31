@@ -67,7 +67,7 @@ class UserAccountController extends Controller
 
         $this->userRepo->update($user, $validated, userCan('users-manage'));
 
-        SocialAccount::where('user_id', $user->id)->update(['custom_avatar' => array_key_exists('custom-avatar', $validated) ? $validated['custom-avatar'] : 1]);
+        SocialAccount::where('user_id', $user->id)->update(['custom_avatar' => array_key_exists('custom-avatar', $validated) ? $validated['custom-avatar'] : 0]);
 
         if (array_key_exists('custom-avatar', $validated)) {
             dispatch(new UpdateSocialUserAvatarJob($user->id));

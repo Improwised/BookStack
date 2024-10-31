@@ -45,9 +45,19 @@
 
                 <div component="custom-avatar-checkbox">
                 <label  class="toggle-switch">
-                    <input type="checkbox" name="custom-avatar" value="{{user()->socialAccounts()->get()->first()->custom_avatar}}" @if(user()->socialAccounts()->first()->custom_avatar === 0 ? true : false) checked="checked" @endif>
+                    <?php
+                        if(user()->socialAccounts()->get()->count() > 0)
+                        {
+                            $userCustomAvatar = user()->socialAccounts()->get()->first()->custom_avatar;
+                        }
+                        else
+                        {
+                            $userCustomAvatar = 0;
+                        }
+                    ?>
+                    <input type="checkbox" name="custom-avatar" value="{{$userCustomAvatar}}" @if($userCustomAvatar) checked="checked" @endif>
                     <span tabindex="0" role="checkbox"
-                          aria-checked="{{ user()->socialAccounts()->get()->first()->custom_avatar === 0 ? 'true' : 'false' }}"
+                          aria-checked="{{ $userCustomAvatar ? 'true' : 'false' }}"
                           class="custom-checkbox text-primary">@icon('check')</span>
                     <span class="label">Use Social Account Avatar</span>
                 </label>

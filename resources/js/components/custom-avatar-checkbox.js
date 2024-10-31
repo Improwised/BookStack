@@ -36,7 +36,7 @@ export class CustomAvatarCheckbox extends Component {
             .parentNode.classList.toggle('hidden', this.checkbox.checked);
         this.container.querySelector('.custom-file-input').disabled = this.checkbox.checked;
         this.container.querySelector('[refs="image-picker@reset-input"]').disabled = this.checkbox.checked;
-        this.checkbox.value = this.checkbox.checked ? 0 : 1;
+        this.checkbox.value = this.checkbox.checked ? 1 : 0;
     }
 
 }
