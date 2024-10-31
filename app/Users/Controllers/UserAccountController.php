@@ -71,8 +71,8 @@ class UserAccountController extends Controller
 
         if (array_key_exists('custom-avatar', $validated)) {
             dispatch(new UpdateSocialUserAvatarJob($user->id));
-        }        
-        
+        }
+
         // Save profile image if in request
         if ($request->hasFile('profile_image')) {
             $imageUpload = $request->file('profile_image');
@@ -83,7 +83,7 @@ class UserAccountController extends Controller
         }
 
         // Delete the profile image if reset option is in request
-        if ($request->has('profile_image_reset') && !array_key_exists('custom-avatar',$validated)) {
+        if ($request->has('profile_image_reset') && !array_key_exists('custom-avatar', $validated)) {
             $imageRepo->destroyImage($user->avatar);
             $user->image_id = 0;
             $user->save();

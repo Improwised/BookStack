@@ -131,7 +131,7 @@ class SocialController extends Controller
         }
 
         $user = $this->registrationService->registerUser($userData, $socialAccount, $emailVerified);
-        dispatch(new SetSocialProfilePhotoAsUserAvatarJob($user,$socialUser->getAvatar()));
+        dispatch(new SetSocialProfilePhotoAsUserAvatarJob($user, $socialUser->getAvatar()));
         $this->showSuccessNotification(trans('auth.register_success'));
         $this->loginService->login($user, $socialDriver);
 

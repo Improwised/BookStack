@@ -23,14 +23,12 @@ class UpdateSocialUserAvatarJob implements ShouldQueue
         } else {
             $socialUsers = SocialAccount::where('custom_avatar', 0)->get();
         }
-        \Log::info('Users : ' . json_encode($socialUsers));
-        foreach ($socialUsers as $socialUser) {
 
+        foreach ($socialUsers as $socialUser) {
             $socialAvatar = $userAvatar->getSocialAccountAvatar($socialUser->driver, $socialUser->driver_id);
 
             $user = User::findOrFail($socialUser->user_id);
             try {
-                \Log::info('User : ' . $user . ' Avatar : ' . $socialAvatar);
                 $userAvatar->fetchAndAssignToUser($user, $socialAvatar);
             } catch (\Exception $exception) {
                 \Log::error('Social User Photo Update Error : ' . $exception->getMessage());
