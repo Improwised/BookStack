@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Poista oma käyttäjätili',
     'delete_my_account_desc' => 'Tämä poistaa käyttäjätilisi kokonaan järjestelmästä. Et voi palauttaa tiliäsi tai peruuttaa tätä toimenpidettä. Luomasi sisältö, kuten luodut sivut ja ladatut kuvat, säilyvät.',
     'delete_my_account_warning' => 'Haluatko varmasti poistaa käyttäjätilisi?',
+
+    'use_social_account_profile_image' => 'Käytä sosiaalisen tilin avataria',
 ];

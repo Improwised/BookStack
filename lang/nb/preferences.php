@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Slett kontoen min',
     'delete_my_account_desc' => 'Dette vil slette din brukerkonto fra systemet. Du vil ikke kunne gjenopprette denne kontoen eller tilbakestille denne handlingen. Innhold du har opprettet, som f. eks. opprettede sider og opplastede bilder, vil forbli uendret.',
     'delete_my_account_warning' => 'Er du sikker på at du vil slette kontoen din?',
+
+    'use_social_account_profile_image' => 'Bruk avatar for sosial konto',
 ];

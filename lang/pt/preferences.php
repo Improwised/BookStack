@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Excluir a Minha Conta',
     'delete_my_account_desc' => 'Isto excluirá completamente sua conta de utilizador do sistema. Você não poderá recuperar esta conta ou reverter esta ação. O conteúdo que você criou, como páginas criadas e imagens carregadas, permanecerá.',
     'delete_my_account_warning' => 'Tem certeza que deseja excluir sua conta?',
+
+    'use_social_account_profile_image' => 'Usar o avatar da conta social',
 ];

@@ -48,4 +48,6 @@ return [
     'delete_my_account' => '自身のアカウント削除',
     'delete_my_account_desc' => 'システムからユーザーアカウントを完全に削除します。このアカウントを復元したり、この操作を元に戻したりすることはできません。 作成されたページやアップロードされた画像などのコンテンツは残ります。',
     'delete_my_account_warning' => '本当にアカウントを削除しますか？',
+
+    'use_social_account_profile_image' => 'ソーシャルアカウントのアバターを使用する',
 ];

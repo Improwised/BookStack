@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Izdzēst manu kontu',
     'delete_my_account_desc' => 'Šī darbība pilnībā izdzēsīs jūsu lietotāja kontu no sistēmas. Jūs vairs nevarēsiet piekļūt kontam, atcelt šo darbību vai atjaunot kontu. Jūsu izveidotais saturs, piemēram, izveidotās lapas un augšupielādētie attēli, tiks saglabāts.',
     'delete_my_account_warning' => 'Vai tiešām vēlaties dzēst savu kontu?',
+
+    'use_social_account_profile_image' => 'Izmantojiet sociālā konta avatāru',
 ];

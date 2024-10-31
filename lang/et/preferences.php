@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Kustuta minu konto',
     'delete_my_account_desc' => 'See kustutab su kasutajakonto süsteemist. Sa ei saa kontot taastada ega seda tegevust tagasi võtta. Sinu loodud sisu, näiteks lisatud lehed ja üleslaaditud pildid, jäävad alles.',
     'delete_my_account_warning' => 'Kas oled kindel, et soovid oma konto kustutada?',
+
+    'use_social_account_profile_image' => 'Kasutage sotsiaalmeedia kontot',
 ];

@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Mein Konto löschen',
     'delete_my_account_desc' => 'Dadurch wird dein Benutzerkonto vollständig vom System gelöscht. Du kannst dieses Konto nicht wiederherstellen oder diese Aktion rückgängig machen. Inhalte, die du erstellt hast, wie erstellte Seiten und hochgeladene Bilder, bleiben erhalten.',
     'delete_my_account_warning' => 'Bist du sicher, dass du dein Benutzerkonto löschen möchten?',
+
+    'use_social_account_profile_image' => 'Sozialkonto-Avatar verwenden (informal)',
 ];

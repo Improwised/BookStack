@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Supprimer mon compte',
     'delete_my_account_desc' => 'Cela supprimera complètement votre compte utilisateur du système. Vous ne pourrez pas récupérer ce compte ou annuler cette action. Le contenu que vous avez créé, comme les pages créées et les images téléchargées, sera sauvegardé.',
     'delete_my_account_warning' => 'Êtes-vous sûr(e) de vouloir supprimer votre compte ?',
+
+    'use_social_account_profile_image' => 'Utiliser l\'avatar du compte social',
 ];

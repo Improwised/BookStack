@@ -48,4 +48,6 @@ return [
     'delete_my_account' => '刪除我的帳號',
     'delete_my_account_desc' => '將從系統中刪除所有帳號資料，此動作無法復原。你所建立的內容、頁面以及上傳的圖片將會保留。',
     'delete_my_account_warning' => '您確定要刪除您的帳戶嗎？',
+
+    'use_social_account_profile_image' => '使用社交帳戶頭像',
 ];

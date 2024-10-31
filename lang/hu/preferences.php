@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Törlöm a felhasználói fiókomat',
     'delete_my_account_desc' => 'Ez véglegesen törölni fogja a felhasználói fiókodat a rendszerből. Nem lesz lehetőséged visszaállítani ezt a fiókot, vagy visszavonni ezt a műveletet. A létrehozott tartalmak, például az oldalak és feltöltött képek megmaradnak.',
     'delete_my_account_warning' => 'Biztosan törölni szeretnéd a fiókodat?',
+
+    'use_social_account_profile_image' => 'Használja a közösségi fiók avatárját',
 ];

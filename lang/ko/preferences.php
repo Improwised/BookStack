@@ -48,4 +48,6 @@ return [
     'delete_my_account' => '내 계정 삭제',
     'delete_my_account_desc' => '이렇게 하면 시스템에서 사용자 계정이 완전히 삭제됩니다. 이 계정을 복구하거나 이 작업을 되돌릴 수 없습니다. 생성한 페이지와 업로드한 이미지 등 사용자가 만든 콘텐츠는 그대로 유지됩니다.',
     'delete_my_account_warning' => '정말 계정을 삭제하시겠습니까?',
+
+    'use_social_account_profile_image' => '소셜 계정 아바타 사용',
 ];

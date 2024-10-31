@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Dileu fy Nghyfrif',
     'delete_my_account_desc' => 'Bydd hyn yn dileu eich cyfrif defnyddiwr o\'r system yn llwyr. Ni fydd modd i chi adfer y cyfrif hwn na gwrthdroi\'r weithred hon. Bydd cynnwys rydych chi wedi\'i greu, megis tudalennau wedi\'u creu a delweddau wedi\'u huwchlwytho, yn parhau.',
     'delete_my_account_warning' => 'Ydych chi\'n siŵr eich bod eisiau dileu eich cyfrif?',
+
+    'use_social_account_profile_image' => 'Defnyddiwch Avatar Cyfrif Cymdeithasol',
 ];

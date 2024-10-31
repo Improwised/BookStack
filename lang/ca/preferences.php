@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Suprimeix el meu compte',
     'delete_my_account_desc' => 'Se suprimirà completament del sistema el vostre compte d’usuari. No podreu recuperar el compte ni revertir-ne la supressió. Es conservarà el contingut que hàgiu creat, com ara les pàgines o les imatges que hàgiu pujat.',
     'delete_my_account_warning' => 'Esteu segur que voleu suprimir el vostre compte?',
+
+    'use_social_account_profile_image' => 'Utilitza l\'avatar del compte social',
 ];

@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Usuń moje konto',
     'delete_my_account_desc' => 'Spowoduje to całkowite usunięcie twojego konta z systemu. Nie będziesz miał możliwości odzyskania konta lub cofnięcia tej czynności. Stworzona przez Ciebie zawartość, taka jak utworzone strony i przesłane obrazy, pozostanie niezmieniona.',
     'delete_my_account_warning' => 'Jesteś pewny, że chcesz usunąć swoje konto?',
+
+    'use_social_account_profile_image' => 'Użyj awatara konta społecznościowego',
 ];

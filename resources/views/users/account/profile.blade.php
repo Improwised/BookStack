@@ -59,7 +59,7 @@
                     <span tabindex="0" role="checkbox"
                           aria-checked="{{ $userCustomAvatar ? 'true' : 'false' }}"
                           class="custom-checkbox text-primary">@icon('check')</span>
-                    <span class="label">Use Social Account Avatar</span>
+                    <span class="label">{{ trans('preferences.use_social_account_profile_image') }}</span>
                 </label>
                 <div class="grid half gap-xl">
                     <div>

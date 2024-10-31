@@ -48,4 +48,6 @@ return [
     'delete_my_account' => '删除我的账户',
     'delete_my_account_desc' => '此操作将完全删除您在系统中的用户账户。您将无法恢复此账户或撤销此操作。您创建的内容，如创建的页面和上传的图片，将保留下来。',
     'delete_my_account_warning' => '您确定要删除您的账号吗？',
+
+    'use_social_account_profile_image' => '使用社交帐户头像',
 ];

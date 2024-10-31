@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Smazat můj účet',
     'delete_my_account_desc' => 'Tímto zcela smažete váš účet ze systému. Nebudete moci tento účet obnovit nebo tuto akci vrátit. Obsah, který jste vytvořili, jako jsou vytvořené stránky a nahrané obrázky, zůstanou zachovány.',
     'delete_my_account_warning' => 'Opravdu si přejete smazat váš účet?',
+
+    'use_social_account_profile_image' => 'Použijte avatar ze sociálního účtu',
 ];

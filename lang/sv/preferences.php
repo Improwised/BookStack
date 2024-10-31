@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Radera mitt konto',
     'delete_my_account_desc' => 'This will fully delete your user account from the system. You will not be able to recover this account or revert this action. Content you\'ve created, such as created pages and uploaded images, will remain.',
     'delete_my_account_warning' => 'Are you sure you want to delete your account?',
+
+    'use_social_account_profile_image' => 'Använd social konto-avatar',
 ];

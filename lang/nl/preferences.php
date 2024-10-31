@@ -48,4 +48,6 @@ return [
     'delete_my_account' => 'Verwijder Mijn Account',
     'delete_my_account_desc' => 'Dit verwijdert je gebruikersaccount volledig uit het systeem. Niemand kan het account herstellen of deze actie ongedaan maken. Inhoud die je hebt gemaakt, zoals aangemaakte pagina\'s en geüploade afbeeldingen, blijft bestaan.',
     'delete_my_account_warning' => 'Weet je zeker dat je je account permanent wil verwijderen?',
+
+    'use_social_account_profile_image' => 'Gebruik de avatar van het sociale account',
 ];
