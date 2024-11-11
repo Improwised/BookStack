@@ -161,7 +161,9 @@ class PermissionApplicator
         $joinQuery = function ($query) use ($entityProvider) {
             $first = true;
             foreach ($entityProvider->all() as $entity) {
-                if ($entity->getModel()->getTable() === 'attachments') continue;
+                if ($entity->getModel()->getTable() === 'attachments') {
+                    continue;
+                }
                 /** @var Builder $query */
                 $entityQuery = function ($query) use ($entity) {
                     $query->select(['id', 'deleted_at'])

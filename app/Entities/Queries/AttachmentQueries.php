@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AttachmentQueries implements ProvidesEntityQueries
 {
-
     protected static array $listAttributes = [
         'id',
         'name',
