@@ -122,7 +122,6 @@ class SocialController extends Controller
             'name'     => $socialUser->getName(),
             'email'    => $socialUser->getEmail(),
             'password' => Str::random(32),
-            'avatar_url' => $socialUser->getAvatar(),
         ];
 
         // Take name from email address if empty

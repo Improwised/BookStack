@@ -31,7 +31,7 @@ class SocialAuthTest extends TestCase
         $mockSocialUser->shouldReceive('getId')->twice()->andReturn(1);
         $mockSocialUser->shouldReceive('getEmail')->twice()->andReturn($user->email);
         $mockSocialUser->shouldReceive('getName')->once()->andReturn($user->name);
-        $mockSocialUser->shouldReceive('getAvatar')->once()->andReturn('avatar_placeholder');
+        $mockSocialUser->shouldReceive('getAvatar')->twice()->andReturn('avatar_placeholder');
 
         $this->get('/register/service/google');
         $this->get('/login/service/google/callback');
@@ -153,7 +153,7 @@ class SocialAuthTest extends TestCase
         $mockSocialUser->shouldReceive('getId')->times(4)->andReturn(1);
         $mockSocialUser->shouldReceive('getEmail')->times(2)->andReturn($user->email);
         $mockSocialUser->shouldReceive('getName')->once()->andReturn($user->name);
-        $mockSocialUser->shouldReceive('getAvatar')->once()->andReturn('avatar_placeholder');
+        $mockSocialUser->shouldReceive('getAvatar')->twice()->andReturn('avatar_placeholder');
 
         $mockSocialDriver->shouldReceive('user')->times(2)->andReturn($mockSocialUser);
         $mockSocialite->shouldReceive('driver')->times(4)->with('google')->andReturn($mockSocialDriver);
@@ -191,7 +191,7 @@ class SocialAuthTest extends TestCase
         $mockSocialUser->shouldReceive('getId')->times(3)->andReturn(1);
         $mockSocialUser->shouldReceive('getEmail')->times(2)->andReturn($user->email);
         $mockSocialUser->shouldReceive('getName')->once()->andReturn($user->name);
-        $mockSocialUser->shouldReceive('getAvatar')->once()->andReturn('avatar_placeholder');
+        $mockSocialUser->shouldReceive('getAvatar')->twice()->andReturn('avatar_placeholder');
 
         $mockSocialDriver->shouldReceive('user')->times(1)->andReturn($mockSocialUser);
         $mockSocialite->shouldReceive('driver')->times(2)->with('google')->andReturn($mockSocialDriver);
@@ -231,7 +231,7 @@ class SocialAuthTest extends TestCase
         $mockSocialUser->shouldReceive('getId')->twice()->andReturn(1);
         $mockSocialUser->shouldReceive('getEmail')->twice()->andReturn($user->email);
         $mockSocialUser->shouldReceive('getName')->once()->andReturn('');
-        $mockSocialUser->shouldReceive('getAvatar')->once()->andReturn('avatar_placeholder');
+        $mockSocialUser->shouldReceive('getAvatar')->twice()->andReturn('avatar_placeholder');
 
         $this->get('/register/service/github');
         $this->get('/login/service/github/callback');
