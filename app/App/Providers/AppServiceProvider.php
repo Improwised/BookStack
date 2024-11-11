@@ -12,6 +12,7 @@ use BookStack\Exceptions\BookStackExceptionHandlerPage;
 use BookStack\Http\HttpRequestService;
 use BookStack\Permissions\PermissionApplicator;
 use BookStack\Settings\SettingService;
+use BookStack\Uploads\Attachment;
 use BookStack\Util\CspService;
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -73,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
             'book'      => Book::class,
             'chapter'   => Chapter::class,
             'page'      => Page::class,
+            'attachment' => Attachment::class,
         ]);
     }
 }

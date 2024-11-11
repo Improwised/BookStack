@@ -14,6 +14,7 @@ class EntityQueries
         public ChapterQueries $chapters,
         public PageQueries $pages,
         public PageRevisionQueries $revisions,
+        public AttachmentQueries $attachment,
     ) {
     }
 
@@ -50,6 +51,7 @@ class EntityQueries
             'chapter' => $this->chapters,
             'book' => $this->books,
             'bookshelf' => $this->shelves,
+            'attachment' => $this->attachment,
             default => null,
         };
 

@@ -6,6 +6,7 @@ use BookStack\Activity\Models\Tag;
 use BookStack\Entities\EntityProvider;
 use BookStack\Entities\Models\Entity;
 use BookStack\Entities\Models\Page;
+use BookStack\Uploads\Attachment;
 use BookStack\Util\HtmlDocument;
 use DOMNode;
 use Illuminate\Database\Eloquent\Builder;
@@ -68,6 +69,7 @@ class SearchIndex
 
         foreach ($this->entityProvider->all() as $entityModel) {
             $indexContentField = $entityModel instanceof Page ? 'html' : 'description';
+            $indexContentField = $entityModel instanceof Attachment ? 'name' : ($entityModel instanceof Page ? 'html' : 'description');
             $selectFields = ['id', 'name', $indexContentField];
             /** @var Builder<Entity> $query */
             $query = $entityModel->newQuery();

@@ -64,7 +64,7 @@ class SearchRunner
 
             $searchQuery = $this->buildQuery($searchOpts, $entityType);
             $entityTotal = $searchQuery->count();
-            $searchResults = $this->getPageOfDataFromQuery($searchQuery, $entityType, $page, $count);
+            $searchResults = $this->getPageOfDataFromQuery($searchQuery, $entityType, $page, $count);            
 
             if ($entityTotal > ($page * $count)) {
                 $hasMore = true;
@@ -135,6 +135,12 @@ class SearchRunner
             };
         }
 
+        if ($entityType === 'attachment') {
+            $relations['page'] = function (BelongsTo $query) {
+                $query->scopes('visible');
+            };
+        }
+
         return $query->clone()
             ->with(array_filter($relations))
             ->skip(($page - 1) * $count)
@@ -176,7 +182,7 @@ class SearchRunner
                 $this->$functionName($entityQuery, $entityModelInstance, $filterOption->value, $filterOption->negated);
             }
         }
-
+        
         return $entityQuery;
     }
 
@@ -254,7 +260,7 @@ class SearchRunner
         if (isset($this->termAdjustmentCache[$options])) {
             return $this->termAdjustmentCache[$options];
         }
-
+        
         $termQuery = SearchTerm::query()->toBase();
         $whenStatements = [];
         $whenBindings = [];

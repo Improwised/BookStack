@@ -27,6 +27,8 @@
                             <br>
                             @include('search.parts.type-filter', ['checked' => !$hasTypes || in_array('book', $types), 'entity' => 'book', 'transKey' => 'book'])
                             @include('search.parts.type-filter', ['checked' => !$hasTypes || in_array('bookshelf', $types), 'entity' => 'bookshelf', 'transKey' => 'shelf'])
+                            <br>
+                            @include('search.parts.type-filter', ['checked' => !$hasTypes || in_array('attachment', $types), 'entity' => 'attachment', 'transKey' => 'attachments'])
                         </div>
 
                         <h6>{{ trans('entities.search_exact_matches') }}</h6>

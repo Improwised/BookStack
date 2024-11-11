@@ -46,7 +46,8 @@ class AttachmentController extends Controller
         $uploadedFile = $request->file('file');
 
         try {
-            $attachment = $this->attachmentService->saveNewUpload($uploadedFile, $pageId);
+            $attachment = $this->attachmentService->saveNewUpload($uploadedFile, $pageId, $page->owned_by);
+            $attachment->indexForSearch();
         } catch (FileUploadException $e) {
             return response($e->getMessage(), 500);
         }
@@ -161,7 +162,7 @@ class AttachmentController extends Controller
 
         $attachmentName = $request->get('attachment_link_name');
         $link = $request->get('attachment_link_url');
-        $this->attachmentService->saveNewFromLink($attachmentName, $link, intval($pageId));
+        $this->attachmentService->saveNewFromLink($attachmentName, $link, intval($pageId), $page->owned_by);
 
         return view('attachments.manager-link-form', [
             'pageId' => $pageId,

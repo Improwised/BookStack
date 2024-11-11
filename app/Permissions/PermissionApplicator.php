@@ -100,7 +100,7 @@ class PermissionApplicator
     public function restrictEntityQuery(Builder $query): Builder
     {
         return $query->where(function (Builder $parentQuery) {
-            $parentQuery->whereHas('jointPermissions', function (Builder $permissionQuery) {
+            $parentQuery->whereHas($parentQuery->getModel()->getTable() === 'attachments' ? 'attachmentJointPermissions' : 'jointPermissions', function (Builder $permissionQuery) {
                 $permissionQuery->select(['entity_id', 'entity_type'])
                     ->selectRaw('max(owner_id) as owner_id')
                     ->selectRaw('max(status) as status')
@@ -161,6 +161,7 @@ class PermissionApplicator
         $joinQuery = function ($query) use ($entityProvider) {
             $first = true;
             foreach ($entityProvider->all() as $entity) {
+                if ($entity->getModel()->getTable() === 'attachments') continue;
                 /** @var Builder $query */
                 $entityQuery = function ($query) use ($entity) {
                     $query->select(['id', 'deleted_at'])

@@ -2,12 +2,12 @@
 
 namespace BookStack\Uploads;
 
-use BookStack\App\Model;
 use BookStack\Entities\Models\Entity;
 use BookStack\Entities\Models\Page;
 use BookStack\Permissions\Models\JointPermission;
 use BookStack\Permissions\PermissionApplicator;
 use BookStack\Users\Models\HasCreatorAndUpdater;
+use BookStack\Users\Models\HasOwner;
 use BookStack\Users\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,16 +27,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static Entity|Builder visible()
  */
-class Attachment extends Model
+class Attachment extends Entity
 {
     use HasCreatorAndUpdater;
     use HasFactory;
+    use HasOwner;
+
+    public string $textField = 'name';
+
+    public string $htmlField = 'name';
 
     protected $fillable = ['name', 'order'];
     protected $hidden = ['path', 'page'];
     protected $casts = [
         'external' => 'bool',
     ];
+
+    public static function bootSoftDeletes()
+    {
+        // No operation: override with an empty method
+    }
 
     /**
      * Get the downloadable file name for this upload.
@@ -55,13 +65,13 @@ class Attachment extends Model
      */
     public function page(): BelongsTo
     {
-        return $this->belongsTo(Page::class, 'uploaded_to');
+        return $this->belongsTo(Page::class, 'uploaded_to')->with(['chapter','book']);
     }
 
-    public function jointPermissions(): HasMany
+    public function attachmentJointPermissions(): HasMany
     {
         return $this->hasMany(JointPermission::class, 'entity_id', 'uploaded_to')
-            ->where('joint_permissions.entity_type', '=', 'page');
+        ->where('joint_permissions.entity_type', '=', 'page');
     }
 
     /**
@@ -110,14 +120,38 @@ class Attachment extends Model
     /**
      * Scope the query to those attachments that are visible based upon related page permissions.
      */
-    public function scopeVisible(): Builder
+    public function scopeVisible(Builder $query): Builder
     {
         $permissions = app()->make(PermissionApplicator::class);
 
         return $permissions->restrictPageRelationQuery(
-            self::query(),
+            $query,
             'attachments',
             'uploaded_to'
         );
+    }
+
+    protected function performDeleteOnModel()
+    {
+        // Perform a direct delete without relying on soft deletes
+        return $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey())->delete();
+    }
+
+    // Prevent soft deletes by setting the deleted column to null
+    public function getDeletedAtColumn()
+    {
+        return null;
+    }
+
+    public function scopeWithTrashed($query)
+    {
+        // No conditions added, so it includes both active and inactive records
+        return $query;
+    }
+
+    public function scopeOnlyTrashed($query)
+    {
+        // No conditions added, so it includes both active and inactive records
+        return $query;
     }
 }

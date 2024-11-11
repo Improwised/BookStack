@@ -28,7 +28,7 @@ class AttachmentApiController extends ApiController
     public function list()
     {
         return $this->apiListingResponse(Attachment::visible(), [
-            'id', 'name', 'extension', 'uploaded_to', 'external', 'order', 'created_at', 'updated_at', 'created_by', 'updated_by',
+            'id', 'name', 'extension', 'uploaded_to', 'external', 'order', 'created_at', 'updated_at', 'created_by', 'updated_by', 'owned_by'
         ]);
     }
 
@@ -54,12 +54,13 @@ class AttachmentApiController extends ApiController
 
         if ($request->hasFile('file')) {
             $uploadedFile = $request->file('file');
-            $attachment = $this->attachmentService->saveNewUpload($uploadedFile, $page->id);
+            $attachment = $this->attachmentService->saveNewUpload($uploadedFile, $page->id, $page->owned_by);
         } else {
             $attachment = $this->attachmentService->saveNewFromLink(
                 $requestData['name'],
                 $requestData['link'],
-                $page->id
+                $page->id,
+                $page->owned_by,
             );
         }
 

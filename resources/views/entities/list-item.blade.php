@@ -15,6 +15,15 @@
                 <span class="text-muted entity-list-item-path-sep">@icon('chevron-right')</span> <span class="text-chapter">{{ $entity->chapter->getShortName(42) }}</span>
             @endif
         @endif
+        @if($entity->relationLoaded('page') && $entity->page)
+            <span class="text-page">{{ $entity->page->getShortName(42) }}</span>
+            @if($entity->page->chapter)
+                <span class="text-muted entity-list-item-path-sep">@icon('chevron-right')</span> <span class="text-chapter">{{ $entity->page->chapter->getShortName(42) }}</span>
+                    @if($entity->page->book)
+                        <span class="text-muted entity-list-item-path-sep">@icon('chevron-right')</span> <span class="text-book">{{ $entity->page->book->getShortName(42) }}</span>
+                    @endif
+            @endif
+        @endif
     @endif
 
     <p class="text-muted break-text">{{ $entity->preview_content ?? $entity->getExcerpt() }}</p>

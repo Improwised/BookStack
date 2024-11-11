@@ -77,6 +77,27 @@ class EntitySearchTest extends TestCase
         $pageTestResp->assertSee($page->name);
     }
 
+    public function test_attachment_search()
+    {
+        $page = $this->entities->page();
+
+        $admin = $this->users->admin();
+        /** @var Attachment $attachment */
+        $attachment = $page->attachments()->forceCreate([
+            'uploaded_to' => $page->id,
+            'name'        => 'My test attachment',
+            'external'    => true,
+            'order'       => 1,
+            'created_by'  => $admin->id,
+            'updated_by'  => $admin->id,
+            'path'        => 'https://attachment.example.com',
+        ]);
+
+        $search = $this->asEditor()->get('/search?term=' . urlencode($attachment->name));
+        $search->assertSee('Search Results');
+        $search->assertSeeText($attachment->name, true);
+    }
+
     public function test_tag_search()
     {
         $newTags = [

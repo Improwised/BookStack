@@ -85,7 +85,7 @@ class AttachmentService
      *
      * @throws FileUploadException
      */
-    public function saveNewUpload(UploadedFile $uploadedFile, int $pageId): Attachment
+    public function saveNewUpload(UploadedFile $uploadedFile, int $pageId, int $owned_by): Attachment
     {
         $attachmentName = $uploadedFile->getClientOriginalName();
         $attachmentPath = $this->putFileInStorage($uploadedFile);
@@ -99,6 +99,7 @@ class AttachmentService
             'uploaded_to' => $pageId,
             'created_by'  => user()->id,
             'updated_by'  => user()->id,
+            'owned_by'    => $owned_by,
             'order'       => $largestExistingOrder + 1,
         ]);
 
@@ -132,7 +133,7 @@ class AttachmentService
     /**
      * Save a new File attachment from a given link and name.
      */
-    public function saveNewFromLink(string $name, string $link, int $page_id): Attachment
+    public function saveNewFromLink(string $name, string $link, int $page_id, int $owned_by): Attachment
     {
         $largestExistingOrder = Attachment::where('uploaded_to', '=', $page_id)->max('order');
 
@@ -144,6 +145,7 @@ class AttachmentService
             'uploaded_to' => $page_id,
             'created_by'  => user()->id,
             'updated_by'  => user()->id,
+            'owned_by'    => $owned_by,
             'order'       => $largestExistingOrder + 1,
         ]);
     }

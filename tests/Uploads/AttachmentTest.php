@@ -24,6 +24,7 @@ class AttachmentTest extends TestCase
             'order'      => 1,
             'created_by' => $admin->id,
             'updated_by' => $admin->id,
+            'owned_by'   => $page->owned_by,
         ];
 
         $upload = $this->files->uploadAttachmentFile($this, $fileName, $page->id);

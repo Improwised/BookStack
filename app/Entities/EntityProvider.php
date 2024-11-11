@@ -8,6 +8,7 @@ use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Entity;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Models\PageRevision;
+use BookStack\Uploads\Attachment;
 
 /**
  * Class EntityProvider.
@@ -23,6 +24,7 @@ class EntityProvider
     public Chapter $chapter;
     public Page $page;
     public PageRevision $pageRevision;
+    public Attachment $attachment;
 
     public function __construct()
     {
@@ -31,6 +33,7 @@ class EntityProvider
         $this->chapter = new Chapter();
         $this->page = new Page();
         $this->pageRevision = new PageRevision();
+        $this->attachment = new Attachment();
     }
 
     /**
@@ -46,6 +49,7 @@ class EntityProvider
             'book'      => $this->book,
             'chapter'   => $this->chapter,
             'page'      => $this->page,
+            'attachment' => $this->attachment,
         ];
     }
 
