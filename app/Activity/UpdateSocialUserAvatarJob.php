@@ -27,8 +27,8 @@ class UpdateSocialUserAvatarJob implements ShouldQueue
         foreach ($socialUsers as $socialUser) {
             $socialAvatar = $userAvatar->getSocialAccountAvatar($socialUser->driver, $socialUser->driver_id);
 
-            $user = User::findOrFail($socialUser->user_id);
             try {
+                $user = User::findOrFail($socialUser->user_id);
                 $userAvatar->fetchAndAssignToUser($user, $socialAvatar);
             } catch (\Exception $exception) {
                 \Log::error('Social User Photo Update Error : ' . $exception->getMessage());
