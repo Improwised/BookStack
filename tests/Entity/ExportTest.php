@@ -15,11 +15,17 @@ class ExportTest extends TestCase
     public function test_page_text_export()
     {
         $page = $this->entities->page();
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
 
         $resp = $this->get($page->getUrl('/export/plaintext'));
         $resp->assertStatus(200);
         $resp->assertSee($page->name);
+        $resp->assertSee($page->attachments()->first()->name);
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $page->slug . '.txt"');
     }
 
@@ -36,11 +42,17 @@ class ExportTest extends TestCase
     public function test_page_html_export()
     {
         $page = $this->entities->page();
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
 
         $resp = $this->get($page->getUrl('/export/html'));
         $resp->assertStatus(200);
         $resp->assertSee($page->name);
+        $resp->assertSee($page->attachments()->first()->name);
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $page->slug . '.html"');
     }
 
@@ -52,7 +64,12 @@ class ExportTest extends TestCase
         $chapterPage = $chapter->pages()->first();
         $this->entities->updatePage($directPage, ['html' => '<p>My awesome page</p>']);
         $this->entities->updatePage($chapterPage, ['html' => '<p>My little nested page</p>']);
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $directPage->id,
+        ]);
 
         $resp = $this->get($book->getUrl('/export/plaintext'));
         $resp->assertStatus(200);
@@ -60,6 +77,7 @@ class ExportTest extends TestCase
         $resp->assertSee($chapterPage->name);
         $resp->assertSee($chapter->name);
         $resp->assertSee($directPage->name);
+        $resp->assertSee($directPage->attachments()->first()->name);
         $resp->assertSee('My awesome page');
         $resp->assertSee('My little nested page');
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $book->slug . '.txt"');
@@ -98,12 +116,18 @@ class ExportTest extends TestCase
     {
         $page = $this->entities->page();
         $book = $page->book;
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
 
         $resp = $this->get($book->getUrl('/export/html'));
         $resp->assertStatus(200);
         $resp->assertSee($book->name);
         $resp->assertSee($page->name);
+        $resp->assertSee($page->attachments()->first()->name);
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $book->slug . '.html"');
     }
 
@@ -126,12 +150,18 @@ class ExportTest extends TestCase
         $chapter = $this->entities->chapter();
         $page = $chapter->pages[0];
         $this->entities->updatePage($page, ['html' => '<p>This is content within the page!</p>']);
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
 
         $resp = $this->get($chapter->getUrl('/export/plaintext'));
         $resp->assertStatus(200);
         $resp->assertSee($chapter->name);
         $resp->assertSee($page->name);
+        $resp->assertSee($page->attachments()->first()->name);
         $resp->assertSee('This is content within the page!');
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $chapter->slug . '.txt"');
     }
@@ -165,12 +195,18 @@ class ExportTest extends TestCase
     {
         $chapter = $this->entities->chapter();
         $page = $chapter->pages[0];
-        $this->asEditor();
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
 
         $resp = $this->get($chapter->getUrl('/export/html'));
         $resp->assertStatus(200);
         $resp->assertSee($chapter->name);
         $resp->assertSee($page->name);
+        $resp->assertSee($page->attachments()->first()->name);
         $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $chapter->slug . '.html"');
     }
 
@@ -429,11 +465,19 @@ class ExportTest extends TestCase
         $book = Book::query()->whereHas('pages')->whereHas('chapters')->first();
         $chapter = $book->chapters()->first();
         $page = $chapter->pages()->first();
-        $resp = $this->asEditor()->get($book->getUrl('/export/markdown'));
+        $this->asAdmin();
+        $this->call('POST', 'attachments/link', [
+            'attachment_link_url'         => 'https://example.com',
+            'attachment_link_name'        => 'Example Attachment Link',
+            'attachment_link_uploaded_to' => $page->id,
+        ]);
+
+        $resp = $this->get($book->getUrl('/export/markdown'));
 
         $resp->assertSee('# ' . $book->name);
         $resp->assertSee('# ' . $chapter->name);
         $resp->assertSee('# ' . $page->name);
+        $resp->assertSee($page->attachments()->first()->name);
     }
 
     public function test_book_markdown_export_concats_immediate_pages_with_newlines()

@@ -28,7 +28,9 @@ class PageExportController extends Controller
     public function pdf(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
-        $page->html = (new PageContent($page))->render();
+        $pageContent = (new PageContent($page));
+        $page->html = $pageContent->render();
+        $page->html = $pageContent->addAttachmentToContent($page->html);
         $pdfContent = $this->exportFormatter->pageToPdf($page);
 
         return $this->download()->directly($pdfContent, $pageSlug . '.pdf');
@@ -43,7 +45,9 @@ class PageExportController extends Controller
     public function html(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
-        $page->html = (new PageContent($page))->render();
+        $pageContent = (new PageContent($page));
+        $page->html = $pageContent->render();
+        $page->html = $pageContent->addAttachmentToContent($page->html);
         $containedHtml = $this->exportFormatter->pageToContainedHtml($page);
 
         return $this->download()->directly($containedHtml, $pageSlug . '.html');
@@ -71,6 +75,7 @@ class PageExportController extends Controller
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
         $pageText = $this->exportFormatter->pageToMarkdown($page);
+        $pageText = (new PageContent($page))->addAttachmentToContent($pageText, false);
 
         return $this->download()->directly($pageText, $pageSlug . '.md');
     }

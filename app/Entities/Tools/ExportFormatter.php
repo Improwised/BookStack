@@ -257,6 +257,8 @@ class ExportFormatter
         // Add title
         $text = $page->name . ($fromParent ? "\n" : "\n\n") . $text;
 
+        $text = (new PageContent($page))->addAttachmentToContent($text, false);
+
         return $text;
     }
 
@@ -318,6 +320,7 @@ class ExportFormatter
         $text .= $chapter->description . "\n\n";
         foreach ($chapter->pages as $page) {
             $text .= $this->pageToMarkdown($page) . "\n\n";
+            $text = (new PageContent($page))->addAttachmentToContent($text, false) . "\n\n";
         }
 
         return trim($text);

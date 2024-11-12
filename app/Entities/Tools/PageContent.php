@@ -402,4 +402,21 @@ class PageContent
 
         return $tree->toArray();
     }
+
+    public function addAttachmentToContent(string $html, $isHtml = true): string
+    {
+        if ($this->page->attachments()->count() < 1) {
+            return $html;
+        }
+
+        $html .= $isHtml ? '<br><hr><h3>Attachment Links</h3>' : "\n\n Attachment Links \n";
+        foreach ($this->page->attachments()->where('external', 1)->get() as $attachment) {
+            if ($isHtml) {
+                $html .= "<br><a href='$attachment->path'> $attachment->name <a/><br>";
+            } else {
+                $html .= "\n $attachment->name : $attachment->path \n";
+            }
+        }
+        return $html;
+    }
 }
