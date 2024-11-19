@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Κείμενο υδατογραφήματος',
+    'watermark_desc' => 'Ορίστε το κείμενο που θέλετε να εκτυπώσετε ως υδατογράφημα στο PDF',
+    'watermark_position_text' => 'Θέση υδατογραφήματος',
+    'watermark_position_desc' => 'Επιλέξτε τη θέση για υδατογράφημα που τοποθετείται στο PDF',
+    'watermark_display' => 'Εμφάνιση υδατογράφημα στο PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

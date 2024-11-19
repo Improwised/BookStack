@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'その他のライセンス',
     'license_details' => 'ライセンス詳細',
 
+    'watermark_text' => '透かしテキスト',
+    'watermark_desc' => 'PDFの透かしとして印刷したいテキストを設定します',
+    'watermark_position_text' => '透かしの位置',
+    'watermark_position_desc' => 'PDFに配置された透かしの位置を選択します',
+    'watermark_display' => 'PDFで透かしを表示します',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Suv belgisining matni",
+    'watermark_desc' => "PDF da suv belgisini sifatida chop etmoqchi bo'lgan matnni belgilang",
+    'watermark_position_text' => "Suv belgisining joylashuvi",
+    'watermark_position_desc' => "PDF da suv belgisining joylashuvini tanlang",
+    'watermark_display' => "PDF da suv belgisini ko'rsat",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

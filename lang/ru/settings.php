@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Прочие лицензии',
     'license_details' => 'Подробности о лицензии',
 
+    'watermark_text' => "Текст водяного знака",
+    'watermark_desc' => "Укажите текст, который вы хотите напечатать в качестве водяного знака в PDF",
+    'watermark_position_text' => "Позиция водяного знака",
+    'watermark_position_desc' => "Выберите позицию водяного знака в PDF",
+    'watermark_display' => "Отобразить водяной знак в PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

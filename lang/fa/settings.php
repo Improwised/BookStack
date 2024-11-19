@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'سایر مجوز‌ها',
     'license_details' => 'جزئیات مجوز',
 
+    'watermark_text' => 'متن واترمارک',
+    'watermark_desc' => 'متنی را که می خواهید به عنوان واترمارک در PDF چاپ کنید تنظیم کنید',
+    'watermark_position_text' => 'موقعیت واترمارک',
+    'watermark_position_desc' => 'موقعیت واترمارک قرار داده شده در PS را انتخاب کنید. موقعیت واترمارک قرار داده شده در PDFDF را انتخاب کنید',
+    'watermark_display' => 'نمایش واترمارک در PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

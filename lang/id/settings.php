@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Teks tanda air',
+    'watermark_desc' => 'Atur teks yang ingin Anda cetak sebagai tanda air di PDF',
+    'watermark_position_text' => 'Posisi tanda air',
+    'watermark_position_desc' => 'Pilih posisi untuk tanda air yang ditempatkan di PDF',
+    'watermark_display' => 'Tunjukkan tanda air di PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

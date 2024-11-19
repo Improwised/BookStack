@@ -286,6 +286,12 @@ Hinweis: Benutzer können ihre E-Mail-Adresse nach erfolgreicher Registrierung �
     'licenses_other' => 'Andere Lizenzen',
     'license_details' => 'Lizenzdetails',
 
+    'watermark_text' => 'Wasserzeichen-Text',
+    'watermark_desc' => 'Legen Sie den Text fest, den Sie als Wasserzeichen in PDF drucken möchten',
+    'watermark_position_text' => 'Wasserzeichen-Position',
+    'watermark_position_desc' => 'Wählen Sie die Position für das Wasserzeichen in PDF',
+    'watermark_display' => 'Wasserzeichen in PDF anzeigen',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

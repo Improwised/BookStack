@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'טקסט סימן מים',
+    'watermark_desc' => 'הגדר טקסט שברצונך להדפיס כסימן מים ב- PDF',
+    'watermark_position_text' => 'מיקום סימן מים',
+    'watermark_position_desc' => 'בחר את המיקום של סימן מים המונח ב- PDF',
+    'watermark_display' => 'הצג סימן מים ב- PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

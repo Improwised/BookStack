@@ -285,6 +285,13 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Vandens ženklo tekstas',
+    'watermark_desc' => 'Nustatykite tekstą, kurį norite atspausdinti kaip vandens ženklą PDF',
+    'watermark_position_text' => 'Vandens ženklo padėtis',
+    'watermark_position_desc' => 'Pasirinkite „PDF“ įdėto vandens ženklo poziciją',
+    'watermark_display' => 'Rodyti vandens ženklą PDF',
+
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

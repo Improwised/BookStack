@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Muud litsentsid',
     'license_details' => 'Litsentsi detailid',
 
+    'watermark_text' => 'Vesimärgi tekst',
+    'watermark_desc' => 'Määrake tekst, mille soovite PDF -is vesimärgina printida',
+    'watermark_position_text' => 'Vesimärgi asukoht',
+    'watermark_position_desc' => 'Valige PDF -is asetatud vesimärgi positsioon',
+    'watermark_display' => 'Näidake vesimärki PDF -is',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

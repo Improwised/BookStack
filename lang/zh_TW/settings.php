@@ -286,6 +286,12 @@ return [
     'licenses_other' => '其它授權',
     'license_details' => '詳細授權資料',
 
+    'watermark_text' => "水印文字",
+    'watermark_desc' => "設定您希望在 PDF 中列印的水印文字",
+    'watermark_position_text' => "水印位置",
+    'watermark_position_desc' => "選擇水印在 PDF 中的位置",
+    'watermark_display' => "在 PDF 中顯示水印",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

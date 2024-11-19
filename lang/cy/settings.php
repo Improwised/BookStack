@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Trwyddedau Eraill',
     'license_details' => 'Manylion y Drwydded',
 
+    'watermark_text' => 'Testun Dyfrnod',
+    'watermark_desc' => 'Gosod Testun rydych chi am ei argraffu fel dyfrnod mewn PDF',
+    'watermark_position_text' => 'Safle Dyfrnod',
+    'watermark_position_desc' => 'Dewiswch y safle ar gyfer y nodyn dŵr yn y PDF',
+    'watermark_display' => 'Dangos Dyfrnod mewn PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

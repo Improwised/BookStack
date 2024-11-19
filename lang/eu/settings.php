@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Watermark testua',
+    'watermark_desc' => 'Ezarri PDFan ur-marka gisa inprimatu nahi duzun testua',
+    'watermark_position_text' => 'Watermark posizioa',
+    'watermark_position_desc' => 'Hautatu PDFan jarritako ur-marka',
+    'watermark_display' => 'Erakutsi ur-marka PDFn',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

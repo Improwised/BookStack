@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Andre lisenser',
     'license_details' => 'Lisens detaljer',
 
+    'watermark_text' => "Vannmerke tekst",
+    'watermark_desc' => "Angi teksten du ønsker å skrive ut som vannmerke i PDF",
+    'watermark_position_text' => "Vannmerke posisjon",
+    'watermark_position_desc' => "Velg posisjonen for vannmerket i PDF",
+    'watermark_display' => "Vis vannmerke i PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

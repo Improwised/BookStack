@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Vandmærkets tekst',
+    'watermark_desc' => 'Indstil tekst, som du vil have trykt som vandmærke i PDF',
+    'watermark_position_text' => 'Vandmærkets position',
+    'watermark_position_desc' => 'Vælg positionen for vandmærket i PDF',
+    'watermark_display' => 'Vis vandmærke i PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

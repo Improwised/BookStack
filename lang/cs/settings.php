@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Ostatní licence',
     'license_details' => 'Podrobnosti o licenci',
 
+    'watermark_text' => 'Text vodoznaku',
+    'watermark_desc' => 'Nastavte text, který chcete vytisknout jako vodoznak v PDF',
+    'watermark_position_text' => 'Pozice vodoznaku',
+    'watermark_position_desc' => 'Vyberte pozici pro vodoznak umístěný v PDF',
+    'watermark_display' => 'Zobrazit vodoznak v PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

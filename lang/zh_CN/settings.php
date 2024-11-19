@@ -285,6 +285,12 @@ return [
     'licenses_other' => '其他许可证',
     'license_details' => '许可证细节',
 
+    'watermark_text' => "水印文本",
+    'watermark_desc' => "设置您希望在 PDF 中打印的水印文本",
+    'watermark_position_text' => "水印位置",
+    'watermark_position_desc' => "选择水印在 PDF 中的位置",
+    'watermark_display' => "在 PDF 中显示水印",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

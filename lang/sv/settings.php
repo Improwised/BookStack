@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Andra licenser',
     'license_details' => 'Licensinformation',
 
+    'watermark_text' => "Vattenstämpelns text",
+    'watermark_desc' => "Ange texten som du vill skriva ut som vattenstämpel i PDF",
+    'watermark_position_text' => "Vattenstämpelns position",
+    'watermark_position_desc' => "Välj positionen för vattenstämpeln i PDF",
+    'watermark_display' => "Visa vattenstämpel i PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

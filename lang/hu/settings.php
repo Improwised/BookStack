@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Egyéb licencek',
     'license_details' => 'Licenc részletek',
 
+    'watermark_text' => 'Vízjel -szöveg',
+    'watermark_desc' => 'Állítson be szöveget, amelyet vízjelként nyomtatni szeretne PDF -ben',
+    'watermark_position_text' => 'Vízjel helyzete',
+    'watermark_position_desc' => 'Válassza ki a PDF -be elhelyezett vízjel helyzetét',
+    'watermark_display' => 'Mutasd meg a vízjelet a PDF -ben',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

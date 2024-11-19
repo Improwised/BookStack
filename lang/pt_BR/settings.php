@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Outras licenças',
     'license_details' => 'Detalhes da Licença',
 
+    'watermark_text' => "Texto da marca d'água",
+    'watermark_desc' => "Defina o texto que você deseja imprimir como marca d'água no PDF",
+    'watermark_position_text' => "Posição da marca d'água",
+    'watermark_position_desc' => "Escolha a posição da marca d'água no PDF",
+    'watermark_display' => "Exibir marca d'água no PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

@@ -285,6 +285,12 @@ return [
     'licenses_other' => '기타 라이선스',
     'license_details' => '라이선스 세부 사항',
 
+    'watermark_text' => '워터 마크 텍스트',
+    'watermark_desc' => 'PDF에서 Watermark로 인쇄하려는 텍스트 설정',
+    'watermark_position_text' => '워터 마크 위치',
+    'watermark_position_desc' => 'PDF에 배치 된 워터 마크 위치를 선택하십시오',
+    'watermark_display' => 'PDF로 워터 마크를 보여줍니다',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

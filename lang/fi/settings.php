@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Vesileiman teksti',
+    'watermark_desc' => 'Aseta teksti, jonka haluat tulostaa vesileimaksi PDF:ssä',
+    'watermark_position_text' => 'Vesileiman sijainti',
+    'watermark_position_desc' => 'Valitse PDF-tiedoston vesileiman sijainti',
+    'watermark_display' => 'Näytä vesileima PDF-muodossa',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

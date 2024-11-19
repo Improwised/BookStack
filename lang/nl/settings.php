@@ -284,6 +284,12 @@ return [
     'licenses_js' => 'JavaScript Bibliotheek Licenties',
     'licenses_other' => 'Andere Licenties',
     'license_details' => 'Licentie Details',
+    
+    'watermark_text' => "Watermerk tekst",
+    'watermark_desc' => "Stel de tekst in die je wilt afdrukken als watermerk in PDF",
+    'watermark_position_text' => "Watermerk positie",
+    'watermark_position_desc' => "Selecteer de positie voor het watermerk in PDF",
+    'watermark_display' => "Toon watermerk in PDF",
 
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.

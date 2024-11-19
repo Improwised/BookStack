@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Autres Licences',
     'license_details' => 'Détails de la licence',
 
+    'watermark_text' => 'Texte de filigrane',
+    'watermark_desc' => 'Définissez le texte que vous souhaitez imprimer en filigrane dans PDF',
+    'watermark_position_text' => 'Position de filigrane',
+    'watermark_position_desc' => 'Sélectionnez la position pour le filigrane placé dans PDF',
+    'watermark_display' => 'Afficher le filigrane en PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

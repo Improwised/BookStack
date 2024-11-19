@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Textul mărcii de apă",
+    'watermark_desc' => "Definiți textul pe care doriți să-l imprimați ca marcă de apă în PDF",
+    'watermark_position_text' => "Poziția mărcii de apă",
+    'watermark_position_desc' => "Alegeți poziția mărcii de apă în PDF",
+    'watermark_display' => "Afișați marca de apă în PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Teksti i markës së ujit",
+    'watermark_desc' => "Caktoni tekstin që dëshironi të printoni si markë uji në PDF",
+    'watermark_position_text' => "Pozita e markës së ujit",
+    'watermark_position_desc' => "Zgjidhni pozitën e markës së ujit në PDF",
+    'watermark_display' => "Shfaq markën e ujit në PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

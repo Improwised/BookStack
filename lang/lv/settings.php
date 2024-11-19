@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Citas licences',
     'license_details' => 'Licences informācija',
 
+    'watermark_text' => 'Ūdenszīmes teksts',
+    'watermark_desc' => 'Iestatiet tekstu, kuru vēlaties izdrukāt kā ūdenszīmi PDF',
+    'watermark_position_text' => 'Ūdenszīmes stāvoklis',
+    'watermark_position_desc' => 'Atlasiet PDF ievietoto ūdenszīmju pozīciju',
+    'watermark_display' => 'Parādīt ūdenszīmi PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

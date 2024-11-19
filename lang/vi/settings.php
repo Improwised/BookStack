@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Văn bản dấu nước",
+    'watermark_desc' => "Nhập văn bản bạn muốn in dưới dạng dấu nước trong PDF",
+    'watermark_position_text' => "Vị trí dấu nước",
+    'watermark_position_desc' => "Chọn vị trí của dấu nước trong PDF",
+    'watermark_display' => "Hiển thị dấu nước trong PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

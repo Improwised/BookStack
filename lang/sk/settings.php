@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Text vodotlače",
+    'watermark_desc' => "Zadajte text, ktorý chcete vytlačiť ako vodotlač v PDF",
+    'watermark_position_text' => "Poloha vodotlače",
+    'watermark_position_desc' => "Vyberte polohu vodotlače v PDF",
+    'watermark_display' => "Zobraziť vodotlač v PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

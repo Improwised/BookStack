@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Inne licencje',
     'license_details' => 'Szczegóły licencji',
 
+    'watermark_text' => "Tekst znaku wodnego",
+    'watermark_desc' => "Ustaw tekst, który chcesz wydrukować jako znak wodny w PDF",
+    'watermark_position_text' => "Pozycja znaku wodnego",
+    'watermark_position_desc' => "Wybierz pozycję znaku wodnego w PDF",
+    'watermark_display' => "Wyświetl znak wodny w PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

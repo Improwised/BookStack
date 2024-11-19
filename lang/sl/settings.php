@@ -286,6 +286,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Besedilo vodnega žiga",
+    'watermark_desc' => "Določite besedilo, ki ga želite natisniti kot vodni žig v PDF",
+    'watermark_position_text' => "Položaj vodnega žiga",
+    'watermark_position_desc' => "Izberite položaj vodnega žiga v PDF",
+    'watermark_display' => "Prikaži vodni žig v PDF",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

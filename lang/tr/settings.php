@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => "Filigran metni",
+    'watermark_desc' => "PDF'de filigran olarak yazdırmak istediğiniz metni ayarlayın",
+    'watermark_position_text' => "Filigran konumu",
+    'watermark_position_desc' => "PDF'deki filigranın konumunu seçin",
+    'watermark_display' => "PDF'de filigranı göster",
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////
