@@ -580,6 +580,7 @@ class ExportTest extends TestCase
         //Get FileSize With Watermark
         setting()->put('watermark-text', 'BookStacks');
         setting()->put('watermark-display', true);
+        setting()->put('watermark-position', 'Top-Left');
 
         $resp = $this->get($book->getUrl('/export/pdf'));
 
