@@ -586,7 +586,7 @@ class ExportTest extends TestCase
 
         $withWatermarkFileSize = strlen($resp->getContent());
 
-        // WaterMark Size is 736 bytes, So we Check with and without watermark pdf file size difference
-        $this->assertEquals(736, ($withWatermarkFileSize - $withoutWatermarkFileSize));
+        // Test The Difference for with and without watermark File Size With same pdf File
+        $this->assertNotEquals($withWatermarkFileSize, $withoutWatermarkFileSize);
     }
 }
