@@ -575,7 +575,7 @@ class ExportTest extends TestCase
         //Get FileSize Without Watermark
         $resp = $this->get($book->getUrl('/export/pdf'));
 
-        $withoutWatermarkFileSize = $resp->headers->get('Content-Length');
+        $withoutWatermarkFileSize = strlen($resp->getContent());
 
         //Get FileSize With Watermark
         setting()->put('watermark-text', 'BookStacks');
@@ -584,7 +584,7 @@ class ExportTest extends TestCase
 
         $resp = $this->get($book->getUrl('/export/pdf'));
 
-        $withWatermarkFileSize = $resp->headers->get('Content-Length');
+        $withWatermarkFileSize = strlen($resp->getContent());
 
         // WaterMark Size is 736 bytes, So we Check with and without watermark pdf file size difference
         $this->assertEquals(736, ($withWatermarkFileSize - $withoutWatermarkFileSize));
