@@ -5,6 +5,7 @@ namespace BookStack\Entities\Tools;
 use BookStack\Exceptions\PdfExportException;
 use Knp\Snappy\Pdf as SnappyPdf;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
@@ -56,12 +57,35 @@ class PdfGenerator
 
     protected function renderUsingDomPdf(string $html): string
     {
-        $options = config('exports.dompdf');
+        $options = new Options(config('exports.dompdf'));
         $domPdf = new Dompdf($options);
         $domPdf->setBasePath(base_path('public'));
 
         $domPdf->loadHTML($this->convertEntities($html));
         $domPdf->render();
+
+        // Check watermark display is enable or not in settings
+        if (setting('watermark-display')) {
+            //Add WaterMark in pdf;
+            $domPdf->getCanvas()->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+                $font = $fontMetrics->getFont('times');
+                $text = setting('watermark-text');
+
+                $fontSize = 30;
+                $canvas->set_opacity(0.15);
+
+                // Get the width and height of the page
+                $w = $canvas->get_width();
+                $h = $canvas->get_height();
+
+                // set position of watermark based on watermark position in settings
+                $x = \Str::contains(setting('watermark-position'), 'Right') ? $w - $fontMetrics->getTextWidth($text, $font, $fontSize) - 20 : 20;
+                $y = \Str::contains(setting('watermark-position'), 'Bottom') ? $h - $fontMetrics->getFontHeight($font, $fontSize) - 10 : 10;
+
+                // Add the watermark text
+                $canvas->text($x, $y, $text, $font, $fontSize, array(0, 0, 0), '', '', 0);
+            });
+        }
 
         return (string) $domPdf->output();
     }

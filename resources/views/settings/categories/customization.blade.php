@@ -163,7 +163,36 @@
                 </div>
                 <p class="small text-right">{{ trans('settings.app_custom_html_disabled_notice') }}</p>
             </div>
+            <div class="grid half gap-xl items-center">
+                <div>
+                    <label class="setting-list-label" for="setting-watermark-text">{{ trans('settings.watermark_text') }}</label>
+                    <p class="small">{{ trans('settings.watermark_desc') }}</p>
+                </div>
+                <div>
+                    <input type="text" value="{{ setting('watermark-text', 'BookStack') }}" name="setting-watermark-text" id="setting-watermark-text">
 
+                    @include('form.toggle-switch', [
+                        'name' => 'setting-watermark-display',
+                        'value' => setting('watermark-display'),
+                        'label' => trans('settings.watermark_display'),
+                    ])
+                </div>
+            </div>
+            
+            <div class="grid half gap-xl items-center">
+                <div>
+                    <label class="setting-list-label" for="setting-watermark-position">{{ trans('settings.watermark_position_text') }}</label>
+                    <p class="small">{{ trans('settings.watermark_position_desc') }}</p>
+                </div>
+                <div>
+                    <select name="setting-watermark-position" id="setting-watermark-position" class="mt-m">
+                        <option @if(setting('watermark-position') === 'Top-Left') selected @endif value="Top-Left">Top Left</option>
+                        <option @if(setting('watermark-position') === 'Top-Right') selected @endif value="Top-Right">Top Right</option>
+                        <option @if(setting('watermark-position') === 'Bottom-Left') selected @endif value="Bottom-Left">Bottom Left</option>
+                        <option @if(setting('watermark-position') === 'Bottom-Right') selected @endif value="Bottom-Right">Bottom Right</option>
+                    </select>
+                </div>
+            </div>
 
         </div>
 

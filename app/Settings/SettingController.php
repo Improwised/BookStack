@@ -47,6 +47,9 @@ class SettingController extends Controller
         $this->validate($request, [
             'app_logo' => ['nullable', ...$this->getImageValidationRules()],
             'app_icon' => ['nullable', ...$this->getImageValidationRules()],
+            'setting-watermark-display'  => ['nullable','string'],
+            'setting-watermark-text'     => ['nullable','string'],
+            'setting-watermark-position' => ['nullable','string'],
         ]);
 
         $store->storeFromUpdateRequest($request, $category);

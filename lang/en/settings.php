@@ -285,6 +285,12 @@ return [
     'licenses_other' => 'Other Licenses',
     'license_details' => 'License Details',
 
+    'watermark_text' => 'Watermark Text',
+    'watermark_desc' => 'Set Text that you want to print as watermark in PDF',
+    'watermark_position_text' => 'Watermark Position',
+    'watermark_position_desc' => 'Select the position for watermark placed in PDF',
+    'watermark_display' => 'Show Watermark in PDF',
+
     //! If editing translations files directly please ignore this in all
     //! languages apart from en. Content will be auto-copied from en.
     //!////////////////////////////////

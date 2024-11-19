@@ -566,4 +566,26 @@ class ExportTest extends TestCase
         $resp = $this->asEditor()->get($page->getUrl('/export/html'));
         $this->withHtml($resp)->assertElementExists('body.export.export-format-html.export-engine-none');
     }
+
+    public function test_page_export_pdf_watermark_show()
+    {
+        $book = $this->entities->book()->find(1);
+        $this->asEditor();
+
+        //Get FileSize Without Watermark
+        $resp = $this->get($book->getUrl('/export/pdf'));
+
+        $withoutWatermarkFileSize = $resp->headers->get('Content-Length');
+
+        //Get FileSize With Watermark
+        setting()->put('watermark-text', 'BookStacks');
+        setting()->put('watermark-display', true);
+
+        $resp = $this->get($book->getUrl('/export/pdf'));
+
+        $withWatermarkFileSize = $resp->headers->get('Content-Length');
+
+        // WaterMark Size is 736 bytes, So we Check with and without watermark pdf file size difference
+        $this->assertEquals(736, ($withWatermarkFileSize - $withoutWatermarkFileSize));
+    }
 }
