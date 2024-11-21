@@ -318,8 +318,9 @@ export function buildForInput(options) {
     // Set language
     window.tinymce.addI18n(options.language, options.translationMap);
 
-    //Add IMage Manager Plugin
+    // Add IMage Manager Plugin
     window.tinymce.PluginManager.add('imagemanager', getImagemanagerPlugin());
+
     // BookStack Version
     const version = document.querySelector('script[src*="/dist/app.js"]').getAttribute('src').split('?version=')[1];
 
