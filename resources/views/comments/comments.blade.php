@@ -4,6 +4,8 @@
          option:page-comments:count-text="{{ trans('entities.comment_count') }}"
          option:page-comments:wysiwyg-language="{{ $locale->htmlLang() }}"
          option:page-comments:wysiwyg-text-direction="{{ $locale->htmlDirection() }}"
+         option:page-comments:image-upload-error-text="{{ trans('errors.image_upload_error') }}"
+         option:page-comments:server-upload-limit-text="{{ trans('errors.server_upload_limit') }}"
          class="comments-list"
          aria-label="{{ trans('entities.comments') }}">
 
@@ -37,6 +39,7 @@
 
     @if(userCan('comment-create-all') || $commentTree->canUpdateAny())
         @push('body-end')
+            @include('pages.parts.image-manager', ['uploaded_to' => $page->id])
             <script src="{{ versioned_asset('libs/tinymce/tinymce.min.js') }}" nonce="{{ $cspNonce }}" defer></script>
             @include('form.editor-translations')
             @include('entities.selector-popup')

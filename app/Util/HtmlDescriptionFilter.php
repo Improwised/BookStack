@@ -27,6 +27,7 @@ class HtmlDescriptionFilter
         'strong' => [],
         'em' => [],
         'br' => [],
+        'img' => ['src', 'alt'],
     ];
 
     public static function filterFromString(string $html): string

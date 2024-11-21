@@ -318,6 +318,8 @@ export function buildForInput(options) {
     // Set language
     window.tinymce.addI18n(options.language, options.translationMap);
 
+    //Add IMage Manager Plugin
+    window.tinymce.PluginManager.add('imagemanager', getImagemanagerPlugin());
     // BookStack Version
     const version = document.querySelector('script[src*="/dist/app.js"]').getAttribute('src').split('?version=')[1];
 
@@ -343,13 +345,20 @@ export function buildForInput(options) {
         remove_trailing_brs: false,
         statusbar: false,
         menubar: false,
-        plugins: 'link autolink lists',
+        plugins: 'link autolink lists imagemanager',
         contextmenu: false,
-        toolbar: 'bold italic link bullist numlist',
+        toolbar: 'bold italic link bullist numlist imagemanager-insert',
         content_style: getContentStyle(options),
-        file_picker_types: 'file',
-        valid_elements: 'p,a[href|title|target],ol,ul,li,strong,em,br',
+        file_picker_types: 'file image',
+        automatic_uploads: false,
+        valid_elements: 'p,a[href|title|target],ol,ul,li,strong,em,br,+div[pre|img],img[src|alt|width|height|class|style]',
         file_picker_callback: filePickerCallback,
+        paste_preprocess(plugin, args) {
+            const {content} = args;
+            if (content.indexOf('<img src="file://') !== -1) {
+                args.content = '';
+            }
+        },
         init_instance_callback(editor) {
             addCustomHeadContent(editor.getDoc());
 

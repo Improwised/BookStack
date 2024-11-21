@@ -214,4 +214,16 @@ class CommentTest extends TestCase
         $resp->assertSee('window.editor_translations', false);
         $resp->assertSee('component="entity-selector"', false);
     }
+
+    public function test_images_can_add_in_comment()
+    {
+        $this->asEditor();
+        $page = $this->entities->page();
+
+        $this->postJson("/comment/$page->id", [
+            'html' => '<p><a href="http://localhost:8080/uploads/images/gallery/2024-10/4-sm.webp" target="_blank" rel="noopener" data-mce-href="http://localhost:8080/uploads/images/gallery/2024-10/4-sm.webp" data-mce-selected="inline-boundary"><img src="http://localhost:8080/uploads/images/gallery/2024-10/scaled-1680-/4-sm.webp" alt="4.sm.webp" data-mce-src="http://localhost:8080/uploads/images/gallery/2024-10/scaled-1680-/4-sm.webp" data-mce-selected="1"></a></p>',
+        ]);
+
+        $this->assertStringMatchesFormat('%A<p%A><a%A><img src="http://localhost:8080/uploads/images/gallery/%A.webp">%A</p>%A', $page->comments()->first()->html);
+    }
 }

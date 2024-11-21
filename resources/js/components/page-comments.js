@@ -135,7 +135,10 @@ export class PageComments extends Component {
             containerElement: this.formInput,
             darkMode: document.documentElement.classList.contains('dark-mode'),
             textDirection: this.wysiwygTextDirection,
-            translations: {},
+            translations: {
+                imageUploadErrorText: this.$opts.imageUploadErrorText,
+                serverUploadLimitText: this.$opts.serverUploadLimitText,
+            },
             translationMap: window.editor_translations,
         });
 
