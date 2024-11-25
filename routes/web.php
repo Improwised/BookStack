@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/shelves/{slug}/permissions', [PermissionsController::class, 'updateForShelf']);
     Route::post('/shelves/{slug}/copy-permissions', [PermissionsController::class, 'copyShelfPermissionsToBooks']);
     Route::get('/shelves/{slug}/references', [ReferenceController::class, 'shelf']);
+    Route::get('/shelves/{slug}/export/pdf', [EntityControllers\BookshelfExportController::class, 'pdf']);
+    Route::get('/shelves/{slug}/export/html', [EntityControllers\BookshelfExportController::class, 'html']);
+    Route::get('/shelves/{slug}/export/plaintext', [EntityControllers\BookshelfExportController::class, 'plainText']);
+    Route::get('/shelves/{slug}/export/markdown', [EntityControllers\BookshelfExportController::class, 'markdown']);
 
     // Book Creation
     Route::get('/shelves/{shelfSlug}/create-book', [EntityControllers\BookController::class, 'create']);
