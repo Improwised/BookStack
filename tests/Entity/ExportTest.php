@@ -3,10 +3,12 @@
 namespace Tests\Entity;
 
 use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Bookshelf;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Tools\PdfGenerator;
 use BookStack\Exceptions\PdfExportException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -565,5 +567,69 @@ class ExportTest extends TestCase
 
         $resp = $this->asEditor()->get($page->getUrl('/export/html'));
         $this->withHtml($resp)->assertElementExists('body.export.export-format-html.export-engine-none');
+    }
+
+    public function test_bookshelf_text_export()
+    {
+        $bookshelf = $this->entities->shelf();
+        $book = $bookshelf->books()->first();
+        $directPage = $book->directPages()->first();
+        $chapter = $book->chapters()->first();
+
+        $this->entities->updatePage($directPage, ['html' => '<p>My awesome page</p>']);
+        $this->asEditor();
+
+        $resp = $this->get($bookshelf->getUrl('/export/plaintext'));
+        $resp->assertStatus(200);
+        $resp->assertSee($bookshelf->name);
+        $resp->assertSee($book->name);
+        $resp->assertSee($chapter->name);
+        $resp->assertSee($directPage->name);
+        $resp->assertSee('My awesome page');
+        $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $bookshelf->slug . '.txt"');
+    }
+
+    public function test_bookshelf_pdf_export()
+    {
+        $bookshelf = $this->entities->shelf();
+        $this->asEditor();
+
+        $resp = $this->get($bookshelf->getUrl('/export/pdf'));
+        $resp->assertStatus(200);
+        $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $bookshelf->slug . '.pdf"');
+    }
+
+    public function test_bookshelf_html_export()
+    {
+        $bookshelf = $this->entities->shelf();
+        $book = $bookshelf->books()->first();
+
+        $this->asEditor();
+
+        $resp = $this->get($bookshelf->getUrl('/export/html'));
+        $resp->assertStatus(200);
+        $resp->assertSee($bookshelf->name);
+        $resp->assertSee($book->name);
+        $resp->assertSee($bookshelf->description);
+        $resp->assertSee($book->description);
+        $resp->assertHeader('Content-Disposition', 'attachment; filename="' . $bookshelf->slug . '.html"');
+    }
+
+    public function test_bookshelf_markdown_export()
+    {
+        $bookshelf = Bookshelf::query()->whereHas('books', function (Builder $query) {
+            $query->Has('chapters')->Has('pages');
+        })
+        ->with(['books.chapters', 'books.pages'])
+        ->first();
+        $book = $bookshelf->books()->first();
+        $chapter = $book->chapters()->first();
+        $directPage = $book->directPages()->first();
+        $resp = $this->asEditor()->get($bookshelf->getUrl('/export/markdown'));
+
+        $resp->assertSee('# ' . $bookshelf->name);
+        $resp->assertSee('# ' . $book->name);
+        $resp->assertSee('# ' . $chapter->name);
+        $resp->assertSee('# ' . $directPage->name);
     }
 }

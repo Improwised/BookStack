@@ -3,6 +3,7 @@
 namespace BookStack\Entities\Tools;
 
 use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Bookshelf;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Tools\Markdown\HtmlToMarkdown;
@@ -83,6 +84,25 @@ class ExportFormatter
     }
 
     /**
+     * Convert a bookshelf to a self-contained HTML file.
+     *
+     * @throws Throwable
+     */
+    public function bookshelfToContainedHtml(Bookshelf $bookshelf): string
+    {
+        $bookshelfTree = (new BookshelfContents($bookshelf))->getTree(true);
+        $html = view('exports.shelves', [
+            'bookshelf'         => $bookshelf,
+            'bookshelfChildrens' => $bookshelfTree,
+            'format'            => 'pdf',
+            'engine'            => $this->pdfGenerator->getActiveEngine(),
+            'locale'            => user()->getLocale(),
+        ])->render();
+
+        return $this->containHtml($html);
+    }
+
+    /**
      * Convert a page to a PDF file.
      *
      * @throws Throwable
@@ -137,6 +157,22 @@ class ExportFormatter
             'format'       => 'pdf',
             'engine'       => $this->pdfGenerator->getActiveEngine(),
             'locale'       => user()->getLocale(),
+        ])->render();
+
+        return $this->htmlToPdf($html);
+    }
+
+
+    public function bookshelfToPdf(Bookshelf $bookshelf): string
+    {
+        $bookshelfTree = (new BookshelfContents($bookshelf))->getTree(true);
+
+        $html = view('exports.shelves', [
+            'bookshelf'         => $bookshelf,
+            'bookshelfChildrens' => $bookshelfTree,
+            'format'            => 'pdf',
+            'engine'            => $this->pdfGenerator->getActiveEngine(),
+            'locale'            => user()->getLocale(),
         ])->render();
 
         return $this->htmlToPdf($html);
@@ -298,6 +334,23 @@ class ExportFormatter
     }
 
     /**
+     * Convert a book into a plain text string.
+     */
+    public function bookshelfToPlainText(Bookshelf $bookshelf): string
+    {
+        $bookshelfTree = (new BookshelfContents($bookshelf))->getTree(true);
+        $text = $bookshelf->name . "\n" . $bookshelf->description;
+        $text = rtrim($text) . "\n\n";
+
+        $parts = [];
+        foreach ($bookshelfTree as $bookshelfChild) {
+            $parts[] = $this->bookToPlainText($bookshelfChild);
+        }
+
+        return $text . implode("\n\n", $parts);
+    }
+
+    /**
      * Convert a page to a Markdown file.
      */
     public function pageToMarkdown(Page $page): string
@@ -336,6 +389,20 @@ class ExportFormatter
             } else {
                 $text .= $this->pageToMarkdown($bookChild) . "\n\n";
             }
+        }
+
+        return trim($text);
+    }
+
+    /**
+     * Convert a bookshelf into a plain text string.
+     */
+    public function bookshelfToMarkdown(Bookshelf $bookshelf): string
+    {
+        $bookshelfTree = (new BookshelfContents($bookshelf))->getTree(true);
+        $text = '# ' . $bookshelf->name . "\n\n";
+        foreach ($bookshelfTree as $bookshelfChild) {
+            $text .= $this->bookToMarkdown($bookshelfChild) . "\n\n";
         }
 
         return trim($text);
