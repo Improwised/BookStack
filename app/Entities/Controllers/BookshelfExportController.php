@@ -27,7 +27,6 @@ class BookshelfExportController extends Controller
      */
     public function pdf(Request $request, string $bookshelfSlug)
     {
-        dd($request->query());
         $bookshelf = $this->queries->findVisibleBySlugOrFail($bookshelfSlug);
         if ($request['split'] === true) {
             return $this->downloadAllInZip($bookshelf, 'pdf');
