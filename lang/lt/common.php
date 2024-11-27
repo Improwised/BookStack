@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactive',
     'never' => 'Never',
     'none' => 'None',
+    'multiple_or_single' => "Keli arba vienas",
+    'multiple_or_single_description' => "Ar norite atsisiųsti failus į vieną failą arba ZIP archyvą (kelis failus)?",
 
     // Header
     'homepage' => 'Homepage',

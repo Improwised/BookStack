@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Aktif değil',
     'never' => 'Hiçbir zaman',
     'none' => 'Hiçbiri',
+    'multiple_or_single' => "Çoklu veya Tek",
+    'multiple_or_single_description' => "Dosyaları tek bir dosyada mı yoksa ZIP arşivinde mi (birden çok dosya) indirmek istiyorsunuz?",
 
     // Header
     'homepage' => 'Ana sayfa',

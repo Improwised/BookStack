@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Anweithredol',
     'never' => 'Byth',
     'none' => 'Dim un',
+    'multiple_or_single' => "Lluosog neu Unigol",
+    'multiple_or_single_description' => "Eisiau lawrlwytho ffeiliau mewn Un Ffeil neu Archif ZIP (Ffeiliau Lluosog)",
 
     // Header
     'homepage' => 'Tudalen cartref',

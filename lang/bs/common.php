@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactive',
     'never' => 'Never',
     'none' => 'None',
+    'multiple_or_single' => "Više ili jedno",
+    'multiple_or_single_description' => "Želite li preuzeti datoteke u jednoj datoteci ili ZIP arhivu (više datoteka)",
 
     // Header
     'homepage' => 'Homepage',

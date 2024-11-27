@@ -82,6 +82,8 @@ return [
     'status_inactive' => '未激活',
     'never' => '从未',
     'none' => '无',
+    'multiple_or_single' => "多个或单个",
+    'multiple_or_single_description' => "是否希望将文件下载为单个文件或 ZIP 压缩文件（多个文件）？",
 
     // Header
     'homepage' => '主页',

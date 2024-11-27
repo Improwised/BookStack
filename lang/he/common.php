@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'לא פעיל',
     'never' => 'אף פעם',
     'none' => 'ללא',
+    'multiple_or_single' => "מרובה או יחיד",
+    'multiple_or_single_description' => "האם ברצונך להוריד קבצים בקובץ יחיד או בארכיון ZIP (קבצים מרובים)?",
 
     // Header
     'homepage' => 'דף הבית',

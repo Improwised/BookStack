@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inaktiv',
     'never' => 'Aldri',
     'none' => 'Ingen',
+    'multiple_or_single' => "Fleire eller éin",
+    'multiple_or_single_description' => "Ønskjer du å laste ned filer i éin fil eller ein ZIP-arkiv (fleire filer)?",
 
     // Header
     'homepage' => 'Heimeside',

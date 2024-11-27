@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Неактивен',
     'never' => 'Никогда',
     'none' => 'Нет',
+    'multiple_or_single' => "Множественный или одиночный",
+    'multiple_or_single_description' => "Вы хотите скачать файлы в один файл или ZIP-архив (несколько файлов)?",
 
     // Header
     'homepage' => 'Главная страница',

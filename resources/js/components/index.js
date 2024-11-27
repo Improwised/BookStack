@@ -7,6 +7,7 @@ export {AutoSuggest} from './auto-suggest';
 export {AutoSubmit} from './auto-submit';
 export {BackToTop} from './back-to-top';
 export {BookSort} from './book-sort';
+export {BookshelfExportManager} from './bookshelf-export-manager';
 export {ChapterContents} from './chapter-contents';
 export {CodeEditor} from './code-editor';
 export {CodeHighlighter} from './code-highlighter';

@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inaktiv',
     'never' => 'Aldrig',
     'none' => 'Ingen',
+    'multiple_or_single' => "Flere eller enkelt",
+    'multiple_or_single_description' => "Vil du downloade filer i en enkelt fil eller en ZIP-arkiv (flere filer)",
 
     // Header
     'homepage' => 'Forside',

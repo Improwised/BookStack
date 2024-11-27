@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Neaktívny',
     'never' => 'Nikdy',
     'none' => 'Žiadne',
+    'multiple_or_single' => "Višestruko ili pojedinačno",
+    'multiple_or_single_description' => "Chcete stiahnuť súbory do jedného súboru alebo ZIP archívu (viac súborov)?",
 
     // Header
     'homepage' => 'Domovská stránka',

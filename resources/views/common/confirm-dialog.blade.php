@@ -13,8 +13,8 @@
             {{ $slot }}
 
             <div class="text-right">
-                <button type="button" class="button outline" refs="popup@hide">{{ trans('common.cancel') }}</button>
-                <button type="button" class="button" refs="confirm-dialog@confirm">{{ trans('common.continue') }}</button>
+                <button type="button" class="button outline" refs="popup@hide" data-button-type="cancel">{{ trans('common.cancel') }}</button>
+                <button type="button" class="button" refs="confirm-dialog@confirm" data-button-type="confirm">{{ trans('common.continue') }}</button>
             </div>
         </div>
 

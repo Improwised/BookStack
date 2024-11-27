@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Неактивний',
     'never' => 'Ніколи',
     'none' => 'Відсутньо',
+    'multiple_or_single' => "Кілька або Одиничний",
+    'multiple_or_single_description' => "Ви хочете завантажити файли в один файл чи архів ZIP (декілька файлів)?",
 
     // Header
     'homepage' => 'Домашня Сторінка',

@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inativo',
     'never' => 'Nunca',
     'none' => 'Nenhum',
+    'multiple_or_single' => "Múltiplo ou Único",
+    'multiple_or_single_description' => "Deseja baixar os arquivos em um único arquivo ou em um arquivo ZIP (vários arquivos)?",
 
     // Header
     'homepage' => 'Página inicial',

@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Không hoạt động',
     'never' => 'Không bao giờ',
     'none' => 'Không',
+    'multiple_or_single' => "Nhiều hoặc Đơn lẻ",
+    'multiple_or_single_description' => "Bạn có muốn tải tệp trong một tệp hoặc lưu trữ ZIP (nhiều tệp)?",
 
     // Header
     'homepage' => 'Trang chủ',

@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Неактивен',
     'never' => 'Никога',
     'none' => 'Нищо',
+    'multiple_or_single' => "Множество или единично",
+    'multiple_or_single_description' => "Искате ли да изтеглите файлове в един файл или ZIP архив (множество файлове)",
 
     // Header
     'homepage' => 'Начална страница',

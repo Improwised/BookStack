@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Faol emas',
     'never' => 'Hech qachon',
     'none' => 'Yo‘q',
+    'multiple_or_single' => "Ko'p yoki Yagona",
+    'multiple_or_single_description' => "Fayllarni bitta faylda yoki ZIP arxivida (bir nechta fayl) yuklamoqchimisiz?",
 
     // Header
     'homepage' => 'Bosh sahifa',

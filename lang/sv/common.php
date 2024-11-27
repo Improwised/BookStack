@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inaktiv',
     'never' => 'Aldrig',
     'none' => 'Inga',
+    'multiple_or_single' => "Flera eller Enkel",
+    'multiple_or_single_description' => "Vill du ladda ner filer i en enda fil eller ZIP-arkiv (flera filer)?",
 
     // Header
     'homepage' => 'Startsida',

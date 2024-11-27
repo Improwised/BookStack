@@ -129,7 +129,12 @@ export class Dropdown extends Component {
         }
 
         // Hide menu on option click
-        this.container.addEventListener('click', event => {
+        this.container.addEventListener('click', async event => {
+            if (this.menu.getAttribute('data-entity-type') === 'bookshelf') {
+                event.preventDefault();
+                window.$events.emit('bookshelf-export-click', event.target.closest('a').href);
+            }
+
             const possibleChildren = Array.from(this.menu.querySelectorAll('a'));
             if (possibleChildren.includes(event.target)) {
                 this.hide();

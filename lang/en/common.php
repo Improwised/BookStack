@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactive',
     'never' => 'Never',
     'none' => 'None',
+    'multiple_or_single' => "Multiple or Single",
+    'multiple_or_single_description' => "Want to Download Files in Single File or Zip Archive(Multiple Files)",
 
     // Header
     'homepage' => 'Homepage',

@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'غير نشط',
     'never' => 'مطلقاً',
     'none' => 'لا شَيْء',
+    'multiple_or_single' => "متعدد أو واحد",
+    'multiple_or_single_description' => "هل تريد تنزيل الملفات في ملف واحد أو أرشيف Zip (ملفات متعددة)",
 
     // Header
     'homepage' => 'الصفحة الرئيسية',

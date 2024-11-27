@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Mitteaktiivne',
     'never' => 'Mitte kunagi',
     'none' => 'Puudub',
+    'multiple_or_single' => "Mitu või üksik",
+    'multiple_or_single_description' => "Kas soovite failid alla laadida ühte faili või ZIP-arhiivi (mitu faili)?",
 
     // Header
     'homepage' => 'Avaleht',

@@ -157,5 +157,13 @@
 @stop
 
 
+<div component="bookshelf-export-manager">
+    @component('common.confirm-dialog', ['title' => trans('common.multiple_or_single'), 'ref' => 'bookshelf-export-manager@confirm-dialog'])
+        <p>
+            {{ trans('common.multiple_or_single_description') }}
+        </p>
+    @endcomponent
+</div>
+
 
 

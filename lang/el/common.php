@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Αδρανής',
     'never' => 'Ποτέ',
     'none' => 'Κανένας',
+    'multiple_or_single' => "Πολλαπλές ή Μονές",
+    'multiple_or_single_description' => "Θέλετε να κατεβάσετε αρχεία σε ένα μόνο αρχείο ή σε ZIP αρχείο (πολλαπλά αρχεία)",
 
     // Header
     'homepage' => 'Αρχική σελίδα',

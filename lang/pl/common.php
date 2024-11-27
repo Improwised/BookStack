@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Nieaktywny',
     'never' => 'Nigdy',
     'none' => 'Brak',
+    'multiple_or_single' => "Wiele lub pojedynczy",
+    'multiple_or_single_description' => "Chcesz pobrać pliki do jednego pliku lub archiwum ZIP (wiele plików)?",
 
     // Header
     'homepage' => 'Strona domowa',

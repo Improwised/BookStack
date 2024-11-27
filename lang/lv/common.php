@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Neaktīvs',
     'never' => 'Nekad',
     'none' => 'Neviens',
+    'multiple_or_single' => "Vairāki vai viens",
+    'multiple_or_single_description' => "Vai vēlaties lejupielādēt failus vienā failā vai ZIP arhīvā (vairākos failos)?",
 
     // Header
     'homepage' => 'Sākumlapa',

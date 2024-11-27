@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactiv',
     'never' => 'Niciodată',
     'none' => 'Niciunul',
+    'multiple_or_single' => "Multiplu sau Unic",
+    'multiple_or_single_description' => "Doriți să descărcați fișierele într-un singur fișier sau într-un fișier ZIP (mai multe fișiere)?",
 
     // Header
     'homepage' => 'Acasă',

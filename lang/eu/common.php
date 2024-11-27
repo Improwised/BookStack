@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inaktibo',
     'never' => 'Inoiz ez',
     'none' => 'Bat ere ez',
+    'multiple_or_single' => "Anitz edo bakar",
+    'multiple_or_single_description' => "Fitxategiak fitxategi bakar batean edo ZIP artxibo batean (fitxategi anitzak) deskargatu nahi dituzu?",
 
     // Header
     'homepage' => 'Homepage',

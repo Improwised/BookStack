@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactief',
     'never' => 'Nooit',
     'none' => 'Geen',
+    'multiple_or_single' => "Meerdere of Enkele",
+    'multiple_or_single_description' => "Wilt u bestanden downloaden in één bestand of in een ZIP-archief (meerdere bestanden)?",
 
     // Header
     'homepage' => 'Startpagina',

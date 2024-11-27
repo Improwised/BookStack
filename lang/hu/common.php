@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inaktív',
     'never' => 'Soha',
     'none' => 'Egyik sem',
+    'multiple_or_single' => "Több vagy egyetlen",
+    'multiple_or_single_description' => "Szeretné a fájlokat egyetlen fájlba vagy ZIP archívumba (több fájl) letölteni?",
 
     // Header
     'homepage' => 'Kezdőlap',

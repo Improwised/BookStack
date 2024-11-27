@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Ei aktiivinen',
     'never' => 'Ei koskaan',
     'none' => 'Ei mitään',
+    'multiple_or_single' => "Useita tai Yksittäisiä",
+    'multiple_or_single_description' => "Haluatko ladata tiedostot yhteen tiedostoon tai ZIP-arkistoon (useita tiedostoja)?",
 
     // Header
     'homepage' => 'Kotisivu',

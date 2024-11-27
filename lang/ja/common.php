@@ -82,6 +82,8 @@ return [
     'status_inactive' => '無効',
     'never' => '該当なし',
     'none' => 'なし',
+    'multiple_or_single' => "複数または単一",
+    'multiple_or_single_description' => "ファイルを単一ファイルまたはZIPアーカイブ（複数ファイル）でダウンロードしますか？",
 
     // Header
     'homepage' => 'ホームページ',

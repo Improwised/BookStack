@@ -82,6 +82,8 @@ return [
     'status_inactive' => '未啟用',
     'never' => '永不',
     'none' => '無',
+    'multiple_or_single' => "多個或單個",
+    'multiple_or_single_description' => "是否希望將檔案下載為單個檔案或 ZIP 壓縮檔案（多個檔案）？",
 
     // Header
     'homepage' => '首頁',

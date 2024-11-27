@@ -82,6 +82,8 @@ return [
     'status_inactive' => '비활성',
     'never' => '안 함',
     'none' => '없음',
+    'multiple_or_single' => "다중 또는 단일",
+    'multiple_or_single_description' => "파일을 단일 파일 또는 ZIP 아카이브(다중 파일)로 다운로드하시겠습니까?",
 
     // Header
     'homepage' => '홈페이지',

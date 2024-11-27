@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactive',
     'never' => 'Never',
     'none' => 'None',
+    'multiple_or_single' => "Banyak atau Tunggal",
+    'multiple_or_single_description' => "Ingin mengunduh file dalam satu file atau arsip ZIP (beberapa file)?",
 
     // Header
     'homepage' => 'Homepage',

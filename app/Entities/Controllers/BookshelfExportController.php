@@ -2,9 +2,13 @@
 
 namespace BookStack\Entities\Controllers;
 
+use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Bookshelf;
 use BookStack\Entities\Queries\BookshelfQueries;
 use BookStack\Entities\Tools\ExportFormatter;
 use BookStack\Http\Controller;
+use BookStack\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Throwable;
 
 class BookshelfExportController extends Controller
@@ -21,12 +25,17 @@ class BookshelfExportController extends Controller
      *
      * @throws Throwable
      */
-    public function pdf(string $bookshelfSlug)
+    public function pdf(Request $request, string $bookshelfSlug)
     {
+        dd($request->query());
         $bookshelf = $this->queries->findVisibleBySlugOrFail($bookshelfSlug);
-        $pdfContent = $this->exportFormatter->bookshelfToPdf($bookshelf);
+        if ($request['split'] === true) {
+            return $this->downloadAllInZip($bookshelf, 'pdf');
+        } else {
+            $htmlContent = $this->exportFormatter->bookshelfToPdf($bookshelf);
 
-        return $this->download()->directly($pdfContent, $bookshelfSlug . '.pdf');
+            return $this->download()->directly($htmlContent, $bookshelfSlug . '.pdf');
+        }
     }
 
     /**
@@ -34,33 +43,88 @@ class BookshelfExportController extends Controller
      *
      * @throws Throwable
      */
-    public function html(string $bookshelfSlug)
+    public function html(Request $request, string $bookshelfSlug)
     {
         $bookshelf = $this->queries->findVisibleBySlugOrFail($bookshelfSlug);
-        $htmlContent = $this->exportFormatter->bookshelfToContainedHtml($bookshelf);
+        if ($request['split'] === true) {
+            return $this->downloadAllInZip($bookshelf, 'html');
+        } else {
+            $htmlContent = $this->exportFormatter->bookshelfToContainedHtml($bookshelf);
 
-        return $this->download()->directly($htmlContent, $bookshelfSlug . '.html');
+            return $this->download()->directly($htmlContent, $bookshelfSlug . '.html');
+        }
     }
 
     /**
      * Export a book as a plain text file.
      */
-    public function plainText(string $bookshelfSlug)
+    public function plainText(Request $request, string $bookshelfSlug)
     {
         $bookshelf = $this->queries->findVisibleBySlugOrFail($bookshelfSlug);
-        $textContent = $this->exportFormatter->bookshelfToPlainText($bookshelf);
+        if ($request['split'] === true) {
+            return $this->downloadAllInZip($bookshelf, 'txt');
+        } else {
+            $htmlContent = $this->exportFormatter->bookshelfToPlainText($bookshelf);
 
-        return $this->download()->directly($textContent, $bookshelfSlug . '.txt');
+            return $this->download()->directly($htmlContent, $bookshelfSlug . '.txt');
+        }
     }
 
     /**
      * Export a book as a markdown file.
      */
-    public function markdown(string $bookshelfSlug)
+    public function markdown(Request $request, string $bookshelfSlug)
     {
         $bookshelf = $this->queries->findVisibleBySlugOrFail($bookshelfSlug);
-        $textContent = $this->exportFormatter->bookshelfToMarkdown($bookshelf);
+        if ($request['split'] === true) {
+            return $this->downloadAllInZip($bookshelf, 'md');
+        } else {
+            $htmlContent = $this->exportFormatter->bookshelfToMarkdown($bookshelf);
 
-        return $this->download()->directly($textContent, $bookshelfSlug . '.md');
+            return $this->download()->directly($htmlContent, $bookshelfSlug . '.md');
+        }
+    }
+
+    public function downloadAllInZip(Bookshelf $bookshelf, string $type)
+    {
+        $bookshelf->load('books');
+
+        $zip = new \ZipArchive();
+
+        $tempFilePath = storage_path('app/public/' . $bookshelf->slug . '.zip');
+        if ($zip->open($tempFilePath, \ZipArchive::CREATE) === true) {
+            foreach ($bookshelf->books as $book) {
+                $pdfContent = $this->getContentBasedOntype($book, $type);
+                $zip->addFromString($book->slug, $pdfContent);
+            }
+            $zip->close();
+
+            return Response::download($tempFilePath)->deleteFileAfterSend(true);
+        }
+    }
+
+    public function getContentBasedOntype(Book $book, string $type)
+    {
+        switch ($type) {
+            case 'pdf':
+                return $this->exportFormatter->bookToPdf($book);
+                break;
+
+
+            case 'html':
+                return $this->exportFormatter->bookToContainedHtml($book);
+                break;
+
+            case 'txt':
+                return $this->exportFormatter->bookToPlainText($book);
+                break;
+
+            case 'md':
+                return $this->exportFormatter->bookToMarkdown($book);
+                break;
+            default:
+                return "";
+                break;
+        }
     }
 }

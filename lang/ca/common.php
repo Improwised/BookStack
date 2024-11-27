@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'Inactiu',
     'never' => 'Mai',
     'none' => 'Cap',
+    'multiple_or_single' => "Múltiple o únic",
+    'multiple_or_single_description' => "Voleu descarregar fitxers en un únic fitxer o en un arxiu ZIP (diversos fitxers)",
 
     // Header
     'homepage' => 'Pàgina d’inici',

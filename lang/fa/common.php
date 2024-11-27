@@ -82,6 +82,8 @@ return [
     'status_inactive' => 'غیر فعال',
     'never' => 'هرگز',
     'none' => 'هیچکدام',
+    'multiple_or_single' => "چندگانه یا تکی",
+    'multiple_or_single_description' => "آیا می‌خواهید فایل‌ها را در یک فایل واحد یا آرشیو ZIP (چندین فایل) دانلود کنید؟",
 
     // Header
     'homepage' => 'صفحه اصلی',
