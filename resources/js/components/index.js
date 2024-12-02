@@ -19,6 +19,7 @@ export {Dropdown} from './dropdown';
 export {DropdownSearch} from './dropdown-search';
 export {Dropzone} from './dropzone';
 export {EditorToolbox} from './editor-toolbox';
+export {EncryptDecryptManager} from './encrypt-decrypt-manager';
 export {EntityPermissions} from './entity-permissions';
 export {EntitySearch} from './entity-search';
 export {EntitySelector} from './entity-selector';

@@ -53,6 +53,9 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
+    'restrict' => 'Restrict',
+    'encrypt' => 'Encrypt',
+    'decrypt' => 'Decrypt',
 
     // Sort Options
     'sort_options' => 'Sort Options',

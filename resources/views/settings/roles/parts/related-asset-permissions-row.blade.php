@@ -1,4 +1,4 @@
-<div class="item-list-row flex-container-row items-center wrap">
+<div class="item-list-row flex-container-row items-center inline">
     <div class="flex py-s px-m min-width-s">
         <strong>{{ $title }}</strong> <br>
         <a href="#" refs="permissions-table@toggle-row" class="text-small text-link">{{ trans('common.toggle_all') }}</a>
@@ -22,5 +22,7 @@
         @include('settings.roles.parts.checkbox', ['permission' => $permissionPrefix . '-delete-own', 'label' => trans('settings.role_own')])
         <br>
         @include('settings.roles.parts.checkbox', ['permission' => $permissionPrefix . '-delete-all', 'label' => trans('settings.role_all')])
+    </div>
+    <div class="flex py-s px-m min-width-xxs">
     </div>
 </div>

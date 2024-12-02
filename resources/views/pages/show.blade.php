@@ -78,6 +78,7 @@
 @stop
 
 @section('right')
+<div component="encrypt-decrypt-manager" option:encrypt-decrypt-manager:url="{{ $page->getUrl() }}" option:encrypt-decrypt-manager:page-name="{{ $page->name }}" option:encrypt-decrypt-manager:page-encrypted="{{ $page->is_encrypted }}">
     <div id="page-details" class="entity-details mb-xl">
         <h5>{{ trans('common.details') }}</h5>
         <div class="blended-links">
@@ -147,7 +148,7 @@
 
             {{--User Actions--}}
             @if(userCan('page-update', $page))
-                <a href="{{ $page->getUrl('/edit') }}" data-shortcut="edit" class="icon-list-item">
+                <a href="{{ $page->getUrl('/edit') }}" data-shortcut="edit" class="icon-list-item" @if($page->is_encrypted) refs="encrypt-decrypt-manager@edit-btn" @endif>
                     <span>@icon('edit')</span>
                     <span>{{ trans('common.edit') }}</span>
                 </a>
@@ -182,6 +183,33 @@
                     <span>{{ trans('common.delete') }}</span>
                 </a>
             @endif
+            <div>
+                @if(userCan('page-encrypt', $page))
+                    <a data-shortcut="encrypt" class="icon-list-item" refs="encrypt-decrypt-manager@encrypt-btn">
+                        <span>@icon($page->is_encrypted ? 'unlock' : 'lock')</span>
+                        <span>{{ trans($page->is_encrypted ? 'common.decrypt' : 'common.encrypt') }}</span>
+                    </a>
+                @endif
+
+                <hr class="primary-background"/>
+                @if($page->is_encrypted)
+                <div class="form-group collapsible" component="collapsible" id="logo-control">
+                    <button refs="collapsible@trigger" type="button" class="collapse-title text-link icon-list-item" aria-expanded="false">
+                            <a data-shortcut="encrypt" class="icon-list-item p-xxs">
+                                <span>@icon('watch')</span>
+                                <span>{{ trans('common.view') }}</span>
+                            </a>
+                    </button>
+                    <div refs="collapsible@content" class="collapse-content">
+                        <div class="flex-container-row">
+                            <input type="password" name="page-decrypt-password" id="page-decrypt-password" refs="encrypt-decrypt-manager@decrypt-password-input" placeholder="Enter a Password">
+                            <a class="icon-list-item px-m py-xxs" refs="encrypt-decrypt-manager@decrypt-submit-btn"><span>@icon('check')</span></a>
+                        </div>
+                        <span class="text-neg text-small hidden" refs="encrypt-decrypt-manager@invalid-password">Invalid password</span>
+                    </div>
+                </div>
+                @endif
+            </div>
 
             <hr class="primary-background"/>
 
@@ -197,4 +225,13 @@
         </div>
 
     </div>
+</div>
 @stop
+
+@component('common.confirm-dialog', ['title' => trans($page->is_encrypted ? 'common.decrypt' : 'common.encrypt'), 'class' => 'encrypt-decrypt-dialog'])
+        <p>
+            <input type="password" id="page-encrypt-password" name="encrypt-password" placeholder="Enter a password" autocomplete="off">
+            <br>
+            <span class="text-neg text-small hidden invalid-password">Invalid Password</span>
+        </p>
+@endcomponent

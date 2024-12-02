@@ -8,6 +8,7 @@ use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Entity;
 use BookStack\Entities\Models\HasCoverImage;
 use BookStack\Entities\Models\HasHtmlDescription;
+use BookStack\Entities\Models\Page;
 use BookStack\Entities\Queries\PageQueries;
 use BookStack\Exceptions\ImageUploadException;
 use BookStack\References\ReferenceStore;
@@ -75,7 +76,10 @@ class BaseRepo
         }
 
         $entity->rebuildPermissions();
-        $entity->indexForSearch();
+        if((array_key_exists('is_encrypted',$input) && $input['is_encrypted'] == true) || !(($entity InstanceOf Page) && $entity->is_encrypted == true))
+        {
+            $entity->indexForSearch();
+        }
         $this->referenceStore->updateForEntity($entity);
 
         if ($oldUrl !== $entity->getUrl()) {

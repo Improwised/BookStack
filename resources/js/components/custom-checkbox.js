@@ -27,6 +27,7 @@ export class CustomCheckbox extends Component {
 
     stateChange() {
         const checked = this.checkbox.checked ? 'true' : 'false';
+        this.checkbox.value = this.checkbox.checked ? 'true' : 'false';
         this.display.setAttribute('aria-checked', checked);
     }
 

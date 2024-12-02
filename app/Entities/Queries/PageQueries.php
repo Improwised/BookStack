@@ -15,7 +15,7 @@ class PageQueries implements ProvidesEntityQueries
     ];
     protected static array $listAttributes = [
         'name', 'id', 'slug', 'book_id', 'chapter_id', 'draft',
-        'template', 'text', 'created_at', 'updated_at', 'priority', 'owned_by',
+        'template', 'text', 'created_at', 'updated_at', 'priority', 'owned_by', 'is_encrypted',
     ];
 
     public function start(): Builder

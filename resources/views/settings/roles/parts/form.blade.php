@@ -60,7 +60,7 @@
         <div component="permissions-table"
              option:permissions-table:cell-selector=".item-list-row > div"
              option:permissions-table:row-selector=".item-list-row"
-             class="item-list toggle-switch-list">
+             class="item-list toggle-switch-list permission-asset-table">
             <div class="item-list-row flex-container-row items-center hide-under-m bold">
                 <div class="flex py-s px-m min-width-s">
                     <a href="#" refs="permissions-table@toggle-all" class="text-small text-link">{{ trans('common.toggle_all') }}</a>
@@ -69,6 +69,7 @@
                 <div refs="permissions-table@toggle-column" class="flex py-s px-m min-width-xxs">{{ trans('common.view') }}</div>
                 <div refs="permissions-table@toggle-column" class="flex py-s px-m min-width-xxs">{{ trans('common.edit') }}</div>
                 <div refs="permissions-table@toggle-column" class="flex py-s px-m min-width-xxs">{{ trans('common.delete') }}</div>
+                <div refs="permissions-table@toggle-column" class="flex py-s px-m min-width-xxs">Encrypt</div>
             </div>
             @include('settings.roles.parts.asset-permissions-row', ['title' => trans('entities.shelves'), 'permissionPrefix' => 'bookshelf'])
             @include('settings.roles.parts.asset-permissions-row', ['title' => trans('entities.books'), 'permissionPrefix' => 'book'])

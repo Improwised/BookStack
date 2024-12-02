@@ -17,7 +17,12 @@
         @endif
     @endif
 
-    <p class="text-muted break-text">{{ $entity->preview_content ?? $entity->getExcerpt() }}</p>
+    
+    @if($entity->is_encrypted)
+        <span>@icon('lock')</span>
+    @else
+        <p class="text-muted break-text">{{ $entity->preview_content ?? $entity->getExcerpt() }}</p>
+    @endif
 </div>
 
 @if(($showTags ?? false) && $entity->tags->count() > 0)

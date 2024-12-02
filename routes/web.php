@@ -112,6 +112,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/books/{bookSlug}/page/{pageSlug}/revisions/{revId}/delete', [EntityControllers\PageRevisionController::class, 'destroy']);
     Route::delete('/page-revisions/user-drafts/{pageId}', [EntityControllers\PageRevisionController::class, 'destroyUserDraft']);
 
+
+    // Encrypt - Decrypt
+    Route::post('/books/{bookSlug}/page/{pageSlug}/encrypt', [EntityControllers\PageController::class, 'encrypt']);
+    Route::post('/books/{bookSlug}/page/{pageSlug}/decrypt', [EntityControllers\PageController::class, 'decrypt']);
+    Route::put('/books/{bookSlug}/page/{pageSlug}/update-encryption', [EntityControllers\PageController::class, 'updateEncryption']);
+    Route::put('/books/{bookSlug}/page/{pageSlug}/update-decryption', [EntityControllers\PageController::class, 'updateDecryption']);
+    
+
     // Chapters
     Route::get('/books/{bookSlug}/chapter/{chapterSlug}/create-page', [EntityControllers\PageController::class, 'create']);
     Route::post('/books/{bookSlug}/chapter/{chapterSlug}/create-guest-page', [EntityControllers\PageController::class, 'createAsGuest']);
