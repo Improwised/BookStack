@@ -100,8 +100,8 @@ class PageRepo
         $oldMarkdown = $page->markdown;
 
         //Make Hashable decrypt Password
-        if (array_key_exists('decrypt_password', $input)) {
-            $input['decrypt_password'] = Hash::make($input['decrypt_password']);
+        if (array_key_exists('password', $input)) {
+            $input['password'] = Hash::make($input['password']);
         }
 
         $this->updateTemplateStatusAndContentFromInput($page, $input);
@@ -308,7 +308,7 @@ class PageRepo
     public function decryptPageContent(array $data, Page $page)
     {
         if ($page->is_encrypted) {
-            if (Hash::check($data['decrypt_password'], $page->decrypt_password)) {
+            if (Hash::check($data['password'], $page->password)) {
                 $content = decrypt($data['content']);
                 return response()->json(['content' => $content,'message' => 'Decrypted SuccessFully','success' => true]);
             } else {

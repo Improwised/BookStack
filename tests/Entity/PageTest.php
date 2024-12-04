@@ -375,7 +375,7 @@ class PageTest extends TestCase
 
         $data = [
             'html' => $encryptedHtml,
-            'decrypt_password' => 'BlaBLa@123',
+            'password' => 'BlaBLa@123',
             'is_encrypted' => true,
         ];
 
@@ -415,7 +415,7 @@ class PageTest extends TestCase
         // Update Encrypt Data
         $data = [
             'html' => $encryptedHtml,
-            'decrypt_password' => $decryptPassword,
+            'password' => $decryptPassword,
             'is_encrypted' => true,
         ];
 
@@ -425,7 +425,7 @@ class PageTest extends TestCase
 
         // Decrypt The Page Content
         $decryptData = [
-            'decrypt_password' => $decryptPassword,
+            'password' => $decryptPassword,
             'content'          => $page->html,
         ];
 
@@ -439,7 +439,7 @@ class PageTest extends TestCase
         $decryptData = [
             'html' => $pageDecryptResp->json('content'),
             'is_encrypted' => false,
-            'decrypt_password' => $decryptPassword,
+            'password' => $decryptPassword,
         ];
 
         $pageDecryptUpdateResponse = $this->put("$url/update-decryption", $decryptData);

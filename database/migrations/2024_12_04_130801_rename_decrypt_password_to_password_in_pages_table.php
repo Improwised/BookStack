@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->boolean('is_encrypted')->after('priority')->default(false);
-            $table->text('decrypt_password')->after('is_encrypted');
+            $table->renameColumn('decrypt_password','password');
         });
     }
 

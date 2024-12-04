@@ -201,7 +201,6 @@ class PageController extends Controller
 
         if (session()->get('is_decrypt') == 'FOR_EDIT') {
             $page->html = decrypt($page->html);
-            session()->remove('is_decrypt');
         }
 
         $editorData = new PageEditorData($page, $this->entityQueries, $request->query('editor', ''));
@@ -495,7 +494,7 @@ class PageController extends Controller
     {
         $this->validate($request, [
             'html' => ['required'],
-            'decrypt_password' => ['required'],
+            'password' => ['required'],
             'is_encrypted' => ['required','boolean'],
         ]);
 
@@ -521,7 +520,7 @@ class PageController extends Controller
     public function validateDecryptPassword(Request $request, string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
-        return Hash::check($request->get('decrypt_password'), $page->decrypt_password) ?
+        return Hash::check($request->get('password'), $page->password) ?
                                                                         response()->json(['success' => true]) :
                                                                         response()->json(['success' => false]);
     }

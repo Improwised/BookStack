@@ -17,24 +17,18 @@ return new class extends Migration
         $adminRoleId = DB::table('roles')->where('display_name', '=', 'admin')->first()->id;
 
         // Create & attach new entity permissions
-        $entities = ['Book', 'Page', 'Chapter', 'bookshelf'];
-        $ops = ['Restrict All', 'Restrict Own','Encrypt All','Encrypt Own'];
-        foreach ($entities as $entity) {
-            foreach ($ops as $op) {
-                if (($op === 'Encrypt All' || $op === 'Encrypt Own') && $entity !== 'Page') {
-                    break;
-                }
-                $permissionId = DB::table('role_permissions')->insertGetId([
-                    'name'         => strtolower($entity) . '-' . strtolower(str_replace(' ', '-', $op)),
-                    'display_name' => $op . ' ' . $entity . 's',
-                    'created_at'   => Carbon::now()->toDateTimeString(),
-                    'updated_at'   => Carbon::now()->toDateTimeString(),
-                ]);
-                DB::table('permission_role')->insert([
-                    'role_id'       => $adminRoleId,
-                    'permission_id' => $permissionId,
-                ]);
-            }
+        $ops = ['Encrypt All','Encrypt Own'];
+        foreach ($ops as $op) {
+            $permissionId = DB::table('role_permissions')->insertGetId([
+                'name'         => strtolower('Page') . '-' . strtolower(str_replace(' ', '-', $op)),
+                'display_name' => $op . ' ' . 'Page' . 's',
+                'created_at'   => Carbon::now()->toDateTimeString(),
+                'updated_at'   => Carbon::now()->toDateTimeString(),
+            ]);
+            DB::table('permission_role')->insert([
+                'role_id'       => $adminRoleId,
+                'permission_id' => $permissionId,
+            ]);
         }
     }
 

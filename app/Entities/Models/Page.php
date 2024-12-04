@@ -33,7 +33,7 @@ class Page extends BookChild
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'priority','is_encrypted','decrypt_password','is_decrypt'];
+    protected $fillable = ['name', 'priority','is_encrypted','password'];
 
     public string $textField = 'text';
     public string $htmlField = 'html';
