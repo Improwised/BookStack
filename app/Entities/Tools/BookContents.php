@@ -42,6 +42,12 @@ class BookContents
     public function getTree(bool $showDrafts = false, bool $renderPages = false): Collection
     {
         $pages = $this->getPages($showDrafts, $renderPages);
+
+        // Check For Encrypted Pages
+        $pages->each(function($page){
+            $page->html = $page->is_encrypted ? '<p>This page is encrypted</p>' : $page->html;
+        });
+
         $chapters = $this->book->chapters()->scopes('visible')->get();
         $all = collect()->concat($pages)->concat($chapters);
         $chapterMap = $chapters->keyBy('id');

@@ -11,9 +11,6 @@
             @if($comments->enabled())
                 <button type="button" refs="editor-toolbox@tab-button" data-tab="comments" title="{{ trans('entities.comments') }}">@icon('comment')</button>
             @endif
-            <!-- @if(userCan('page-encrypt',$page))
-                <button type="button" refs="editor-toolbox@tab-button" data-tab="encrypt" title="{{ trans('entities.comments') }}">@icon('lock')</button>
-            @endif -->
         </div>
     </div>
 

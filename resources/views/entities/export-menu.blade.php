@@ -1,6 +1,7 @@
 <div component="dropdown"
      class="dropdown-container"
-     id="export-menu">
+     id="export-menu"
+     refs="{{$refs ?? ''}}">
 
     <div refs="dropdown@toggle"
          class="icon-list-item"

@@ -1,3 +1,4 @@
+import { update } from 'idb-keyval';
 import {Component} from './component';
 
 export class EncryptDecryptManager extends Component 
@@ -10,6 +11,7 @@ export class EncryptDecryptManager extends Component
         this.decryptPassword = this.$refs.decryptPasswordInput;
         this.editBtn = this.$refs.editBtn;
         this.invalidMsg = this.$refs.invalidPassword;
+        this.exportMenu = this.$refs.exportMenu;
 
         this.url = this.$opts.url;
         this.pageName = this.$opts.pageName;
@@ -17,10 +19,9 @@ export class EncryptDecryptManager extends Component
 
         this.encryptDialog = document.querySelector('.encrypt-decrypt-dialog');
         this.contentPart = document.querySelector('.page-content');
-        this.pageContentPTags = document.querySelector('.page-content').querySelectorAll('p');
-        this.pageContent = document.querySelector('.page-content').querySelector('div[dir="auto"]');
         this.pageDetailContent = document.querySelector('.page-content').querySelector('.page-detail-content');
-        this.encryptIcon = document.querySelector('.page-content').querySelector('.encrypt-icon')
+        this.encryptInfo = document.querySelector('.page-content').querySelector('.encrypt-message');
+
 
         this.invalidPassword = this.encryptDialog.querySelector('.invalid-password');
         this.passwordInput = this.encryptDialog.querySelector('#page-encrypt-password');
@@ -65,6 +66,10 @@ export class EncryptDecryptManager extends Component
             this.passwordInput.addEventListener("input",()=>{
                 this.invalidPassword.classList.add("hidden");
             })
+
+            this.exportMenu.querySelectorAll('a').forEach(anchor => {
+                anchor.addEventListener("click", event => this.decryptForExport(event,anchor));
+            });
         }
     }
 
@@ -92,7 +97,7 @@ export class EncryptDecryptManager extends Component
         }
     }
 
-    decryptContent(decryptPassword,updateDecryption = false,forEdit = false)
+    decryptContent(decryptPassword,updateDecryption = false)
     {
         if(decryptPassword.length > 6)
         {
@@ -101,58 +106,37 @@ export class EncryptDecryptManager extends Component
                 content: this.pageDetailContent.innerHTML,
                 decrypt_password: decryptPassword,
             }
-            if(!this.is_decrypt)
-            {
-                window.$http.post(`${this.url}/decrypt`, decryptData).then(async resp=>{
-                    if(resp.data.success)
-                    {
-                        // let contents = this.changePageContent(resp.data.contents);
-                        this.decryptPassword.value = "";
-                        this.pageDetailContent.innerHTML = resp.data.content;
-    
-                        if(updateDecryption)
-                        {
-                            const data = {
-                                'html' : resp.data.content,
-                                'is_encrypted' : forEdit,
-                                'is_decrypt' : forEdit,
-                                'decrypt_password' : decryptPassword,
-                            };
-                            this.updateData(data,false,forEdit);
-                        }
-                        else
-                        {
-                            this.is_decrypt = true;
-                            this.encryptIcon.classList.add("hidden");
-                            this.pageDetailContent.classList.remove("hidden");
-                        }
+            window.$http.post(`${this.url}/decrypt`, decryptData).then(async resp => {
+                if (resp.data.success) {
+
+                    this.decryptPassword.value = "";
+                    this.pageDetailContent.innerHTML = resp.data.content;
+
+                    if (updateDecryption) {
+                        const data = {
+                            'html': resp.data.content,
+                            'is_encrypted': false,
+                            'decrypt_password': decryptPassword,
+                        };
+                        this.updateData(data, false, false);
                     }
-                    else
-                    {
-                        if(forEdit || updateDecryption)
-                        {
-                            this.invalidPassword.innerHTML = resp.data.message;
-                            this.invalidPassword.classList.remove("hidden");
-                            this.openDialog();
-                        }
-                        else
-                        {
-                            this.invalidMsg.innerHTML = resp.data.message;
-                            this.invalidMsg.classList.remove("hidden");
-                        }
+                    else {
+                        this.is_decrypt = true;
+                        this.encryptInfo.classList.add("hidden");
                     }
-                });
-            }
-            else
-            {
-                const data = {
-                    'html' : this.pageDetailContent.innerHTML,
-                    'is_encrypted' : forEdit,
-                    'is_decrypt' : forEdit,
-                    'decrypt_password' : decryptPassword,
-                };
-                this.updateData(data,false,forEdit);
-            }
+                }
+                else {
+                    if (updateDecryption) {
+                        this.invalidPassword.innerHTML = resp.data.message;
+                        this.invalidPassword.classList.remove("hidden");
+                        this.openDialog();
+                    }
+                    else {
+                        this.invalidMsg.innerHTML = resp.data.message;
+                        this.invalidMsg.classList.remove("hidden");
+                    }
+                }
+            });
             
         }
     }
@@ -171,30 +155,19 @@ export class EncryptDecryptManager extends Component
         const response = await this.openDialog();
         if(response)
         {
-            this.decryptContent(this.encryptDialog.querySelector('#page-encrypt-password').value,true,true);
+            const password = this.encryptDialog.querySelector('#page-encrypt-password').value;
+
+            const data = {
+                'is_decrypt' : 'FOR_EDIT',
+                'decrypt_password' : password,
+            };
+
+            this.updateData(data,false,true,this.editBtn.getAttribute('href'))
         }
     }
 
-    getPageContent()
-    {
-        const contents = [];
 
-        this.pageContentPTags.forEach(element => {
-            contents.push(element.innerHTML);
-        });
-        return contents;
-    }
-
-    changePageContent(contents)
-    {
-        this.pageContentPTags.forEach((element,index) => {
-            element.innerHTML = contents[index];
-            contents[index] = element.outerHTML;
-        });
-        return contents;
-    }
-
-    async updateData(data,updateEncryption,forEdit)
+    async updateData(data,updateEncryption,tmpDecrypt = false,link = this.url)
     {
         try{
             if(updateEncryption)
@@ -211,9 +184,9 @@ export class EncryptDecryptManager extends Component
                 window.$http.put(`${this.url}/update-decryption`,data).then(resp=>
                 {
                     if(resp.data.success){
-                        if(forEdit)
+                        if(tmpDecrypt)
                         {
-                            window.location.href = this.editBtn.getAttribute('href');
+                            window.location.href = link;
                         }
                         else
                         {
@@ -232,6 +205,36 @@ export class EncryptDecryptManager extends Component
         catch(error)
         {
             console.log(error);
+        }
+    }
+    
+    async decryptForExport(event,element)
+    {
+        event.preventDefault();
+        const link = element.getAttribute('href');
+        const response = await this.openDialog();
+        if(response)
+        {
+            const password = this.encryptDialog.querySelector('#page-encrypt-password').value;
+
+            window.$http.post(`${this.url}/validate-password`,{'decrypt_password' : password}).then(async resp=>{
+
+                if(resp.data.success)
+                {
+                    const data = {
+                        'is_decrypt' : 'FOR_EXPORT',
+                        'decrypt_password' : password,
+                    };
+                    
+                    this.updateData(data,false,true,link);
+                }
+                else
+                {
+                    this.invalidPassword.innerHTML = 'Invalid Password';
+                    this.invalidPassword.classList.remove("hidden");
+                    this.decryptForExport(event);
+                }
+            });
         }
     }
 }

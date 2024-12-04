@@ -2,6 +2,7 @@
 
 namespace BookStack\Entities\Controllers;
 
+use BookStack\Entities\Models\Page;
 use BookStack\Entities\Queries\PageQueries;
 use BookStack\Entities\Tools\ExportFormatter;
 use BookStack\Entities\Tools\PageContent;
@@ -28,6 +29,7 @@ class PageExportController extends Controller
     public function pdf(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
+        $this->validatePageEncrypted($page);
         $page->html = (new PageContent($page))->render();
         $pdfContent = $this->exportFormatter->pageToPdf($page);
 
@@ -43,6 +45,7 @@ class PageExportController extends Controller
     public function html(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
+        $this->validatePageEncrypted($page);
         $page->html = (new PageContent($page))->render();
         $containedHtml = $this->exportFormatter->pageToContainedHtml($page);
 
@@ -57,7 +60,8 @@ class PageExportController extends Controller
     public function plainText(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
-        $pageText = $this->exportFormatter->pageToPlainText($page);
+        $this->validatePageEncrypted($page);
+        $pageText = $this->exportFormatter->pageToPlainText($page,$page->is_encrypted);
 
         return $this->download()->directly($pageText, $pageSlug . '.txt');
     }
@@ -70,8 +74,28 @@ class PageExportController extends Controller
     public function markdown(string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
+        $this->validatePageEncrypted($page);
         $pageText = $this->exportFormatter->pageToMarkdown($page);
 
         return $this->download()->directly($pageText, $pageSlug . '.md');
+    }
+
+    public function validatePageEncrypted(Page $page)
+    {
+        
+        if($page->is_encrypted)
+        {
+            if(session()->get('is_decrypt') == 'FOR_EXPORT')
+            {
+                $page->html = decrypt($page->html);
+                session()->put('is_decrypt','NONE');
+                return true;
+            }
+            else
+            {
+                return redirect($page->getUrl());
+            }
+        }
+        return true;
     }
 }

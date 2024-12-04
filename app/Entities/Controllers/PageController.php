@@ -199,6 +199,12 @@ class PageController extends Controller
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
         $this->checkOwnablePermission('page-update', $page);
 
+        if(session()->get('is_decrypt') == 'FOR_EDIT')
+        {
+            $page->html = decrypt($page->html);
+            session()->remove('is_decrypt');
+        }
+
         $editorData = new PageEditorData($page, $this->entityQueries, $request->query('editor', ''));
         if ($editorData->getWarnings()) {
             $this->showWarningNotification(implode("\n", $editorData->getWarnings()));
@@ -223,10 +229,10 @@ class PageController extends Controller
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
         $this->checkOwnablePermission('page-update', $page);
 
-        if($page->is_decrypt == 1)
+        if($page->is_decrypt == 'FOR_EDIT')
         {
             $request['html'] = encrypt($request['html']);
-            $request['is_decrypt'] = false;
+            $request['is_decrypt'] = 'NONE';
         }
 
         $this->pageRepo->update($page, $request->all());
@@ -485,17 +491,6 @@ class PageController extends Controller
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug,$pageSlug);
         return $this->pageRepo->decryptPageContent($request->all(),$page);
-        // if($page->is_encrypted)
-        // {
-        //     if(Hash::check($request->get('decrypt_password'),$page->decrypt_password))
-        //     {
-        //         return $this->pageRepo->decryptPageContent($request->all(),$page);
-        //     }
-        //     else
-        //     {
-        //         return response()->json(['contents' => [],'message' => 'Decrypt Password is Wrong','success' => false]);
-        //     }
-        // }
     }
 
     public function updateEncryption(Request $request,string $bookSlug, string $pageSlug)
@@ -515,14 +510,27 @@ class PageController extends Controller
     public function updateDecryption(Request $request,string $bookSlug, string $pageSlug)
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug,$pageSlug);
-        if(Hash::check($request->get('decrypt_password'),$page->decrypt_password))
+        if($this->validateDecryptPassword($request, $bookSlug, $pageSlug))
         {
+            if($request->has('is_decrypt'))
+            {
+                session()->put('is_decrypt',$request->get('is_decrypt'));
+                \Log::info('Update : ' .session()->get('is_decrypt'));
+            }
             $this->pageRepo->update($page, $request->all());
-            return response()->json(['contents' => [],'message' => 'Decryption Update SuccessFully','success' => true]);
+            return response()->json(['contents' => [],'message' => 'Decrypted SuccessFully','success' => true]);
         }
         else
         {
             return response()->json(['contents' => [],'message' => 'Decrypt Password is Wrong','success' => false]);
         }
+    }
+
+    public function validateDecryptPassword(Request $request,string $bookSlug, string $pageSlug)
+    {
+        $page = $this->queries->findVisibleBySlugsOrFail($bookSlug,$pageSlug);
+        return Hash::check($request->get('decrypt_password'),$page->decrypt_password) ? 
+                                                                        response()->json(['success'=>true]) :
+                                                                        response()->json(['success'=>false]);
     }
 }

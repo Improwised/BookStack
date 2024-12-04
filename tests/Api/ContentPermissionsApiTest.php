@@ -58,6 +58,7 @@ class ContentPermissionsApiTest extends TestCase
                     'create' => false,
                     'update' => false,
                     'delete' => true,
+                    'encrypt' => 0,
                     'role' => [
                         'id' => $role->id,
                         'display_name' => $role->display_name,
@@ -148,6 +149,7 @@ class ContentPermissionsApiTest extends TestCase
                     'create' => false,
                     'update' => false,
                     'delete' => false,
+                    'encrypt' => 0,
                     'role' => [
                         'id' => $newRoleA->id,
                         'display_name' => $newRoleA->display_name,
@@ -159,6 +161,7 @@ class ContentPermissionsApiTest extends TestCase
                     'create' => false,
                     'update' => true,
                     'delete' => true,
+                    'encrypt' => 0, 
                     'role' => [
                         'id' => $newRoleB->id,
                         'display_name' => $newRoleB->display_name,

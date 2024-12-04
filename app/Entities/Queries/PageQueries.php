@@ -11,7 +11,7 @@ class PageQueries implements ProvidesEntityQueries
     protected static array $contentAttributes = [
         'name', 'id', 'slug', 'book_id', 'chapter_id', 'draft',
         'template', 'html', 'text', 'created_at', 'updated_at', 'priority',
-        'created_by', 'updated_by', 'owned_by',
+        'created_by', 'updated_by', 'owned_by', 'is_encrypted',
     ];
     protected static array $listAttributes = [
         'name', 'id', 'slug', 'book_id', 'chapter_id', 'draft',

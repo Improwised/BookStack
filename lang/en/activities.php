@@ -16,6 +16,10 @@ return [
     'page_restore_notification'   => 'Page successfully restored',
     'page_move'                   => 'moved page',
     'page_move_notification'      => 'Page successfully moved',
+    'page_encrypted'              => 'page encrypted',
+    'page_encrypted_notification' => 'Page successfully encrypted',
+    'page_decrypted'              => 'page decrypted',
+    'page_decrypted_notification' => 'Page successfully decrypted',
 
     // Chapters
     'chapter_create'              => 'created chapter',

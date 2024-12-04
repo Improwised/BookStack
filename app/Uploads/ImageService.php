@@ -98,7 +98,7 @@ class ImageService
             'type'        => $type,
             'uploaded_to' => $uploadedTo,
         ];
-
+        dump($this->storage->getPublicUrl($fullPath));
         if (user()->id !== 0) {
             $userId = user()->id;
             $imageDetails['created_by'] = $userId;

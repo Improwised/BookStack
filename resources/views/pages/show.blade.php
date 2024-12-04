@@ -7,7 +7,13 @@
 @include('entities.body-tag-classes', ['entity' => $page])
 
 @section('body')
-
+    @component('common.confirm-dialog', ['title' => trans($page->is_encrypted ? 'common.decrypt' : 'common.encrypt'), 'class' => 'encrypt-decrypt-dialog mt-xl'])
+        <p>
+            <input type="password" id="page-encrypt-password" name="encrypt-password" placeholder="Enter a password" autocomplete="off">
+            <br>
+            <span class="text-neg text-small hidden invalid-password">Invalid Password</span>
+        </p>
+    @endcomponent
     <div class="mb-m print-hidden">
         @include('entities.breadcrumbs', ['crumbs' => [
             $page->book,
@@ -205,7 +211,7 @@
                             <input type="password" name="page-decrypt-password" id="page-decrypt-password" refs="encrypt-decrypt-manager@decrypt-password-input" placeholder="Enter a Password">
                             <a class="icon-list-item px-m py-xxs" refs="encrypt-decrypt-manager@decrypt-submit-btn"><span>@icon('check')</span></a>
                         </div>
-                        <span class="text-neg text-small hidden" refs="encrypt-decrypt-manager@invalid-password">Invalid password</span>
+                        <span class="text-neg small hidden" refs="encrypt-decrypt-manager@invalid-password">Invalid password</span>
                     </div>
                 </div>
                 @endif
@@ -220,18 +226,10 @@
                 @include('entities.favourite-action', ['entity' => $page])
             @endif
             @if(userCan('content-export'))
-                @include('entities.export-menu', ['entity' => $page])
+                    @include('entities.export-menu', ['entity' => $page,'refs'=> $page->is_encrypted ? 'encrypt-decrypt-manager@export-menu' : '' ])
             @endif
         </div>
 
     </div>
 </div>
 @stop
-
-@component('common.confirm-dialog', ['title' => trans($page->is_encrypted ? 'common.decrypt' : 'common.encrypt'), 'class' => 'encrypt-decrypt-dialog'])
-        <p>
-            <input type="password" id="page-encrypt-password" name="encrypt-password" placeholder="Enter a password" autocomplete="off">
-            <br>
-            <span class="text-neg text-small hidden invalid-password">Invalid Password</span>
-        </p>
-@endcomponent

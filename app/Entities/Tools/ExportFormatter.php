@@ -36,6 +36,7 @@ class ExportFormatter
             'format'     => 'html',
             'cspContent' => $this->cspService->getCspMetaTagValue(),
             'locale'     => user()->getLocale(),
+            'export'     => true,
         ])->render();
 
         return $this->containHtml($pageHtml);
@@ -50,7 +51,7 @@ class ExportFormatter
     {
         $pages = $chapter->getVisiblePages();
         $pages->each(function ($page) {
-            $page->html = (new PageContent($page))->render();
+            $page->html = $page->is_encrypted ?  "<p>This page is Encrypted</p>" :  (new PageContent($page))->render();
         });
         $html = view('exports.chapter', [
             'chapter'    => $chapter,
@@ -95,6 +96,7 @@ class ExportFormatter
             'format' => 'pdf',
             'engine' => $this->pdfGenerator->getActiveEngine(),
             'locale' => user()->getLocale(),
+            'export' => true,
         ])->render();
 
         return $this->htmlToPdf($html);
@@ -109,7 +111,7 @@ class ExportFormatter
     {
         $pages = $chapter->getVisiblePages();
         $pages->each(function ($page) {
-            $page->html = (new PageContent($page))->render();
+            $page->html = $page->is_encrypted ?  "<p>This page is Encrypted</p>" :  (new PageContent($page))->render();
         });
 
         $html = view('exports.chapter', [
@@ -270,6 +272,10 @@ class ExportFormatter
 
         $parts = [];
         foreach ($chapter->getVisiblePages() as $page) {
+            if($page->is_encrypted)
+            {
+                $page->html = "<p>This page is Encrypted</p>";
+            }
             $parts[] = $this->pageToPlainText($page, false, true);
         }
 
@@ -290,6 +296,10 @@ class ExportFormatter
             if ($bookChild->isA('chapter')) {
                 $parts[] = $this->chapterToPlainText($bookChild);
             } else {
+                if($bookChild->is_encrypted)
+                {
+                    $bookChild->html = "<p>This page is Encrypted</p>";
+                }
                 $parts[] = $this->pageToPlainText($bookChild, true, true);
             }
         }
@@ -317,6 +327,10 @@ class ExportFormatter
         $text = '# ' . $chapter->name . "\n\n";
         $text .= $chapter->description . "\n\n";
         foreach ($chapter->pages as $page) {
+            if($page->is_encrypted)
+            {
+                $page->html = "<p>This page is Encrypted</p>";
+            }
             $text .= $this->pageToMarkdown($page) . "\n\n";
         }
 
@@ -334,6 +348,10 @@ class ExportFormatter
             if ($bookChild instanceof Chapter) {
                 $text .= $this->chapterToMarkdown($bookChild) . "\n\n";
             } else {
+                if($bookChild->is_encrypted)
+                {
+                    $bookChild->html = "<p>This page is Encrypted</p>";
+                }
                 $text .= $this->pageToMarkdown($bookChild) . "\n\n";
             }
         }

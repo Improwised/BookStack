@@ -124,7 +124,21 @@ class PageRepo
             $this->revisionRepo->storeNewForPage($page, $summary);
         }
 
-        Activity::add(ActivityType::PAGE_UPDATE, $page);
+        if(array_key_exists('is_encrypted',$input))
+        {
+            if($input['is_encrypted'] == true)
+            {
+                Activity::add(ActivityType::PAGE_ENCRYPTED, $page);
+            }
+            else if($input['is_encrypted'] == false)
+            {
+                Activity::add(ActivityType::PAGE_DECRYPTED, $page);
+            }
+        }
+        else if(!array_key_exists('is_decrypt',$input))
+        {
+            Activity::add(ActivityType::PAGE_UPDATE, $page);
+        }
 
         return $page;
     }
@@ -293,7 +307,7 @@ class PageRepo
         if(!$page->is_encrypted)
         {
             $content = encrypt($data['content']);
-            return response()->json(['content' => $content,'message' => 'Encrypt Content SuccessFully','success' => true]);
+            return response()->json(['content' => $content,'message' => 'Encrypted SuccessFully','success' => true]);
         }
         else
         {
@@ -308,7 +322,7 @@ class PageRepo
             if(Hash::check($data['decrypt_password'],$page->decrypt_password))
             {
                 $content = decrypt($data['content']);
-                return response()->json(['content' => $content,'message' => 'Decrypt Content SuccessFully','success' => true]);
+                return response()->json(['content' => $content,'message' => 'Decrypted SuccessFully','success' => true]);
             }
             else
             {

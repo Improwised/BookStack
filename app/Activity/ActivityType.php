@@ -9,6 +9,8 @@ class ActivityType
     const PAGE_DELETE = 'page_delete';
     const PAGE_RESTORE = 'page_restore';
     const PAGE_MOVE = 'page_move';
+    const PAGE_ENCRYPTED = 'page_encrypted';
+    const PAGE_DECRYPTED = 'page_decrypted';
 
     const CHAPTER_CREATE = 'chapter_create';
     const CHAPTER_UPDATE = 'chapter_update';
