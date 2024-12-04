@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->renameColumn('decrypt_password','password');
+            $table->renameColumn('decrypt_password', 'password');
         });
     }
 
