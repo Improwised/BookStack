@@ -15,13 +15,13 @@ return new class extends Migration
     {
         // get Admin Role Id
         $adminRoleId = DB::table('roles')->where('display_name', '=', 'admin')->first()->id;
-        
+
         // Create & attach new entity permissions
         $entities = ['Book', 'Page', 'Chapter', 'bookshelf'];
         $ops = ['Restrict All', 'Restrict Own','Encrypt All','Encrypt Own'];
         foreach ($entities as $entity) {
             foreach ($ops as $op) {
-                if(($op === 'Encrypt All' || $op === 'Encrypt Own') && $entity !== 'Page'){
+                if (($op === 'Encrypt All' || $op === 'Encrypt Own') && $entity !== 'Page') {
                     break;
                 }
                 $permissionId = DB::table('role_permissions')->insertGetId([
@@ -36,7 +36,6 @@ return new class extends Migration
                 ]);
             }
         }
-
     }
 
     /**

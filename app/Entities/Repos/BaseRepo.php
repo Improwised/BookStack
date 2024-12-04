@@ -76,8 +76,7 @@ class BaseRepo
         }
 
         $entity->rebuildPermissions();
-        if((array_key_exists('is_encrypted',$input) && $input['is_encrypted'] == true) || !(($entity InstanceOf Page) && $entity->is_encrypted == true))
-        {
+        if ((array_key_exists('is_encrypted', $input) && $input['is_encrypted'] == true) || !(($entity instanceof Page) && $entity->is_encrypted == true)) {
             $entity->indexForSearch();
         }
         $this->referenceStore->updateForEntity($entity);

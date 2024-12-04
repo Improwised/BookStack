@@ -44,7 +44,7 @@ class BookContents
         $pages = $this->getPages($showDrafts, $renderPages);
 
         // Check For Encrypted Pages
-        $pages->each(function($page){
+        $pages->each(function ($page) {
             $page->html = $page->is_encrypted ? '<p>This page is encrypted</p>' : $page->html;
         });
 

@@ -100,11 +100,10 @@ class PageRepo
         $oldMarkdown = $page->markdown;
 
         //Make Hashable decrypt Password
-        if(array_key_exists('decrypt_password',$input))
-        {
+        if (array_key_exists('decrypt_password', $input)) {
             $input['decrypt_password'] = Hash::make($input['decrypt_password']);
         }
-        
+
         $this->updateTemplateStatusAndContentFromInput($page, $input);
         $this->baseRepo->update($page, $input);
 
@@ -124,19 +123,13 @@ class PageRepo
             $this->revisionRepo->storeNewForPage($page, $summary);
         }
 
-        if(array_key_exists('is_encrypted',$input))
-        {
-            if($input['is_encrypted'] == true)
-            {
+        if (array_key_exists('is_encrypted', $input)) {
+            if ($input['is_encrypted'] == true) {
                 Activity::add(ActivityType::PAGE_ENCRYPTED, $page);
-            }
-            else if($input['is_encrypted'] == false)
-            {
+            } else if ($input['is_encrypted'] == false) {
                 Activity::add(ActivityType::PAGE_DECRYPTED, $page);
             }
-        }
-        else if(!array_key_exists('is_decrypt',$input))
-        {
+        } else if (!array_key_exists('is_decrypt', $input)) {
             Activity::add(ActivityType::PAGE_UPDATE, $page);
         }
 
@@ -304,28 +297,21 @@ class PageRepo
 
     public function encryptPageContent(array $data, Page $page)
     {
-        if(!$page->is_encrypted)
-        {
+        if (!$page->is_encrypted) {
             $content = encrypt($data['content']);
             return response()->json(['content' => $content,'message' => 'Encrypted SuccessFully','success' => true]);
-        }
-        else
-        {
+        } else {
             return response()->json(['content' => '','message' => 'Already Encrypted','success' => false]);
         }
     }
 
     public function decryptPageContent(array $data, Page $page)
     {
-        if($page->is_encrypted)
-        {
-            if(Hash::check($data['decrypt_password'],$page->decrypt_password))
-            {
+        if ($page->is_encrypted) {
+            if (Hash::check($data['decrypt_password'], $page->decrypt_password)) {
                 $content = decrypt($data['content']);
                 return response()->json(['content' => $content,'message' => 'Decrypted SuccessFully','success' => true]);
-            }
-            else
-            {
+            } else {
                 return response()->json(['contents' => [],'message' => 'Decrypt Password is Wrong','success' => false]);
             }
         }

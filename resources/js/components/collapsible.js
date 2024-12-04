@@ -13,7 +13,7 @@ export class Collapsible extends Component {
         this.content = this.$refs.content;
 
         if (this.trigger) {
-            this.trigger.addEventListener('click',this.toggle.bind(this));
+            this.trigger.addEventListener('click', this.toggle.bind(this));
             this.openIfContainsError();
         }
     }

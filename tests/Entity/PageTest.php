@@ -364,7 +364,7 @@ class PageTest extends TestCase
         $url = $page->getUrl();
 
         // Encrypt The page Content
-        $resp = $this->post("$url/encrypt",['content'=> $page->html]);
+        $resp = $this->post("$url/encrypt", ['content' => $page->html]);
         $resp->assertStatus(200);
         $resp->assertJson([
             'message' => 'Encrypted SuccessFully',
@@ -380,7 +380,7 @@ class PageTest extends TestCase
         ];
 
         // Update Encrypt Data
-        $pageUpdateResp = $this->put("$url/update-encryption",$data);
+        $pageUpdateResp = $this->put("$url/update-encryption", $data);
         $pageUpdateResp->assertStatus(200);
 
         $pageUpdateResp->assertJson([
@@ -389,9 +389,8 @@ class PageTest extends TestCase
         ]);
 
         $page->refresh();
-        $this->assertEquals($page->is_encrypted,1);
-        $this->assertEquals($page->html,$encryptedHtml);
-
+        $this->assertEquals($page->is_encrypted, 1);
+        $this->assertEquals($page->html, $encryptedHtml);
     }
 
     public function test_page_decryption()
@@ -403,7 +402,7 @@ class PageTest extends TestCase
         $oldHtml = $page->html;
 
         // Encrypt The Page Content
-        $resp = $this->post("$url/encrypt",['content'=> $page->html]);
+        $resp = $this->post("$url/encrypt", ['content' => $page->html]);
         $resp->assertStatus(200);
         $resp->assertJson([
             'message' => 'Encrypted SuccessFully',
@@ -420,7 +419,7 @@ class PageTest extends TestCase
             'is_encrypted' => true,
         ];
 
-        $pageUpdateResp = $this->put("$url/update-encryption",$data);
+        $pageUpdateResp = $this->put("$url/update-encryption", $data);
         $pageUpdateResp->assertStatus(200);
         $page->refresh();
 
@@ -430,24 +429,24 @@ class PageTest extends TestCase
             'content'          => $page->html,
         ];
 
-        $pageDecryptResp = $this->post("$url/decrypt",$decryptData);
+        $pageDecryptResp = $this->post("$url/decrypt", $decryptData);
         $pageDecryptResp->assertStatus(200);
 
         $pageDecryptResp->assertJson(['message' => 'Decrypted SuccessFully','success' => true]);
-        $this->assertEquals($oldHtml,$pageDecryptResp->json('content'));
+        $this->assertEquals($oldHtml, $pageDecryptResp->json('content'));
 
         // Update Decrypt Data
         $decryptData = [
-            'html'=> $pageDecryptResp->json('content'),
-            'is_encrypted'=> false,
-            'decrypt_password'=> $decryptPassword,
+            'html' => $pageDecryptResp->json('content'),
+            'is_encrypted' => false,
+            'decrypt_password' => $decryptPassword,
         ];
 
-        $pageDecryptUpdateResponse = $this->put("$url/update-decryption",$decryptData);
+        $pageDecryptUpdateResponse = $this->put("$url/update-decryption", $decryptData);
         $pageDecryptUpdateResponse->assertStatus(200);
 
         $page->refresh();
 
-        $this->assertEquals($page->is_encrypted,0);
+        $this->assertEquals($page->is_encrypted, 0);
     }
 }

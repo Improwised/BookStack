@@ -120,7 +120,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/books/{bookSlug}/page/{pageSlug}/update-decryption', [EntityControllers\PageController::class, 'updateDecryption']);
     Route::post('/books/{bookSlug}/page/{pageSlug}/validate-password', [EntityControllers\PageController::class, 'validateDecryptPassword']);
     Route::get('/decrypt-password', [EntityControllers\PageController::class, 'validateDecryptPassword']);
-    
+
 
     // Chapters
     Route::get('/books/{bookSlug}/chapter/{chapterSlug}/create-page', [EntityControllers\PageController::class, 'create']);

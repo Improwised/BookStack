@@ -43,8 +43,8 @@ class HomeController extends Controller
         $recents = $this->isSignedIn() ?
             $recentlyViewed->run(12 * $recentFactor, 1)
             : $this->queries->books->visibleForList()->orderBy('created_at', 'desc')->take(12 * $recentFactor)->get();
-        $recents = $recents->filter(function($recent){
-            if($recent instanceof Page) {
+        $recents = $recents->filter(function ($recent) {
+            if ($recent instanceof Page) {
                 return !$recent->is_encrypted;
             }
             return true;
@@ -52,7 +52,7 @@ class HomeController extends Controller
         $favourites = $topFavourites->run(6);
         $recentlyUpdatedPages = $this->queries->pages->visibleForList()
             ->where('draft', false)
-            ->where('is_encrypted',false)
+            ->where('is_encrypted', false)
             ->orderBy('updated_at', 'desc')
             ->take($favourites->count() > 0 ? 5 : 10)
             ->get();

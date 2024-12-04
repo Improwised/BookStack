@@ -61,7 +61,7 @@ class PageExportController extends Controller
     {
         $page = $this->queries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
         $this->validatePageEncrypted($page);
-        $pageText = $this->exportFormatter->pageToPlainText($page,$page->is_encrypted);
+        $pageText = $this->exportFormatter->pageToPlainText($page, $page->is_encrypted);
 
         return $this->download()->directly($pageText, $pageSlug . '.txt');
     }
@@ -82,17 +82,12 @@ class PageExportController extends Controller
 
     public function validatePageEncrypted(Page $page)
     {
-        
-        if($page->is_encrypted)
-        {
-            if(session()->get('is_decrypt') == 'FOR_EXPORT')
-            {
+        if ($page->is_encrypted) {
+            if (session()->get('is_decrypt') == 'FOR_EXPORT') {
                 $page->html = decrypt($page->html);
-                session()->put('is_decrypt','NONE');
+                session()->put('is_decrypt', 'NONE');
                 return true;
-            }
-            else
-            {
+            } else {
                 return redirect($page->getUrl());
             }
         }

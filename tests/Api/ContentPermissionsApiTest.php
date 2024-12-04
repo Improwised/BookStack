@@ -161,7 +161,7 @@ class ContentPermissionsApiTest extends TestCase
                     'create' => false,
                     'update' => true,
                     'delete' => true,
-                    'encrypt' => 0, 
+                    'encrypt' => 0,
                     'role' => [
                         'id' => $newRoleB->id,
                         'display_name' => $newRoleB->display_name,

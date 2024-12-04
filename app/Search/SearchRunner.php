@@ -159,9 +159,9 @@ class SearchRunner
                 $inputTerm = str_replace('\\', '\\\\', $exact->value);
                 $query->where('name', 'like', '%' . $inputTerm . '%')
                     ->orWhere($entityModelInstance->textField, 'like', '%' . $inputTerm . '%');
-                    if ($entityModelInstance instanceof Page) {
-                        $query->Where('is_encrypted','!=',1);
-                    }
+                if ($entityModelInstance instanceof Page) {
+                    $query->Where('is_encrypted', '!=', 1);
+                }
             };
 
             $exact->negated ? $entityQuery->whereNot($filter) : $entityQuery->where($filter);
