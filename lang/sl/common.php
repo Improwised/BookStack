@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
+    'encrypt' => 'Šifriraj',
+    'encrypt_desc' => 'Vnesite geslo za šifriranje in si ga zapomnite, da si boste lahko ogledali ali dešifrirali vsebino.',
+    'decrypt' => 'Dešifriraj',
+    'decrypt_desc' => 'Vnesite geslo za dešifriranje.',
 
     // Sort Options
     'sort_options' => 'Možnosti razvrščanja',

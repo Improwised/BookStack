@@ -53,6 +53,10 @@ return [
     'download' => 'Preuzmi',
     'open_in_tab' => 'Otvori u Kartici',
     'open' => 'Open',
+    'encrypt' => 'Šifriraj',
+    'encrypt_desc' => 'Unesite lozinku za šifriranje i zapamtite je kako biste mogli pregledati ili dešifrirati sadržaj.',
+    'decrypt' => 'Dešifriraj',
+    'decrypt_desc' => 'Unesite lozinku za dešifriranje.',
 
     // Sort Options
     'sort_options' => 'Razvrstaj opcije',

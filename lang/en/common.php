@@ -53,9 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
-    'restrict' => 'Restrict',
     'encrypt' => 'Encrypt',
+    'encrypt_desc' => 'Enter a password for encryption and remember it to view or decrypt the content',
     'decrypt' => 'Decrypt',
+    'decrypt_desc' => 'Enter a Password For Decryption',
 
     // Sort Options
     'sort_options' => 'Sort Options',

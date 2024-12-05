@@ -53,6 +53,10 @@ return [
     'download' => 'İndir',
     'open_in_tab' => 'Sekmede aç',
     'open' => 'Open',
+    'encrypt' => 'Şifrele',
+    'encrypt_desc' => 'Şifreleme için bir parola girin ve içeriği görüntülemek veya şifresini çözmek için hatırlayın.',
+    'decrypt' => 'Şifre Çöz',
+    'decrypt_desc' => 'Şifre çözme için bir parola girin.',
 
     // Sort Options
     'sort_options' => 'Sıralama Seçenekleri',

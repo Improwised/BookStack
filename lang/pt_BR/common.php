@@ -58,6 +58,10 @@ return [
     'download' => 'Baixar ',
     'open_in_tab' => 'Abrir na aba',
     'open' => 'Abrir',
+    'encrypt' => 'Criptografar',
+    'encrypt_desc' => 'Digite uma senha para criptografar e lembre-se dela para visualizar ou descriptografar o conteúdo.',
+    'decrypt' => 'Descriptografar',
+    'decrypt_desc' => 'Digite uma senha para descriptografar.',
 
     // Sort Options
     'sort_options' => 'Opções de Ordenação',

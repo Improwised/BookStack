@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open als Tabblad',
     'open' => 'Open',
+    'encrypt' => 'Versleutelen',
+    'encrypt_desc' => 'Voer een wachtwoord in voor versleuteling en onthoud het om de inhoud te bekijken of te ontsleutelen.',
+    'decrypt' => 'Ontsleutelen',
+    'decrypt_desc' => 'Voer een wachtwoord in om te ontsleutelen.',
 
     // Sort Options
     'sort_options' => 'Sorteeropties',

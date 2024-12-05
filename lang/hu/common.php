@@ -53,6 +53,10 @@ return [
     'download' => 'Letöltés',
     'open_in_tab' => 'Megnyitás új tab-on',
     'open' => 'Megnyitás',
+    'encrypt' => 'Titkosítás',
+    'encrypt_desc' => 'Adjon meg egy jelszót a titkosításhoz, és jegyezze meg, hogy megtekinthesse vagy visszafejthesse a tartalmat.',
+    'decrypt' => 'Dekódolás',
+    'decrypt_desc' => 'Adjon meg egy jelszót a dekódoláshoz.',
 
     // Sort Options
     'sort_options' => 'Rendezési beállítások',

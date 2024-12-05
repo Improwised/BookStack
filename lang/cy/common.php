@@ -53,6 +53,10 @@ return [
     'download' => 'Llwytho i lawr',
     'open_in_tab' => 'Agor mewn Tab',
     'open' => 'Agor',
+    'encrypt' => 'Amgryptio',
+    'encrypt_desc' => 'Rhowch gyfrinair i amgryptio a’i gofio i weld neu ddatgryptio’r cynnwys.',
+    'decrypt' => 'Dadgryptio',
+    'decrypt_desc' => 'Rhowch gyfrinair i ddatgryptio.',
 
     // Sort Options
     'sort_options' => 'Trefnu\'r opsiynau',

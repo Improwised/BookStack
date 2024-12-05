@@ -53,6 +53,10 @@ return [
     'download' => 'Stiahnuť',
     'open_in_tab' => 'Otvoriť na novej karte',
     'open' => 'Open',
+    'encrypt' => 'Šifrovať',
+    'encrypt_desc' => 'Zadajte heslo na šifrovanie a zapamätajte si ho, aby ste mohli zobraziť alebo dešifrovať obsah.',
+    'decrypt' => 'Dešifrovať',
+    'decrypt_desc' => 'Zadajte heslo na dešifrovanie.',
 
     // Sort Options
     'sort_options' => 'Možnosti triedenia',

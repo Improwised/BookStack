@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
+    'encrypt' => 'Enkripsi',
+    'encrypt_desc' => 'Masukkan kata sandi untuk enkripsi dan ingat untuk melihat atau mendekripsi konten.',
+    'decrypt' => 'Dekripsi',
+    'decrypt_desc' => 'Masukkan kata sandi untuk dekripsi.',
 
     // Sort Options
     'sort_options' => 'Opsi Sortir',

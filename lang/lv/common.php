@@ -53,6 +53,10 @@ return [
     'download' => 'Lejupielādēt',
     'open_in_tab' => 'Atvērt cilnē',
     'open' => 'Atvērt',
+    'encrypt' => 'Šifrēt',
+    'encrypt_desc' => 'Ievadiet paroli šifrēšanai un atcerieties to, lai skatītu vai atšifrētu saturu.',
+    'decrypt' => 'Atšifrēt',
+    'decrypt_desc' => 'Ievadiet paroli atšifrēšanai.',
 
     // Sort Options
     'sort_options' => 'Kārtošanas Opcijas',

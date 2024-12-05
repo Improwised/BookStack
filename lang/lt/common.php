@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
+    'encrypt' => 'Užšifruoti',
+    'encrypt_desc' => 'Įveskite slaptažodį šifravimui ir prisiminkite jį, kad galėtumėte peržiūrėti arba iššifruoti turinį.',
+    'decrypt' => 'Iššifruoti',
+    'decrypt_desc' => 'Įveskite slaptažodį iššifravimui.',
 
     // Sort Options
     'sort_options' => 'Rūšiuoti pasirinkimus',

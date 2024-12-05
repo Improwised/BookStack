@@ -53,6 +53,10 @@ return [
     'download' => 'Yuklab olish',
     'open_in_tab' => 'Tabda ochish',
     'open' => 'Open',
+    'encrypt' => 'Shifrlash',
+    'encrypt_desc' => 'Shifrlash uchun parolni kiriting va mazmunni ko‘rish yoki shifrdan chiqarish uchun uni eslab qoling.',
+    'decrypt' => 'Shifrdan chiqarish',
+    'decrypt_desc' => 'Shifrdan chiqarish uchun parolni kiriting.',
 
     // Sort Options
     'sort_options' => 'Saralash opsiyalari',

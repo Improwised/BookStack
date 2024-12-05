@@ -8,10 +8,19 @@
 
 @section('body')
     @component('common.confirm-dialog', ['title' => trans($page->is_encrypted ? 'common.decrypt' : 'common.encrypt'), 'class' => 'encrypt-decrypt-dialog mt-xl'])
+    <div class="grid half gap-xl">
+                <div>
+                    <label for="setting-app-name" class="setting-list-label">{{ trans('auth.password') }}</label>
+                    <p class="small">{{ trans($page->is_encrypted ? 'common.decrypt_desc'  : 'common.encrypt_desc') }}</p>
+                </div>
+                <div class="pt-xs">
+                    <input type="password" id="page-encrypt-password" name="encrypt-password" placeholder="Enter a password" autocomplete="off">
+                    <br>
+                    <span class="text-neg text-small hidden invalid-password">Invalid Password</span>
+                </div>
+            </div>
         <p>
-            <input type="password" id="page-encrypt-password" name="encrypt-password" placeholder="Enter a password" autocomplete="off">
-            <br>
-            <span class="text-neg text-small hidden invalid-password">Invalid Password</span>
+            
         </p>
     @endcomponent
     <div class="mb-m print-hidden">

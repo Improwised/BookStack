@@ -53,6 +53,10 @@ return [
     'download' => 'Laadi alla',
     'open_in_tab' => 'Ava vahelehel',
     'open' => 'Ava',
+    'encrypt' => 'Krüpteeri',
+    'encrypt_desc' => 'Sisestage krüpteerimiseks parool ja jätke see meelde, et sisu vaadata või dekrüpteerida.',
+    'decrypt' => 'Dekrüpteeri',
+    'decrypt_desc' => 'Sisestage parool dekrüpteerimiseks.',
 
     // Sort Options
     'sort_options' => 'Sorteerimise valikud',

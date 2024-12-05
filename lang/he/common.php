@@ -53,6 +53,10 @@ return [
     'download' => 'הורדה',
     'open_in_tab' => 'פתח בכרטיסייה חדשה',
     'open' => 'Open',
+    'encrypt' => 'הצפנה',
+    'encrypt_desc' => 'הזן סיסמה להצפנה וזכור אותה כדי לצפות או לפענח את התוכן.',
+    'decrypt' => 'פענוח',
+    'decrypt_desc' => 'הזן סיסמה לפענוח.',
 
     // Sort Options
     'sort_options' => 'אפשרויות מיון',

@@ -53,6 +53,10 @@ return [
     'download' => 'ダウンロード',
     'open_in_tab' => 'タブで開く',
     'open' => '開く',
+    'encrypt' => '暗号化',
+    'encrypt_desc' => '暗号化のためのパスワードを入力し、それを覚えておいてコンテンツを表示または復号してください。',
+    'decrypt' => '復号化',
+    'decrypt_desc' => '復号化するためのパスワードを入力してください。',
 
     // Sort Options
     'sort_options' => '並べ替えオプション',

@@ -53,6 +53,10 @@ return [
     'download' => 'Pobierz',
     'open_in_tab' => 'Otwórz w karcie',
     'open' => 'Otwórz',
+    'encrypt' => 'Szyfrować',
+    'encrypt_desc' => 'Wprowadź hasło do szyfrowania i zapamiętaj je, aby wyświetlić lub odszyfrować zawartość.',
+    'decrypt' => 'Odszyfrować',
+    'decrypt_desc' => 'Wprowadź hasło do odszyfrowania.',
 
     // Sort Options
     'sort_options' => 'Opcje sortowania',

@@ -53,6 +53,10 @@ return [
     'download' => 'Lataa',
     'open_in_tab' => 'Avaa välilehdessä',
     'open' => 'Avaa',
+    'encrypt' => 'Salaus',
+    'encrypt_desc' => 'Anna salaus salasana ja muista se nähdäksesi tai purkaaksesi sisällön salauksen.',
+    'decrypt' => 'Pura salaus',
+    'decrypt_desc' => 'Anna salauksen purkamisen salasana.',
 
     // Sort Options
     'sort_options' => 'Järjestyksen asetukset',

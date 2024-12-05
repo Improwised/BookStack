@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Apri nella scheda',
     'open' => 'Apri',
+    'encrypt' => 'Criptare',
+    'encrypt_desc' => 'Inserisci una password per la crittografia e ricordala per visualizzare o decriptare il contenuto.',
+    'decrypt' => 'Decriptare',
+    'decrypt_desc' => 'Inserisci una password per decriptare.',
 
     // Sort Options
     'sort_options' => 'Opzioni Ordinamento',

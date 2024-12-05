@@ -53,6 +53,10 @@ return [
     'download' => 'Ladda ner',
     'open_in_tab' => 'Öppna i flik',
     'open' => 'Öppna',
+    'encrypt' => 'Kryptera',
+    'encrypt_desc' => 'Ange ett lösenord för kryptering och kom ihåg det för att visa eller dekryptera innehållet.',
+    'decrypt' => 'Dekryptera',
+    'decrypt_desc' => 'Ange ett lösenord för dekryptering.',
 
     // Sort Options
     'sort_options' => 'Sorteringsalternativ',

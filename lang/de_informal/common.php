@@ -53,6 +53,10 @@ return [
     'download' => 'Herunterladen',
     'open_in_tab' => 'In Tab öffnen',
     'open' => 'Öffnen',
+    'encrypt' => 'Verschlüsseln',
+    'encrypt_desc' => 'Geben Sie ein Passwort zur Verschlüsselung ein und merken Sie es sich, um den Inhalt anzuzeigen oder zu entschlüsseln.',
+    'decrypt' => 'Entschlüsseln',
+    'decrypt_desc' => 'Geben Sie ein Passwort zur Entschlüsselung ein.',
 
     // Sort Options
     'sort_options' => 'Sortieroptionen',

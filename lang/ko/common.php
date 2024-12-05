@@ -53,6 +53,10 @@ return [
     'download' => '내려받기',
     'open_in_tab' => '탭에서 열기',
     'open' => '열기 ',
+    'encrypt' => '암호화',
+    'encrypt_desc' => '암호화를 위해 비밀번호를 입력하고 내용을 보거나 해독하려면 기억하세요.',
+    'decrypt' => '복호화',
+    'decrypt_desc' => '복호화를 위해 비밀번호를 입력하세요.',
 
     // Sort Options
     'sort_options' => '정렬 기준',

@@ -53,6 +53,10 @@ return [
     'download' => '下载',
     'open_in_tab' => '在标签页中打开。',
     'open' => '打开',
+    'encrypt' => '加密',
+    'encrypt_desc' => '输入密码进行加密，并记住它以查看或解密内容。',
+    'decrypt' => '解密',
+    'decrypt_desc' => '输入密码进行解密。',
 
     // Sort Options
     'sort_options' => '排序选项',

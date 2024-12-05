@@ -53,6 +53,10 @@ return [
     'download' => 'Baixa',
     'open_in_tab' => 'Obre en una pestanya',
     'open' => 'Obre',
+    'encrypt' => 'Encriptar',
+    'encrypt_desc' => 'Introduïu una contrasenya per a l’encriptació i recordeu-la per veure o desencriptar el contingut.',
+    'decrypt' => 'Desencriptar',
+    'decrypt_desc' => 'Introduïu una contrasenya per desencriptar.',
 
     // Sort Options
     'sort_options' => 'Opcions d’ordenació',

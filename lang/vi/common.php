@@ -53,6 +53,10 @@ return [
     'download' => 'Tải về',
     'open_in_tab' => 'Mở trong thẻ mới',
     'open' => 'Open',
+    'encrypt' => 'Mã hóa',
+    'encrypt_desc' => 'Nhập mật khẩu để mã hóa và nhớ nó để xem hoặc giải mã nội dung.',
+    'decrypt' => 'Giải mã',
+    'decrypt_desc' => 'Nhập mật khẩu để giải mã.',
 
     // Sort Options
     'sort_options' => 'Tùy Chọn Sắp Xếp',

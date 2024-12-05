@@ -53,6 +53,10 @@ return [
     'download' => 'Last ned',
     'open_in_tab' => 'Åpne i fane',
     'open' => 'Åpne',
+    'encrypt' => 'Krypter',
+    'encrypt_desc' => 'Skriv inn et passord for kryptering, og husk det for å se eller dekryptere innholdet.',
+    'decrypt' => 'Dekrypter',
+    'decrypt_desc' => 'Skriv inn et passord for dekryptering.',
 
     // Sort Options
     'sort_options' => 'Sorteringsalternativer',

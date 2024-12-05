@@ -53,6 +53,11 @@ return [
     'download' => 'Stáhnout',
     'open_in_tab' => 'Otevřít v nové záložce',
     'open' => 'Otevřít',
+    'encrypt' => 'Šifrovat',
+    'encrypt_desc' => 'Zadejte heslo pro šifrování a zapamatujte si ho pro zobrazení nebo dešifrování obsahu.',
+    'decrypt' => 'Dešifrovat',
+    'decrypt_desc' => 'Zadejte heslo pro dešifrování.',
+
 
     // Sort Options
     'sort_options' => 'Možnosti řazení',

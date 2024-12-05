@@ -53,6 +53,10 @@ return [
     'download' => 'Download',
     'open_in_tab' => 'Open in Tab',
     'open' => 'Open',
+    'encrypt' => 'Zifratzea',
+    'encrypt_desc' => 'Sartu zifratze pasahitza eta gorde edukia ikusteko edo deszifratzeko.',
+    'decrypt' => 'Deszifratu',
+    'decrypt_desc' => 'Sartu deszifratzeko pasahitza.',
 
     // Sort Options
     'sort_options' => 'Ordenatzeko aukerak',

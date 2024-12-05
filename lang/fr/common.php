@@ -53,6 +53,10 @@ return [
     'download' => 'Télécharger',
     'open_in_tab' => 'Ouvrir dans un onglet',
     'open' => 'Ouvert',
+    'encrypt' => 'Crypter',
+    'encrypt_desc' => 'Entrez un mot de passe pour le cryptage et mémorisez-le pour afficher ou décrypter le contenu.',
+    'decrypt' => 'Décrypter',
+    'decrypt_desc' => 'Entrez un mot de passe pour décrypter.',
 
     // Sort Options
     'sort_options' => 'Options de tri',

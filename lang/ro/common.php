@@ -53,6 +53,10 @@ return [
     'download' => 'Descarcă',
     'open_in_tab' => 'Deschide in tab',
     'open' => 'Open',
+    'encrypt' => 'Criptare',
+    'encrypt_desc' => 'Introduceți o parolă pentru criptare și rețineți-o pentru a vizualiza sau decripta conținutul.',
+    'decrypt' => 'Decriptare',
+    'decrypt_desc' => 'Introduceți o parolă pentru decriptare.',
 
     // Sort Options
     'sort_options' => 'Opțiuni ordonare',
