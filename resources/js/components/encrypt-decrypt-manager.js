@@ -85,35 +85,52 @@ export class EncryptDecryptManager extends Component {
 
     decryptContent(decryptPassword, updateDecryption = false) {
         if (decryptPassword.length > 6) {
-            const decryptData = {
-                content: this.pageDetailContent.innerHTML,
-                password: decryptPassword,
-            };
-            window.$http.post(`${this.url}/decrypt`, decryptData).then(async resp => {
-                if (resp.data.success) {
-                    this.decryptPassword.value = '';
-
-                    if (updateDecryption) {
-                        const data = {
-                            html: resp.data.content,
-                            is_encrypted: false,
-                            password: decryptPassword,
-                        };
-                        this.updateData(data, false, false);
+            if(this.is_decrypt && updateDecryption)
+            {
+                const decryptData = {
+                    html: this.pageDetailContent.innerHTML,
+                    is_encrypted: false,
+                    password: decryptPassword,
+                };
+                this.updateData(decryptData, false, false);
+            }
+            else
+            {
+                const decryptData = {
+                    content: this.pageDetailContent.innerHTML,
+                    password: decryptPassword,
+                };
+                window.$http.post(`${this.url}/decrypt`, decryptData).then(async resp => {
+                    if (resp.data.success) {
+                        this.decryptPassword.value = '';
+    
+                        if (updateDecryption) {
+                            const data = {
+                                html: resp.data.content,
+                                is_encrypted: false,
+                                password: decryptPassword,
+                            };
+                            this.updateData(data, false, false);
+                        } else {
+                            this.pageDetailContent.innerHTML = resp.data.content;
+                            this.is_decrypt = true;
+                            this.encryptInfo.classList.add('hidden');
+                        }
                     } else {
-                        this.pageDetailContent.innerHTML = resp.data.content;
-                        this.is_decrypt = true;
-                        this.encryptInfo.classList.add('hidden');
+                        if (updateDecryption) {
+                            this.invalidPassword.innerHTML = resp.data.message;
+                            this.invalidPassword.classList.remove('hidden');
+                            const response = await this.openDialog();
+                            if (response) {
+                                this.decryptContent(this.passwordInput.value, updateDecryption);
+                            }
+                        } else {
+                            this.invalidMsg.innerHTML = resp.data.message;
+                            this.invalidMsg.classList.remove('hidden');
+                        }
                     }
-                } else if (updateDecryption) {
-                    this.invalidPassword.innerHTML = resp.data.message;
-                    this.invalidPassword.classList.remove('hidden');
-                    this.openDialog();
-                } else {
-                    this.invalidMsg.innerHTML = resp.data.message;
-                    this.invalidMsg.classList.remove('hidden');
-                }
-            });
+                });
+            }
         }
     }
 
