@@ -220,6 +220,7 @@
                             <input type="password" name="page-decrypt-password" id="page-decrypt-password" refs="encrypt-decrypt-manager@decrypt-password-input" placeholder="Enter a Password">
                             <a class="icon-list-item px-m py-xxs" refs="encrypt-decrypt-manager@decrypt-submit-btn"><span>@icon('check')</span></a>
                         </div>
+                        <p class="small">{{ trans('common.decrypt_desc') }}</p>
                         <span class="text-neg small hidden" refs="encrypt-decrypt-manager@invalid-password">Invalid password</span>
                     </div>
                 </div>
