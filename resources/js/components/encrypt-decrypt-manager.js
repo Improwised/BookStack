@@ -83,19 +83,16 @@ export class EncryptDecryptManager extends Component {
         }
     }
 
-    decryptContent(decryptPassword, updateDecryption = false) {
+    async decryptContent(decryptPassword, updateDecryption = false) {
         if (decryptPassword.length > 6) {
-            if(this.is_decrypt && updateDecryption)
-            {
+            if (this.is_decrypt && updateDecryption) {
                 const decryptData = {
                     html: this.pageDetailContent.innerHTML,
                     is_encrypted: false,
                     password: decryptPassword,
                 };
                 this.updateData(decryptData, false, false);
-            }
-            else
-            {
+            } else {
                 const decryptData = {
                     content: this.pageDetailContent.innerHTML,
                     password: decryptPassword,
@@ -103,7 +100,7 @@ export class EncryptDecryptManager extends Component {
                 window.$http.post(`${this.url}/decrypt`, decryptData).then(async resp => {
                     if (resp.data.success) {
                         this.decryptPassword.value = '';
-    
+
                         if (updateDecryption) {
                             const data = {
                                 html: resp.data.content,
@@ -116,21 +113,29 @@ export class EncryptDecryptManager extends Component {
                             this.is_decrypt = true;
                             this.encryptInfo.classList.add('hidden');
                         }
-                    } else {
-                        if (updateDecryption) {
-                            this.invalidPassword.innerHTML = resp.data.message;
-                            this.invalidPassword.classList.remove('hidden');
-                            const response = await this.openDialog();
-                            if (response) {
-                                this.decryptContent(this.passwordInput.value, updateDecryption);
-                            }
-                        } else {
-                            this.invalidMsg.innerHTML = resp.data.message;
-                            this.invalidMsg.classList.remove('hidden');
+                    } else if (updateDecryption) {
+                        this.invalidPassword.innerHTML = resp.data.message;
+                        this.invalidPassword.classList.remove('hidden');
+                        const response = await this.openDialog();
+                        if (response) {
+                            this.decryptContent(this.passwordInput.value, updateDecryption);
                         }
+                    } else {
+                        this.invalidMsg.innerHTML = resp.data.message;
+                        this.invalidMsg.classList.remove('hidden');
                     }
                 });
             }
+        } else if (updateDecryption) {
+            this.invalidPassword.innerHTML = 'Password Length Should be More Than 6';
+            this.invalidPassword.classList.remove('hidden');
+            const response = await this.openDialog();
+            if (response) {
+                this.decryptContent(this.passwordInput.value, updateDecryption);
+            }
+        } else {
+            this.invalidMsg.innerHTML = 'Password Length Should be More Than 6';
+            this.invalidMsg.classList.remove('hidden');
         }
     }
 
