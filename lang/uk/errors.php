@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Ви не можете видалити єдиного адміністратора',
     'users_cannot_delete_guest' => 'Ви не можете видалити гостьового користувача',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Не вдалося створити користувача, оскільки не вдалося надіслати електронний лист із запрошенням',
 
     // Roles
     'role_cannot_be_edited' => 'Цю роль не можна редагувати',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName зараз недоступний',
     'back_soon' => 'Він повернеться найближчим часом.',
 
+    // Import
+    'import_zip_cant_read' => 'Не вдалося прочитати ZIP-файл.',
+    'import_zip_cant_decode_data' => 'Не вдалося знайти і розшифрувати контент ZIP data.json.',
+    'import_zip_no_data' => 'ZIP-файл не містить очікуваної книги, глави або вмісту сторінки.',
+    'import_zip_data_too_large' => 'Вміст ZIP data.json перевищує налаштований максимальний розмір додатка.',
+    'import_validation_failed' => 'Не вдалося виконати перевірку ZIP-адреси із помилками:',
+    'import_zip_failed_notification' => 'Не вдалося імпортувати ZIP-файл.',
+    'import_perms_books' => 'У Вас не вистачає необхідних прав для створення книг.',
+    'import_perms_chapters' => 'Вам не вистачає необхідних дозволів для створення розділів.',
+    'import_perms_pages' => 'У Вас немає необхідних прав для створення сторінок.',
+    'import_perms_images' => 'У Вас немає необхідних прав для створення зображень.',
+    'import_perms_attachments' => 'У Вас немає необхідних прав для створення вкладень.',
+
     // API errors
     'api_no_authorization_found' => 'У запиті не знайдено токен авторизації',
     'api_bad_authorization_format' => 'У запиті знайдено токен авторизації, але формат недійсний',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Секрет, наданий для даного використовуваного токена API є неправильним',
     'api_user_no_api_permission' => 'Власник використовуваного токена API не має дозволу здійснювати виклики API',
     'api_user_token_expired' => 'Термін дії токена авторизації закінчився',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Помилка під час надсилання тестового електронного листа:',

@@ -208,11 +208,11 @@ class PageContentTest extends TestCase
     public function test_form_actions_with_javascript_are_removed()
     {
         $checks = [
-            '<form><input id="xss" type=submit formaction=javascript:alert(document.domain) value=Submit><input></form>',
-            '<form ><button id="xss" formaction="JaVaScRiPt:alert(document.domain)">Click me</button></form>',
-            '<form ><button id="xss" formaction=javascript:alert(document.domain)>Click me</button></form>',
-            '<form id="xss" action=javascript:alert(document.domain)><input type=submit value=Submit></form>',
-            '<form id="xss" action="JaVaScRiPt:alert(document.domain)"><input type=submit value=Submit></form>',
+            '<customform><custominput id="xss" type=submit formaction=javascript:alert(document.domain) value=Submit><custominput></customform>',
+            '<customform ><custombutton id="xss" formaction="JaVaScRiPt:alert(document.domain)">Click me</custombutton></customform>',
+            '<customform ><custombutton id="xss" formaction=javascript:alert(document.domain)>Click me</custombutton></customform>',
+            '<customform id="xss" action=javascript:alert(document.domain)><input type=submit value=Submit></customform>',
+            '<customform id="xss" action="JaVaScRiPt:alert(document.domain)"><input type=submit value=Submit></customform>',
         ];
 
         $this->asEditor();
@@ -224,11 +224,101 @@ class PageContentTest extends TestCase
 
             $pageView = $this->get($page->getUrl());
             $pageView->assertStatus(200);
-            $this->withHtml($pageView)->assertElementNotContains('.page-content', '<button id="xss"');
-            $this->withHtml($pageView)->assertElementNotContains('.page-content', '<input id="xss"');
-            $this->withHtml($pageView)->assertElementNotContains('.page-content', '<form id="xss"');
-            $this->withHtml($pageView)->assertElementNotContains('.page-content', 'action=javascript:');
-            $this->withHtml($pageView)->assertElementNotContains('.page-content', 'formaction=javascript:');
+            $pageView->assertDontSee('id="xss"', false);
+            $pageView->assertDontSee('action=javascript:', false);
+            $pageView->assertDontSee('action=JaVaScRiPt:', false);
+            $pageView->assertDontSee('formaction=javascript:', false);
+            $pageView->assertDontSee('formaction=JaVaScRiPt:', false);
+        }
+    }
+
+    public function test_form_elements_are_removed()
+    {
+        $checks = [
+            '<p>thisisacattofind</p><form>thisdogshouldnotbefound</form>',
+            '<p>thisisacattofind</p><input type="text" value="thisdogshouldnotbefound">',
+            '<p>thisisacattofind</p><select><option>thisdogshouldnotbefound</option></select>',
+            '<p>thisisacattofind</p><textarea>thisdogshouldnotbefound</textarea>',
+            '<p>thisisacattofind</p><fieldset>thisdogshouldnotbefound</fieldset>',
+            '<p>thisisacattofind</p><button>thisdogshouldnotbefound</button>',
+            '<p>thisisacattofind</p><BUTTON>thisdogshouldnotbefound</BUTTON>',
+            <<<'TESTCASE'
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    
+    <body xmlns="http://www.w3.org/1999/xhtml">
+    <p>thisisacattofind</p>
+      <form>
+        <p>thisdogshouldnotbefound</p>
+      </form>
+      <input type="text" placeholder="thisdogshouldnotbefound" />
+      <button type="submit">thisdogshouldnotbefound</button>
+    </body>
+
+  </foreignObject>
+</svg>
+TESTCASE
+
+        ];
+
+        $this->asEditor();
+        $page = $this->entities->page();
+
+        foreach ($checks as $check) {
+            $page->html = $check;
+            $page->save();
+
+            $pageView = $this->get($page->getUrl());
+            $pageView->assertStatus(200);
+            $pageView->assertSee('thisisacattofind');
+            $pageView->assertDontSee('thisdogshouldnotbefound');
+        }
+    }
+
+    public function test_form_attributes_are_removed()
+    {
+        $withinSvgSample = <<<'TESTCASE'
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    
+    <body xmlns="http://www.w3.org/1999/xhtml">
+    <p formaction="a">thisisacattofind</p>
+    <p formaction="a">thisisacattofind</p>
+    </body>
+
+  </foreignObject>
+</svg>
+TESTCASE;
+
+        $checks = [
+            'formaction' => '<p formaction="a">thisisacattofind</p>',
+            'form' => '<p form="a">thisisacattofind</p>',
+            'formmethod' => '<p formmethod="a">thisisacattofind</p>',
+            'formtarget' => '<p formtarget="a">thisisacattofind</p>',
+            'FORMTARGET' => '<p FORMTARGET="a">thisisacattofind</p>',
+        ];
+
+        $this->asEditor();
+        $page = $this->entities->page();
+
+        foreach ($checks as $attribute => $check) {
+            $page->html = $check;
+            $page->save();
+
+            $pageView = $this->get($page->getUrl());
+            $pageView->assertStatus(200);
+            $pageView->assertSee('thisisacattofind');
+            $this->withHtml($pageView)->assertElementNotExists(".page-content [{$attribute}]");
+        }
+
+        $page->html = $withinSvgSample;
+        $page->save();
+        $pageView = $this->get($page->getUrl());
+        $pageView->assertStatus(200);
+        $html = $this->withHtml($pageView);
+        foreach ($checks as $attribute => $check) {
+            $pageView->assertSee('thisisacattofind');
+            $html->assertElementNotExists(".page-content [{$attribute}]");
         }
     }
 

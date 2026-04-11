@@ -45,13 +45,12 @@ class UpdateUrlCommand extends Command
 
         $columnsToUpdateByTable = [
             'attachments' => ['path'],
-            'pages'       => ['html', 'text', 'markdown'],
-            'chapters'    => ['description_html'],
-            'books'       => ['description_html'],
-            'bookshelves' => ['description_html'],
+            'entity_page_data' => ['html', 'text', 'markdown'],
+            'entity_container_data' => ['description_html'],
+            'page_revisions' => ['html', 'text', 'markdown'],
             'images'      => ['url'],
             'settings'    => ['value'],
-            'comments'    => ['html', 'text'],
+            'comments'    => ['html'],
         ];
 
         foreach ($columnsToUpdateByTable as $table => $columns) {
@@ -77,6 +76,12 @@ class UpdateUrlCommand extends Command
         $this->info('URL update procedure complete.');
         $this->info('============================================================================');
         $this->info('Be sure to run "php artisan cache:clear" to clear any old URLs in the cache.');
+
+        if (!str_starts_with($newUrl, url('/'))) {
+            $this->warn('You still need to update your APP_URL env value. This is currently set to:');
+            $this->warn(url('/'));
+        }
+
         $this->info('============================================================================');
 
         return 0;

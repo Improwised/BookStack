@@ -4,7 +4,7 @@ namespace Tests\Entity;
 
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Page;
-use BookStack\Entities\Repos\BaseRepo;
+use BookStack\Uploads\Image;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -84,7 +84,7 @@ class PageTest extends TestCase
         $resp = $this->post($book->getUrl("/draft/{$draft->id}"), $details);
         $resp->assertRedirect();
 
-        $this->assertDatabaseHas('pages', [
+        $this->assertDatabaseHasEntityData('page', [
             'markdown' => $details['markdown'],
             'name'     => $details['name'],
             'id'       => $draft->id,
@@ -168,117 +168,23 @@ class PageTest extends TestCase
         ]);
     }
 
-    public function test_page_copy()
+    public function test_page_full_delete_nulls_related_images()
     {
         $page = $this->entities->page();
-        $page->html = '<p>This is some test content</p>';
-        $page->save();
+        $image = Image::factory()->create(['type' => 'gallery', 'uploaded_to' => $page->id]);
 
-        $currentBook = $page->book;
-        $newBook = Book::where('id', '!=', $currentBook->id)->first();
+        $this->asEditor()->delete($page->getUrl());
+        $this->asAdmin()->post('/settings/recycle-bin/empty');
 
-        $resp = $this->asEditor()->get($page->getUrl('/copy'));
-        $resp->assertSee('Copy Page');
-
-        $movePageResp = $this->post($page->getUrl('/copy'), [
-            'entity_selection' => 'book:' . $newBook->id,
-            'name'             => 'My copied test page',
-        ]);
-        $pageCopy = Page::where('name', '=', 'My copied test page')->first();
-
-        $movePageResp->assertRedirect($pageCopy->getUrl());
-        $this->assertTrue($pageCopy->book->id == $newBook->id, 'Page was copied to correct book');
-        $this->assertStringContainsString('This is some test content', $pageCopy->html);
-    }
-
-    public function test_page_copy_with_markdown_has_both_html_and_markdown()
-    {
-        $page = $this->entities->page();
-        $page->html = '<h1>This is some test content</h1>';
-        $page->markdown = '# This is some test content';
-        $page->save();
-        $newBook = Book::where('id', '!=', $page->book->id)->first();
-
-        $this->asEditor()->post($page->getUrl('/copy'), [
-            'entity_selection' => 'book:' . $newBook->id,
-            'name'             => 'My copied test page',
-        ]);
-        $pageCopy = Page::where('name', '=', 'My copied test page')->first();
-
-        $this->assertStringContainsString('This is some test content', $pageCopy->html);
-        $this->assertEquals('# This is some test content', $pageCopy->markdown);
-    }
-
-    public function test_page_copy_with_no_destination()
-    {
-        $page = $this->entities->page();
-        $currentBook = $page->book;
-
-        $resp = $this->asEditor()->get($page->getUrl('/copy'));
-        $resp->assertSee('Copy Page');
-
-        $movePageResp = $this->post($page->getUrl('/copy'), [
-            'name' => 'My copied test page',
+        $this->assertDatabaseMissing('images', [
+            'type' => 'gallery',
+            'uploaded_to' => $page->id,
         ]);
 
-        $pageCopy = Page::where('name', '=', 'My copied test page')->first();
-
-        $movePageResp->assertRedirect($pageCopy->getUrl());
-        $this->assertTrue($pageCopy->book->id == $currentBook->id, 'Page was copied to correct book');
-        $this->assertTrue($pageCopy->id !== $page->id, 'Page copy is not the same instance');
-    }
-
-    public function test_page_can_be_copied_without_edit_permission()
-    {
-        $page = $this->entities->page();
-        $currentBook = $page->book;
-        $newBook = Book::where('id', '!=', $currentBook->id)->first();
-        $viewer = $this->users->viewer();
-
-        $resp = $this->actingAs($viewer)->get($page->getUrl());
-        $resp->assertDontSee($page->getUrl('/copy'));
-
-        $newBook->owned_by = $viewer->id;
-        $newBook->save();
-        $this->permissions->grantUserRolePermissions($viewer, ['page-create-own']);
-        $this->permissions->regenerateForEntity($newBook);
-
-        $resp = $this->actingAs($viewer)->get($page->getUrl());
-        $resp->assertSee($page->getUrl('/copy'));
-
-        $movePageResp = $this->post($page->getUrl('/copy'), [
-            'entity_selection' => 'book:' . $newBook->id,
-            'name'             => 'My copied test page',
+        $this->assertDatabaseHas('images', [
+            'id' => $image->id,
+            'uploaded_to' => null,
         ]);
-        $movePageResp->assertRedirect();
-
-        $this->assertDatabaseHas('pages', [
-            'name'       => 'My copied test page',
-            'created_by' => $viewer->id,
-            'book_id'    => $newBook->id,
-        ]);
-    }
-
-    public function test_old_page_slugs_redirect_to_new_pages()
-    {
-        $page = $this->entities->page();
-
-        // Need to save twice since revisions are not generated in seeder.
-        $this->asAdmin()->put($page->getUrl(), [
-            'name' => 'super test',
-            'html' => '<p></p>',
-        ]);
-
-        $page->refresh();
-        $pageUrl = $page->getUrl();
-
-        $this->put($pageUrl, [
-            'name' => 'super test page',
-            'html' => '<p></p>',
-        ]);
-
-        $this->get($pageUrl)
-            ->assertRedirect("/books/{$page->book->slug}/page/super-test-page");
     }
 
     public function test_page_within_chapter_deletion_returns_to_chapter()
@@ -310,7 +216,7 @@ class PageTest extends TestCase
         ]);
 
         $resp = $this->asAdmin()->get('/pages/recently-updated');
-        $this->withHtml($resp)->assertElementContains('.entity-list .page:nth-child(1)', 'Updated 1 second ago by ' . $user->name);
+        $this->withHtml($resp)->assertElementContains('.entity-list .page:nth-child(1) small', 'by ' . $user->name);
     }
 
     public function test_recently_updated_pages_view_shows_parent_chain()
@@ -367,73 +273,13 @@ class PageTest extends TestCase
         $this->withHtml($resp)->assertElementContains('#recently-updated-pages', $page->name);
     }
 
-    public function test_page_cover_image_reset()
+    public function test_page_edit_without_update_permissions_but_with_view_redirects_to_page()
     {
         $page = $this->entities->page();
 
-        $baseRepo = $this->app->make(BaseRepo::class);
+        $resp = $this->asViewer()->get($page->getUrl('/edit'));
+        $resp->assertRedirect($page->getUrl());
 
-        $coverImageFile = $this->files->uploadedImage('page_cover.png');
-
-        $baseRepo->updateCoverImage($page, $coverImageFile);
-
-        $this->assertNotNull($page->cover);
-        $this->assertEquals('page_cover.png', $page->cover->name);
-
-        $page = Page::findOrFail($page->id);
-
-        // Third argument specify for reset image is true or false
-        $baseRepo->updateCoverImage($page, null, true);
-
-        $this->assertNull($page->cover);
-    }
-
-    public function test_page_cover_image_update()
-    {
-        $page = $this->entities->page();
-
-        $baseRepo = $this->app->make(BaseRepo::class);
-
-        $coverImageFile = $this->files->uploadedImage('page_cover.png');
-
-        $baseRepo->updateCoverImage($page, $coverImageFile);
-
-        $this->assertNotNull($page->cover);
-        $this->assertEquals('page_cover.png', $page->cover->name);
-
-        $coverImageFile = $this->files->uploadedImage('updated_page_cover.png');
-
-        $baseRepo->updateCoverImage($page, $coverImageFile);
-
-        $this->assertNotNull($page->cover);
-        $this->assertEquals('updated_page_cover.png', $page->cover->name);
-    }
-
-    public function test_pages_in_chapter_view_shows_view_toggle_option()
-    {
-        $editor = $this->users->editor();
-        setting()->putUser($editor, 'pages_view_type', 'list');
-
-
-        $book = $this->entities->book();
-
-        $chapter = $this->entities->chapter()->where('book_id', $book->id)->get();
-
-        $resp = $this->actingAs($editor)->get("/books/{$book->slug}/chapter/{$chapter->first()->slug}");
-
-        $this->withHtml($resp)->assertElementContains('form[action$="/preferences/change-view/pages"]', 'Grid View');
-        $this->withHtml($resp)->assertElementExists('button[name="view"][value="grid"]');
-
-        $resp = $this->patch("/preferences/change-view/pages", ['view' => 'grid']);
-        $resp->assertRedirect();
-        $this->assertEquals('grid', setting()->getUser($editor, 'pages_view_type'));
-
-        $resp = $this->actingAs($editor)->get("/books/{$book->slug}/chapter/{$chapter->first()->slug}");
-        $this->withHtml($resp)->assertElementContains('form[action$="/preferences/change-view/pages"]', 'List View');
-        $this->withHtml($resp)->assertElementExists('button[name="view"][value="list"]');
-
-        $resp = $this->patch("/preferences/change-view/pages", ['view_type' => 'list']);
-        $resp->assertRedirect();
-        $this->assertEquals('list', setting()->getUser($editor, 'pages_view_type'));
+        $resp->assertSessionHas('error', 'You do not have permission to access the requested page.');
     }
 }

@@ -67,7 +67,7 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from '.';
-import {KEY_MODIFIER_COMMAND, SELECT_ALL_COMMAND} from './LexicalCommands';
+import {KEY_AT_COMMAND, KEY_MODIFIER_COMMAND, SELECT_ALL_COMMAND} from './LexicalCommands';
 import {
   COMPOSITION_START_CHAR,
   DOM_ELEMENT_TYPE,
@@ -97,7 +97,7 @@ import {
   getEditorPropertyFromDOMNode,
   getEditorsToPropagate,
   getNearestEditorFromDOMNode,
-  getWindow,
+  getWindow, isAt,
   isBackspace,
   isBold,
   isCopy,
@@ -578,7 +578,6 @@ function onBeforeInput(event: InputEvent, editor: LexicalEditor): void {
           if ($isRangeSelection(selection)) {
             const anchorNode = selection.anchor.getNode();
             anchorNode.markDirty();
-            selection.format = anchorNode.getFormat();
             invariant(
               $isTextNode(anchorNode),
               'Anchor node must be a TextNode',
@@ -912,7 +911,6 @@ function onCompositionStart(
         // need to invoke the empty space heuristic below.
         anchor.type === 'element' ||
         !selection.isCollapsed() ||
-        node.getFormat() !== selection.format ||
         ($isTextNode(node) && node.getStyle() !== selection.style)
       ) {
         // We insert a zero width character, ready for the composition
@@ -1064,6 +1062,8 @@ function onKeyDown(event: KeyboardEvent, editor: LexicalEditor): void {
   } else if (isDeleteLineForward(key, metaKey)) {
     event.preventDefault();
     dispatchCommand(editor, DELETE_LINE_COMMAND, false);
+  } else if (isAt(key)) {
+    dispatchCommand(editor, KEY_AT_COMMAND, event);
   } else if (isBold(key, altKey, metaKey, ctrlKey)) {
     event.preventDefault();
     dispatchCommand(editor, FORMAT_TEXT_COMMAND, 'bold');

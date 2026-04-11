@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName είναι προσωρινά μη διαθέσιμη',
     'back_soon' => 'Θα υπάρξει σύντομα υποστήριξη.',
 
+    // Import
+    'import_zip_cant_read' => 'Could not read ZIP file.',
+    'import_zip_cant_decode_data' => 'Could not find and decode ZIP data.json content.',
+    'import_zip_no_data' => 'ZIP file data has no expected book, chapter or page content.',
+    'import_zip_data_too_large' => 'ZIP data.json content exceeds the configured application maximum upload size.',
+    'import_validation_failed' => 'Import ZIP failed to validate with errors:',
+    'import_zip_failed_notification' => 'Failed to import ZIP file.',
+    'import_perms_books' => 'You are lacking the required permissions to create books.',
+    'import_perms_chapters' => 'You are lacking the required permissions to create chapters.',
+    'import_perms_pages' => 'You are lacking the required permissions to create pages.',
+    'import_perms_images' => 'You are lacking the required permissions to create images.',
+    'import_perms_attachments' => 'You are lacking the required permission to create attachments.',
+
     // API errors
     'api_no_authorization_found' => 'Δεν βρέθηκε διακριτικό εξουσιοδότησης κατόπιν αιτήματος',
     'api_bad_authorization_format' => 'Ένα διακριτικό εξουσιοδότησης βρέθηκε κατόπιν αιτήματος, αλλά η μορφή εμφανίστηκε εσφαλμένη',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Το μυστικό που παρέχεται για το δεδομένο χρησιμοποιημένο διακριτικό API είναι εσφαλμένο',
     'api_user_no_api_permission' => 'Ο ιδιοκτήτης του χρησιμοποιημένου διακριτικού API δεν έχει άδεια για να κάνει κλήσεις API',
     'api_user_token_expired' => 'Το διακριτικό εξουσιοδότησης που χρησιμοποιείται έχει λήξει',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Σφάλμα κατά την αποστολή δοκιμαστικού email:',

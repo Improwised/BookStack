@@ -30,6 +30,8 @@ return [
     'create' => 'Utwórz',
     'update' => 'Zaktualizuj',
     'edit' => 'Edytuj',
+    'archive' => 'Archiwizuj',
+    'unarchive' => 'Wypakuj z archiwum',
     'sort' => 'Sortuj',
     'move' => 'Przenieś',
     'copy' => 'Skopiuj',
@@ -109,5 +111,5 @@ return [
     'terms_of_service' => 'Warunki usługi',
 
     // OpenSearch
-    'opensearch_description' => 'Search :appName',
+    'opensearch_description' => 'Szukaj :appName',
 ];

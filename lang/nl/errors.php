@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Je kunt niet het enige admin account verwijderen',
     'users_cannot_delete_guest' => 'Je kunt het gastaccount niet verwijderen',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Kan de gebruiker niet aanmaken, uitnodigingsmail kon niet worden verzonden',
 
     // Roles
     'role_cannot_be_edited' => 'Deze rol kan niet bewerkt worden',
@@ -87,11 +87,11 @@ return [
     'role_cannot_remove_only_admin' => 'Deze gebruiker is de enige gebruiker die is toegewezen aan de beheerdersrol. Wijs de beheerdersrol toe aan een andere gebruiker voordat u probeert deze hier te verwijderen.',
 
     // Comments
-    'comment_list' => 'Er is een fout opgetreden tijdens het ophalen van de reacties.',
-    'cannot_add_comment_to_draft' => 'Je kunt geen reacties toevoegen aan een concept.',
-    'comment_add' => 'Er is een fout opgetreden tijdens het aanpassen / toevoegen van de reactie.',
-    'comment_delete' => 'Er is een fout opgetreden tijdens het verwijderen van de reactie.',
-    'empty_comment' => 'Kan geen lege reactie toevoegen.',
+    'comment_list' => 'Er is een fout opgetreden tijdens het ophalen van de opmerkingen.',
+    'cannot_add_comment_to_draft' => 'Je kunt geen opmerkingen toevoegen aan een concept.',
+    'comment_add' => 'Er is een fout opgetreden tijdens het aanpassen / toevoegen van de opmerking.',
+    'comment_delete' => 'Er is een fout opgetreden tijdens het verwijderen van de opmerking.',
+    'empty_comment' => 'Kan geen lege opmerking toevoegen.',
 
     // Error pages
     '404_page_not_found' => 'Pagina Niet Gevonden',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName is nu niet beschikbaar',
     'back_soon' => 'Komt snel weer online.',
 
+    // Import
+    'import_zip_cant_read' => 'Kon het Zip-bestand niet lezen.',
+    'import_zip_cant_decode_data' => 'Kon de data.json Zip-inhoud niet vinden of decoderen.',
+    'import_zip_no_data' => 'Zip-bestand bevat niet de verwachte boek, hoofdstuk of pagina-inhoud.',
+    'import_zip_data_too_large' => 'De inhoud van data.json in de ZIP overschrijdt de ingestelde maximum upload grootte.',
+    'import_validation_failed' => 'De validatie van het Zip-bestand is mislukt met de volgende fouten:',
+    'import_zip_failed_notification' => 'Importeren van het Zip-bestand is mislukt.',
+    'import_perms_books' => 'Je mist de vereiste machtigingen om boeken te maken.',
+    'import_perms_chapters' => 'Je mist de vereiste machtigingen om hoofdstukken te maken.',
+    'import_perms_pages' => 'Je mist de vereiste machtigingen om pagina\'s te maken.',
+    'import_perms_images' => 'Je mist de vereiste machtigingen om afbeeldingen toe te voegen.',
+    'import_perms_attachments' => 'Je mist de vereiste machtigingen om bijlagen toe te voegen.',
+
     // API errors
     'api_no_authorization_found' => 'Geen autorisatie token gevonden',
     'api_bad_authorization_format' => 'Een autorisatie token is gevonden, maar het formaat schijnt onjuist te zijn',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Het opgegeven geheim voor de API-token is onjuist',
     'api_user_no_api_permission' => 'De eigenaar van de gebruikte API-token heeft geen machtiging om API calls te maken',
     'api_user_token_expired' => 'De gebruikte autorisatie token is verlopen',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Fout opgetreden bij het verzenden van een test email:',

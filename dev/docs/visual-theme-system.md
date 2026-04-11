@@ -2,7 +2,9 @@
 
 BookStack allows visual customization via the theme system which enables you to extensively customize views, translation text & icons.
 
-This theme system itself is maintained and supported but usages of this system, including the files you are able to override, are not considered stable and may change upon any update. You should test any customizations made after updates.
+This is part of the theme system alongside the [logical theme system](./logical-theme-system.md).
+
+**Note:** This theme system itself is maintained and supported, but usages of this system, including the files you are able to override, are not considered stable and may change upon any update. You should test any customizations made after updates.
 
 ## Getting Started
 
@@ -15,6 +17,9 @@ You'll need to tell BookStack to use your theme via the `APP_THEME` option in yo
 
 Content placed in your `themes/<theme_name>/` folder will override the original view files found in the `resources/views` folder. These files are typically [Laravel Blade](https://laravel.com/docs/10.x/blade) files.
 As an example, I could override the `resources/views/books/parts/list-item.blade.php` file with my own template at the path `themes/<theme_name>/books/parts/list-item.blade.php`. 
+
+In addition to overriding original views, this could be used to add new views for use via the [logical theme system](logical-theme-system.md).
+By using the `THEME_REGISTER_VIEWS` logical event, you can also register your views to be rendered before/after existing views. An example of this can be found in our [logical theme guidance](logical-theme-system.md#custom-view-registration-example).
 
 ## Customizing Icons
 
@@ -32,3 +37,24 @@ return [
     'search' => 'find',
 ];
 ```
+
+## Publicly Accessible Files
+
+As part of deeper customizations you may want to expose additional files 
+(images, scripts, styles, etc...) as part of your theme, in a way so they're
+accessible in public web-space to browsers.
+
+To achieve this, you can put files within a `themes/<theme_name>/public` folder.
+BookStack will serve any files within this folder from a `/theme/<theme_name>` base path.
+
+As an example, if I had an image located at `themes/custom/public/cat.jpg`, I could access
+that image via the URL path `/theme/custom/cat.jpg`. That's assuming that `custom` is the currently
+configured application theme.
+
+There are some considerations to these publicly served files:
+
+- Only a predetermined range of "web safe" content-types are currently served.
+  - This limits running into potential insecure scenarios in serving problematic file types.
+- A static 1-day cache time it set on files served from this folder.
+  - You can use alternative cache-breaking techniques (change of query string) upon changes if needed. 
+  - If required, you could likely override caching at the webserver level.  

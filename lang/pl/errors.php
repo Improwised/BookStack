@@ -37,7 +37,7 @@ return [
     'social_driver_not_found' => 'Funkcja społecznościowa nie została odnaleziona',
     'social_driver_not_configured' => 'Ustawienia konta :socialAccount nie są poprawne.',
     'invite_token_expired' => 'Zaproszenie wygasło. Możesz spróować zresetować swoje hasło.',
-    'login_user_not_found' => 'A user for this action could not be found.',
+    'login_user_not_found' => 'Użytkownik dla tej akcji nie został znaleziony.',
 
     // System
     'path_not_writable' => 'Zapis do ścieżki :filePath jest niemożliwy. Upewnij się że aplikacja ma prawa do zapisu plików na serwerze.',
@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Nie możesz usunąć jedynego administratora',
     'users_cannot_delete_guest' => 'Nie możesz usunąć użytkownika-gościa',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Nie można utworzyć użytkownika, ponieważ nie udało się wysłać wiadomości e-mail z zaproszeniem',
 
     // Roles
     'role_cannot_be_edited' => 'Ta rola nie może być edytowana',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName jest aktualnie wyłączona',
     'back_soon' => 'Niedługo zostanie uruchomiona ponownie.',
 
+    // Import
+    'import_zip_cant_read' => 'Nie można odczytać archiwum ZIP.',
+    'import_zip_cant_decode_data' => 'Nie udało się odnaleźć i dekodować pliku data.json w zawartości archiwum ZIP.',
+    'import_zip_no_data' => 'Dane archiwum ZIP nie zawierają oczekiwanej zawartości książki, rozdziału lub strony.',
+    'import_zip_data_too_large' => 'Zawartość pliku data.json w archiwum ZIP przekracza maksymalny dopuszczalny rozmiar narzucony przez aktualną konfigurację aplikacji.',
+    'import_validation_failed' => 'Walidacja importu archiwum ZIP nie powiodła się z błędami:',
+    'import_zip_failed_notification' => 'Nie udało się zaimportować archiwum ZIP.',
+    'import_perms_books' => 'Brakuje Ci wymaganych uprawnień do tworzenia książek.',
+    'import_perms_chapters' => 'Brakuje Ci wymaganych uprawnień do tworzenia rozdziałów.',
+    'import_perms_pages' => 'Brakuje Ci wymaganych uprawnień do tworzenia stron.',
+    'import_perms_images' => 'Brakuje Ci wymaganych uprawnień do tworzenia zdjęć.',
+    'import_perms_attachments' => 'Brakuje Ci wymaganych uprawnień do tworzenia załączników.',
+
     // API errors
     'api_no_authorization_found' => 'Nie znaleziono tokenu autoryzacji dla żądania',
     'api_bad_authorization_format' => 'Token autoryzacji został znaleziony w żądaniu, ale format okazał się nieprawidłowy',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Podany sekret dla tego API jest nieprawidłowy',
     'api_user_no_api_permission' => 'Właściciel używanego tokenu API nie ma uprawnień do wykonywania zapytań do API',
     'api_user_token_expired' => 'Token uwierzytelniania wygasł',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Błąd podczas wysyłania testowej wiadomości e-mail:',

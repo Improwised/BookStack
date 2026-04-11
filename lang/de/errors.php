@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Sie können den einzigen Administrator nicht löschen',
     'users_cannot_delete_guest' => 'Sie können den Gast-Benutzer nicht löschen',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Benutzer konnte nicht erstellt werden, da die Einladungs-E-Mail nicht gesendet wurde',
 
     // Roles
     'role_cannot_be_edited' => 'Diese Rolle kann nicht bearbeitet werden',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName befindet sich aktuell im Wartungsmodus',
     'back_soon' => 'Wir werden so schnell wie möglich wieder online sein.',
 
+    // Import
+    'import_zip_cant_read' => 'ZIP-Datei konnte nicht gelesen werden.',
+    'import_zip_cant_decode_data' => 'ZIP data.json konnte nicht gefunden und dekodiert werden.',
+    'import_zip_no_data' => 'ZIP-Datei Daten haben kein erwartetes Buch, Kapitel oder Seiteninhalt.',
+    'import_zip_data_too_large' => 'ZIP data.json content exceeds the configured application maximum upload size.',
+    'import_validation_failed' => 'ZIP Import konnte mit Fehlern nicht validiert werden:',
+    'import_zip_failed_notification' => 'Importieren der ZIP-Datei fehlgeschlagen.',
+    'import_perms_books' => 'Ihnen fehlt die erforderliche Berechtigung, um Bücher zu erstellen.',
+    'import_perms_chapters' => 'Ihnen fehlt die erforderliche Berechtigung, um Bücher zu erstellen.',
+    'import_perms_pages' => 'Ihnen fehlt die erforderliche Berechtigung, um Seiten zu erstellen.',
+    'import_perms_images' => 'Ihnen fehlt die erforderliche Berechtigung, um Bilder zu erstellen.',
+    'import_perms_attachments' => 'Ihnen fehlt die erforderliche Berechtigung, um Anhänge zu erstellen.',
+
     // API errors
     'api_no_authorization_found' => 'Kein Autorisierungstoken für die Anfrage gefunden',
     'api_bad_authorization_format' => 'Ein Autorisierungstoken wurde auf die Anfrage gefunden, aber das Format schien falsch zu sein',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Das Kennwort für das angegebene API-Token ist falsch',
     'api_user_no_api_permission' => 'Der Besitzer des verwendeten API-Tokens hat keine Berechtigung für API-Aufrufe',
     'api_user_token_expired' => 'Das verwendete Autorisierungstoken ist abgelaufen',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Fehler beim Versenden einer Test E-Mail:',

@@ -35,6 +35,15 @@ class ImageStorage
     }
 
     /**
+     * Check if "local secure" (Fetched behind auth, either with or without permissions enforced)
+     * is currently active in the instance.
+     */
+    public function usingSecureImages(): bool
+    {
+        return config('filesystems.images') === 'local_secure' || $this->usingSecureRestrictedImages();
+    }
+
+    /**
      * Clean up an image file name to be both URL and storage safe.
      */
     public function cleanImageFileName(string $name): string
@@ -65,7 +74,7 @@ class ImageStorage
             return 'local';
         }
 
-        // Rename local_secure options to get our image specific storage driver which
+        // Rename local_secure options to get our image-specific storage driver, which
         // is scoped to the relevant image directories.
         if ($localSecureInUse) {
             return 'local_secure_images';
@@ -110,10 +119,20 @@ class ImageStorage
     }
 
     /**
-     * Gets a public facing url for an image by checking relevant environment variables.
+     * Gets a public facing url for an image or location at the given path.
+     */
+    public static function getPublicUrl(string $filePath): string
+    {
+        return static::getPublicBaseUrl() . '/' . ltrim($filePath, '/');
+    }
+
+    /**
+     * Get the public base URL used for images.
+     * Will not include any path element of the image file, just the base part
+     * from where the path is then expected to start from.
      * If s3-style store is in use it will default to guessing a public bucket URL.
      */
-    public function getPublicUrl(string $filePath): string
+    protected static function getPublicBaseUrl(): string
     {
         $storageUrl = config('filesystems.url');
 
@@ -131,6 +150,6 @@ class ImageStorage
 
         $basePath = $storageUrl ?: url('/');
 
-        return rtrim($basePath, '/') . $filePath;
+        return rtrim($basePath, '/');
     }
 }

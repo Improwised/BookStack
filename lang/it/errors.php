@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Non puoi eliminare l\'unico admin',
     'users_cannot_delete_guest' => 'Non puoi eliminare l\'utente ospite',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Impossibile creare l\'utente poiché l\'invio dell\'email di invito non è riuscito',
 
     // Roles
     'role_cannot_be_edited' => 'Questo ruolo non può essere modificato',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName è offline al momento',
     'back_soon' => 'Tornerà presto online.',
 
+    // Import
+    'import_zip_cant_read' => 'Impossibile leggere il file ZIP.',
+    'import_zip_cant_decode_data' => 'Impossibile trovare e decodificare il contenuto ZIP data.json.',
+    'import_zip_no_data' => 'I dati del file ZIP non hanno il contenuto previsto di libri, capitoli o pagine.',
+    'import_zip_data_too_large' => 'Il contenuto ZIP data.json supera la dimensione massima di upload configurata nell\'applicazione.',
+    'import_validation_failed' => 'L\'importazione ZIP non è stata convalidata con errori:',
+    'import_zip_failed_notification' => 'Impossibile importare il file ZIP.',
+    'import_perms_books' => 'Non hai i permessi necessari per creare libri.',
+    'import_perms_chapters' => 'Non hai i permessi necessari per creare capitoli.',
+    'import_perms_pages' => 'Non hai i permessi necessari per creare pagine.',
+    'import_perms_images' => 'Non hai i permessi necessari per creare immagini.',
+    'import_perms_attachments' => 'Non hai il permesso necessario per creare allegati.',
+
     // API errors
     'api_no_authorization_found' => 'Nessun token di autorizzazione trovato nella richiesta',
     'api_bad_authorization_format' => 'Un token di autorizzazione è stato trovato nella richiesta, ma il formato sembra non corretto',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Il token segreto fornito per il token API utilizzato non è corretto',
     'api_user_no_api_permission' => 'Il proprietario del token API utilizzato non ha il permesso di effettuare chiamate API',
     'api_user_token_expired' => 'Il token di autorizzazione utilizzato è scaduto',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Si è verificato un errore durante l\'invio di una e-mail di prova:',

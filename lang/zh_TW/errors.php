@@ -67,7 +67,7 @@ return [
 
     // Entities
     'entity_not_found' => '找不到實體',
-    'bookshelf_not_found' => '未找到書棧',
+    'bookshelf_not_found' => '未找到書架',
     'book_not_found' => '找不到書本',
     'page_not_found' => '找不到頁面',
     'chapter_not_found' => '找不到章節',
@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => '您不能刪除唯一的管理員帳號',
     'users_cannot_delete_guest' => '您不能刪除訪客使用者',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => '由於寄送邀請電子郵件失敗，因此無法建立使用者',
 
     // Roles
     'role_cannot_be_edited' => '無法編輯這個角色',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName 離線中',
     'back_soon' => '它應該很快就會重新上線。',
 
+    // Import
+    'import_zip_cant_read' => '無法讀取 ZIP 檔案。',
+    'import_zip_cant_decode_data' => '無法尋找並解碼 ZIP data.json 內容。',
+    'import_zip_no_data' => 'ZIP 檔案資料沒有預期的書本、章節或頁面內容。',
+    'import_zip_data_too_large' => 'ZIP 檔案 data.json 的內容超過了設定的應用程式最大上傳大小。',
+    'import_validation_failed' => '匯入 ZIP 驗證失敗，發生錯誤：',
+    'import_zip_failed_notification' => '匯入 ZIP 檔案失敗。',
+    'import_perms_books' => '您缺乏建立書本所需的權限。',
+    'import_perms_chapters' => '您缺乏建立章節所需的權限。',
+    'import_perms_pages' => '您缺乏建立頁面所需的權限。',
+    'import_perms_images' => '您缺乏建立影像所需的權限。',
+    'import_perms_attachments' => '您缺乏建立附件所需的權限。',
+
     // API errors
     'api_no_authorization_found' => '在請求上找不到授權權杖',
     'api_bad_authorization_format' => '在請求中找到授權權杖，但格式似乎不正確',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => '給定使用的 API 權杖的密碼錯誤',
     'api_user_no_api_permission' => '使用的 API 權杖擁有者無權呼叫 API',
     'api_user_token_expired' => '使用的授權權杖已過期',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => '寄送測試電子郵件時發生錯誤:',

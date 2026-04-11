@@ -11,6 +11,8 @@ return [
     'updated_page_subject' => 'صفحه جدید: :pageName',
     'updated_page_intro' => 'یک صفحه جدید ایجاد شده است در :appName:',
     'updated_page_debounce' => 'برای جلوگیری از انبوه اعلان‌ها، برای مدتی اعلان‌ ویرایش‌هایی که توسط همان ویرایشگر در این صفحه انجام می‌شود، ارسال نخواهد شد.',
+    'comment_mention_subject' => 'You have been mentioned in a comment on page: :pageName',
+    'comment_mention_intro' => 'You were mentioned in a comment on :appName:',
 
     'detail_page_name' => 'نام صفحه:',
     'detail_page_path' => 'نام میسر صفحه:',
@@ -22,6 +24,6 @@ return [
     'action_view_comment' => 'مشاهده نظر',
     'action_view_page' => 'مشاهده صفحه',
 
-    'footer_reason' => 'This notification was sent to you because :link cover this type of activity for this item.',
+    'footer_reason' => 'این اعلان برای شما ارسال شده است، زیرا پیوند (:link) فعالیتی از این نوع را برای این مورد پوشش می‌دهد.',
     'footer_reason_link' => 'تنظیمات اطلاع‌رسانی شما',
 ];

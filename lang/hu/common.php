@@ -30,6 +30,8 @@ return [
     'create' => 'Létrehozás',
     'update' => 'Frissítés',
     'edit' => 'Szerkesztés',
+    'archive' => 'Archiválás',
+    'unarchive' => 'Archiválás visszavonása',
     'sort' => 'Rendezés',
     'move' => 'Áthelyezés',
     'copy' => 'Másolás',
@@ -109,5 +111,5 @@ return [
     'terms_of_service' => 'Felhasználási feltételek',
 
     // OpenSearch
-    'opensearch_description' => 'Search :appName',
+    'opensearch_description' => 'Keresés :appName',
 ];

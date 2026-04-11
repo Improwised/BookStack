@@ -5,8 +5,10 @@ namespace BookStack\Activity\Notifications\Handlers;
 use BookStack\Activity\Models\Loggable;
 use BookStack\Activity\Notifications\Messages\BaseActivityNotification;
 use BookStack\Entities\Models\Entity;
+use BookStack\Permissions\Permission;
 use BookStack\Permissions\PermissionApplicator;
 use BookStack\Users\Models\User;
+use Illuminate\Support\Facades\Log;
 
 abstract class BaseNotificationHandler implements NotificationHandler
 {
@@ -18,6 +20,7 @@ abstract class BaseNotificationHandler implements NotificationHandler
     {
         $users = User::query()->whereIn('id', array_unique($userIds))->get();
 
+        /** @var User $user */
         foreach ($users as $user) {
             // Prevent sending to the user that initiated the activity
             if ($user->id === $initiator->id) {
@@ -25,7 +28,7 @@ abstract class BaseNotificationHandler implements NotificationHandler
             }
 
             // Prevent sending of the user does not have notification permissions
-            if (!$user->can('receive-notifications')) {
+            if (!$user->can(Permission::ReceiveNotifications)) {
                 continue;
             }
 
@@ -36,7 +39,11 @@ abstract class BaseNotificationHandler implements NotificationHandler
             }
 
             // Send the notification
-            $user->notify(new $notification($detail, $initiator));
+            try {
+                $user->notify(new $notification($detail, $initiator));
+            } catch (\Exception $exception) {
+                Log::error("Failed to send email notification to user [id:{$user->id}] with error: {$exception->getMessage()}");
+            }
         }
     }
 }

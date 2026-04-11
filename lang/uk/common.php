@@ -30,6 +30,8 @@ return [
     'create' => 'Створити',
     'update' => 'Оновити',
     'edit' => 'Редагувати',
+    'archive' => 'Архів',
+    'unarchive' => 'Розархівувати',
     'sort' => 'Сортувати',
     'move' => 'Перемістити',
     'copy' => 'Копіювати',
@@ -109,5 +111,5 @@ return [
     'terms_of_service' => 'Умови використання',
 
     // OpenSearch
-    'opensearch_description' => 'Search :appName',
+    'opensearch_description' => 'Шукати :appName',
 ];

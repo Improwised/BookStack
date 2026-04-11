@@ -28,22 +28,22 @@ return [
     'chapter_move_notification' => '章节移动成功',
 
     // Books
-    'book_create'                 => '图书已创建',
-    'book_create_notification'    => '成功创建图书',
-    'book_create_from_chapter'              => '将章节转换为图书',
-    'book_create_from_chapter_notification' => '章节已成功转换为图书',
-    'book_update'                 => '图书已更新',
-    'book_update_notification'    => '图书更新成功',
-    'book_delete'                 => '图书已删除',
-    'book_delete_notification'    => '图书删除成功',
-    'book_sort'                   => '图书已排序',
-    'book_sort_notification'      => '图书重新排序成功',
+    'book_create'                 => '书籍已创建',
+    'book_create_notification'    => '成功创建书籍',
+    'book_create_from_chapter'              => '将章节转换为书籍',
+    'book_create_from_chapter_notification' => '章节已成功转换为书籍',
+    'book_update'                 => '书籍已更新',
+    'book_update_notification'    => '书籍更新成功',
+    'book_delete'                 => '书籍已删除',
+    'book_delete_notification'    => '书籍删除成功',
+    'book_sort'                   => '书籍已排序',
+    'book_sort_notification'      => '书籍重新排序成功',
 
     // Bookshelves
     'bookshelf_create'            => '书架已创建',
     'bookshelf_create_notification'    => '书架创建成功',
-    'bookshelf_create_from_book'    => '将图书转换为书架',
-    'bookshelf_create_from_book_notification'    => '图书已成功转换为书架',
+    'bookshelf_create_from_book'    => '将书籍转换为书架',
+    'bookshelf_create_from_book_notification'    => '书籍已成功转换为书架',
     'bookshelf_update'                 => '书架已更新',
     'bookshelf_update_notification'    => '书架更新成功',
     'bookshelf_delete'                 => '书架已删除',
@@ -84,6 +84,14 @@ return [
     'webhook_delete' => 'Webhook 已删除',
     'webhook_delete_notification' => 'Webhook 删除成功',
 
+    // Imports
+    'import_create' => '创建导入',
+    'import_create_notification' => '导入上传成功',
+    'import_run' => '更新导入',
+    'import_run_notification' => '内容成功导入',
+    'import_delete' => '删除导入',
+    'import_delete_notification' => '导入删除成功',
+
     // Users
     'user_create' => '用户已创建',
     'user_create_notification' => '用户创建成功',
@@ -118,6 +126,14 @@ return [
     'comment_create'              => '评论已添加',
     'comment_update'              => '评论已更新',
     'comment_delete'              => '评论已删除',
+
+    // Sort Rules
+    'sort_rule_create' => '创建排序规则',
+    'sort_rule_create_notification' => '排序规则创建成功',
+    'sort_rule_update' => '更新排序规则',
+    'sort_rule_update_notification' => '排序规则更新成功',
+    'sort_rule_delete' => '删除排序规则',
+    'sort_rule_delete_notification' => '排序规则删除成功',
 
     // Other
     'permissions_update'          => '权限已更新',

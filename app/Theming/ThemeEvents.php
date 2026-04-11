@@ -62,7 +62,7 @@ class ThemeEvents
      *
      * @param string $authSystem
      * @param array $userData
-     * @returns bool|null
+     * @return bool|null
      */
     const AUTH_PRE_REGISTER = 'auth_pre_register';
 
@@ -83,7 +83,7 @@ class ThemeEvents
      * If the listener returns a non-null value, that will be used as an environment instead.
      *
      * @param \League\CommonMark\Environment\Environment $environment
-     * @returns \League\CommonMark\Environment\Environment|null
+     * @return \League\CommonMark\Environment\Environment|null
      */
     const COMMONMARK_ENVIRONMENT_CONFIGURE = 'commonmark_environment_configure';
 
@@ -96,7 +96,7 @@ class ThemeEvents
      *
      * @param array $idTokenData
      * @param array $accessTokenData
-     * @returns array|null
+     * @return array|null
      */
     const OIDC_ID_TOKEN_PRE_VALIDATE = 'oidc_id_token_pre_validate';
 
@@ -134,6 +134,16 @@ class ThemeEvents
      */
     const ROUTES_REGISTER_WEB_AUTH = 'routes_register_web_auth';
 
+
+    /**
+     * Theme register views event.
+     * Called by the theme system when a theme is active, so that custom view templates can be registered
+     * to be rendered in addition to existing app views.
+     *
+     * @param \BookStack\Theming\ThemeViews $themeViews
+     */
+    const THEME_REGISTER_VIEWS = 'theme_register_views';
+
     /**
      * Web before middleware action.
      * Runs before the request is handled but after all other middleware apart from those
@@ -142,7 +152,7 @@ class ThemeEvents
      * Return values, if provided, will be used as a new response to use.
      *
      * @param \Illuminate\Http\Request $request
-     * @returns \Illuminate\Http\Response|null
+     * @return \Illuminate\Http\Response|null
      */
     const WEB_MIDDLEWARE_BEFORE = 'web_middleware_before';
 
@@ -154,7 +164,7 @@ class ThemeEvents
      *
      * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse $response
-     * @returns \Illuminate\Http\Response|null
+     * @return \Illuminate\Http\Response|null
      */
     const WEB_MIDDLEWARE_AFTER = 'web_middleware_after';
 
@@ -173,7 +183,7 @@ class ThemeEvents
      * @param string|\BookStack\Activity\Models\Loggable $detail
      * @param \BookStack\Users\Models\User $initiator
      * @param int $initiatedTime
-     * @returns array|null
+     * @return array|null
      */
     const WEBHOOK_CALL_BEFORE = 'webhook_call_before';
 }

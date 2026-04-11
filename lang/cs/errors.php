@@ -78,7 +78,7 @@ return [
     // Users
     'users_cannot_delete_only_admin' => 'Nemůžete odstranit posledního administrátora',
     'users_cannot_delete_guest' => 'Uživatele Host není možno odstranit',
-    'users_could_not_send_invite' => 'Could not create user since invite email failed to send',
+    'users_could_not_send_invite' => 'Nebylo možné vytvořit uživatele, protože se nepodařilo odeslat email s pozvánkou',
 
     // Roles
     'role_cannot_be_edited' => 'Tuto roli nelze editovat',
@@ -105,6 +105,19 @@ return [
     'app_down' => ':appName je momentálně vypnutá',
     'back_soon' => 'Brzy bude opět v provozu.',
 
+    // Import
+    'import_zip_cant_read' => 'Nelze načíst ZIP soubor.',
+    'import_zip_cant_decode_data' => 'Nelze najít a dekódovat data.json v archivu ZIP.',
+    'import_zip_no_data' => 'ZIP archiv neobsahuje knihy, kapitoly nebo stránky.',
+    'import_zip_data_too_large' => 'Obsah souboru data.json v archivu ZIP překračuje maximální povolenou velikost.',
+    'import_validation_failed' => 'Importování ZIP selhalo s chybami:',
+    'import_zip_failed_notification' => 'Nepodařilo se naimportovat ZIP soubor.',
+    'import_perms_books' => 'Chybí vám požadovaná oprávnění k vytvoření knih.',
+    'import_perms_chapters' => 'Chybí vám požadovaná oprávnění k vytvoření kapitol.',
+    'import_perms_pages' => 'Chybí vám požadovaná oprávnění k vytvoření stránek.',
+    'import_perms_images' => 'Chybí vám požadovaná oprávnění k vytvoření obrázků.',
+    'import_perms_attachments' => 'Chybí vám požadovaná oprávnění k vytvoření příloh.',
+
     // API errors
     'api_no_authorization_found' => 'V požadavku nebyl nalezen žádný autorizační token',
     'api_bad_authorization_format' => 'V požadavku byl nalezen autorizační token, ale jeho formát se zdá být chybný',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'Poskytnutý Token Secret neodpovídá použitému API tokenu',
     'api_user_no_api_permission' => 'Vlastník použitého API tokenu nemá oprávnění provádět API volání',
     'api_user_token_expired' => 'Platnost autorizačního tokenu vypršela',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Při posílání testovacího e-mailu nastala chyba:',

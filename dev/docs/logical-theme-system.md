@@ -2,7 +2,9 @@
 
 BookStack allows logical customization via the theme system which enables you to add, or extend, functionality within the PHP side of the system without needing to alter the core application files.
 
-WARNING: This system is currently in alpha so may incur changes. Once we've gathered some feedback on usage we'll look to removing this warning. This system will be considered semi-stable in the future. The `Theme::` system will be kept maintained but specific customizations or deeper app/framework usage using this system will not be supported nor considered in any way stable. Customizations using this system should be checked after updates.
+This is part of the theme system alongside the [visual theme system](./visual-theme-system.md).
+
+**Note:** This system is considered semi-stable. The `Theme::` system is kept maintained but specific customizations or deeper app/framework usage using this system will not be supported nor considered in any way stable. Customizations using this system should be checked after updates.
 
 ## Getting Started
 
@@ -47,6 +49,7 @@ This method allows you to register a custom social authentication driver within 
 - string $driverName
 - array $config
 - string $socialiteHandler
+- callable|null $configureForRedirect = null
 
 **Example**
 
@@ -95,6 +98,41 @@ Theme::listen(ThemeEvents::APP_BOOT, function($app) {
     });
 });
 ```
+
+## Custom View Registration Example
+
+Using the logical theme system, you can register custom views to be rendered before/after other existing views, providing a flexible way to add content without needing to override and/or replicate existing content. This is done by listening to the `THEME_REGISTER_VIEWS`.
+
+**Note:** You don't need to use this to override existing views, or register whole new main views to use, since that's done automatically based on their existence. This is just for advanced capabilities like inserting before/after existing views.
+
+This event provides a `ThemeViews` instance which has the following methods made available:
+
+- `renderBefore(string $targetView, string $localView, int $priority)`
+- `renderAfter(string $targetView, string $localView, int $priority)`
+
+The target view is the name of that which we want to insert our custom view relative to.
+The local view is the name of the view we want to add and render.
+The priority provides a suggestion to the ordering of view display, with lower numbers being shown first. This defaults to 50 if not provided.
+
+Here's an example of this in use:
+
+```php
+<?php
+
+use BookStack\Facades\Theme;
+use BookStack\Theming\ThemeEvents;
+use BookStack\Theming\ThemeViews;
+
+Theme::listen(ThemeEvents::THEME_REGISTER_VIEWS, function (ThemeViews $themeViews) {
+    $themeViews->renderBefore('layouts.parts.header', 'welcome-banner', 4);
+    $themeViews->renderAfter('layouts.parts.header', 'information-alert');
+    $themeViews->renderAfter('layouts.parts.header', 'additions.password-notice', 20);
+});
+```
+
+In this example, we're inserting custom views before and after the main header bar.
+BookStack will look for a `welcome-banner.blade.php` file within our theme folder (or a theme module view folder) to render before the header. It'll look for the `information-alert.blade.php` and `additions/password-notice.blade.php` views to render afterwards.
+The password notice will be shown above the information alert view, since it has a specified priority of 20, whereas the information alert view would default to a priority of 50.
 
 ## Custom Command Registration Example
 

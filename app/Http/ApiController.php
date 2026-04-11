@@ -8,7 +8,13 @@ use Illuminate\Http\JsonResponse;
 
 abstract class ApiController extends Controller
 {
-    protected $rules = [];
+    /**
+     * The validation rules for this controller.
+     * Can alternative be defined in a rules() method is they need to be dynamic.
+     *
+     * @var array<string, array<string, string[]>>
+     */
+    protected array $rules = [];
 
     /**
      * Provide a paginated listing JSON response in a standard format

@@ -35,6 +35,7 @@ class SearchOptions
     {
         $instance = new self();
         $instance->addOptionsFromString($search);
+        $instance->limitOptions();
         return $instance;
     }
 
@@ -86,6 +87,8 @@ class SearchOptions
             $instance->tags = $instance->tags->merge($extras->tags);
             $instance->filters = $instance->filters->merge($extras->filters);
         }
+
+        $instance->limitOptions();
 
         return $instance;
     }
@@ -148,6 +151,25 @@ class SearchOptions
     }
 
     /**
+     * Limit the amount of search options to reasonable levels.
+     * Provides higher limits to logged-in users since that signals a slightly
+     * higher level of trust.
+     */
+    protected function limitOptions(): void
+    {
+        $userLoggedIn = !user()->isGuest();
+        $searchLimit = $userLoggedIn ? 10 : 5;
+        $exactLimit = $userLoggedIn ? 4 : 2;
+        $tagLimit = $userLoggedIn ? 8 : 4;
+        $filterLimit = $userLoggedIn ? 10 : 5;
+
+        $this->searches = $this->searches->limit($searchLimit);
+        $this->exacts = $this->exacts->limit($exactLimit);
+        $this->tags = $this->tags->limit($tagLimit);
+        $this->filters = $this->filters->limit($filterLimit);
+    }
+
+    /**
      * Decode backslash escaping within the input string.
      */
     protected static function decodeEscapes(string $input): string
@@ -181,7 +203,7 @@ class SearchOptions
     protected static function parseStandardTermString(string $termString): array
     {
         $terms = explode(' ', $termString);
-        $indexDelimiters = SearchIndex::$delimiters;
+        $indexDelimiters = implode('', array_diff(str_split(SearchIndex::$delimiters), str_split(SearchIndex::$softDelimiters)));
         $parsed = [
             'terms'  => [],
             'exacts' => [],

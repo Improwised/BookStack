@@ -9,9 +9,11 @@ use DOMNodeList;
 class HtmlContentFilter
 {
     /**
-     * Remove all the script elements from the given HTML document.
+     * Remove all active content from the given HTML document.
+     * This aims to cover anything which can dynamically deal with, or send, data
+     * like any JavaScript actions or form content.
      */
-    public static function removeScriptsFromDocument(HtmlDocument $doc)
+    public static function removeActiveContentFromDocument(HtmlDocument $doc): void
     {
         // Remove standard script tags
         $scriptElems = $doc->queryXPath('//script');
@@ -21,7 +23,7 @@ class HtmlContentFilter
         $badLinks = $doc->queryXPath('//*[' . static::xpathContains('@href', 'javascript:') . ']');
         static::removeNodes($badLinks);
 
-        // Remove forms with calls to JavaScript URI
+        // Remove elements with form-like attributes with calls to JavaScript URI
         $badForms = $doc->queryXPath('//*[' . static::xpathContains('@action', 'javascript:') . '] | //*[' . static::xpathContains('@formaction', 'javascript:') . ']');
         static::removeNodes($badForms);
 
@@ -47,25 +49,71 @@ class HtmlContentFilter
         // Remove 'on*' attributes
         $onAttributes = $doc->queryXPath('//@*[starts-with(name(), \'on\')]');
         static::removeAttributes($onAttributes);
+
+        // Remove form elements
+        $formElements = ['form', 'fieldset', 'button', 'textarea', 'select'];
+        foreach ($formElements as $formElement) {
+            $matchingFormElements = $doc->queryXPath('//' . $formElement);
+            static::removeNodes($matchingFormElements);
+        }
+
+        // Remove non-checkbox inputs
+        $inputsToRemove = $doc->queryXPath('//input');
+        /** @var DOMElement $input */
+        foreach ($inputsToRemove as $input) {
+            $type = strtolower($input->getAttribute('type'));
+            if ($type !== 'checkbox') {
+                $input->parentNode->removeChild($input);
+            }
+        }
+
+        // Remove form attributes
+        $formAttrs = ['form', 'formaction', 'formmethod', 'formtarget'];
+        foreach ($formAttrs as $formAttr) {
+            $matchingFormAttrs = $doc->queryXPath('//@' . $formAttr);
+            static::removeAttributes($matchingFormAttrs);
+        }
     }
 
     /**
-     * Remove scripts from the given HTML string.
+     * Remove active content from the given HTML string.
+     * This aims to cover anything which can dynamically deal with, or send, data
+     * like any JavaScript actions or form content.
      */
-    public static function removeScriptsFromHtmlString(string $html): string
+    public static function removeActiveContentFromHtmlString(string $html): string
     {
         if (empty($html)) {
             return $html;
         }
 
         $doc = new HtmlDocument($html);
-        static::removeScriptsFromDocument($doc);
+        static::removeActiveContentFromDocument($doc);
 
         return $doc->getBodyInnerHtml();
     }
 
     /**
-     * Create a xpath contains statement with a translation automatically built within
+     * Alias using the old method name to avoid potential compatibility breaks during patch release.
+     * To remove in future feature release.
+     * @deprecated Use removeActiveContentFromDocument instead.
+     */
+    public static function removeScriptsFromDocument(HtmlDocument $doc): void
+    {
+        static::removeActiveContentFromDocument($doc);
+    }
+
+    /**
+     * Alias using the old method name to avoid potential compatibility breaks during patch release.
+     * To remove in future feature release.
+     * @deprecated Use removeActiveContentFromHtmlString instead.
+     */
+    public static function removeScriptsFromHtmlString(string $html): string
+    {
+        return static::removeActiveContentFromHtmlString($html);
+    }
+
+    /**
+     * Create an x-path 'contains' statement with a translation automatically built within
      * to affectively search in a cases-insensitive manner.
      */
     protected static function xpathContains(string $property, string $value): string

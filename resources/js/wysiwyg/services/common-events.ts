@@ -40,4 +40,16 @@ export function listen(editor: LexicalEditor): void {
     window.$events.listen<EditorEventContent>('editor::focus', () => {
         focusEditor(editor);
     });
+
+    let changeFromLoading = true;
+    editor.registerUpdateListener(({dirtyElements, dirtyLeaves, editorState, prevEditorState}) => {
+        // Emit change event to component system (for draft detection) on actual user content change
+        if (dirtyElements.size > 0 || dirtyLeaves.size > 0) {
+            if (changeFromLoading) {
+                changeFromLoading = false;
+            } else {
+                window.$events.emit('editor-html-change', '');
+            }
+        }
+    });
 }

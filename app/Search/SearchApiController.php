@@ -1,29 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BookStack\Search;
 
 use BookStack\Api\ApiEntityListFormatter;
 use BookStack\Entities\Models\Entity;
 use BookStack\Http\ApiController;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SearchApiController extends ApiController
 {
-    protected SearchRunner $searchRunner;
-    protected SearchResultsFormatter $resultsFormatter;
-
-    protected $rules = [
+    protected array $rules = [
         'all' => [
-            'query'  => ['required'],
-            'page'   => ['integer', 'min:1'],
-            'count'  => ['integer', 'min:1', 'max:100'],
+            'query' => ['required'],
+            'page'  => ['integer', 'min:1'],
+            'count' => ['integer', 'min:1', 'max:100'],
         ],
     ];
 
-    public function __construct(SearchRunner $searchRunner, SearchResultsFormatter $resultsFormatter)
-    {
-        $this->searchRunner = $searchRunner;
-        $this->resultsFormatter = $resultsFormatter;
+    public function __construct(
+        protected SearchRunner $searchRunner,
+        protected SearchResultsFormatter $resultsFormatter
+    ) {
     }
 
     /**
@@ -34,11 +34,9 @@ class SearchApiController extends ApiController
      * between: bookshelf, book, chapter & page.
      *
      * The paging parameters and response format emulates a standard listing endpoint
-     * but standard sorting and filtering cannot be done on this endpoint. If a count value
-     * is provided this will only be taken as a suggestion. The results in the response
-     * may currently be up to 4x this value.
+     * but standard sorting and filtering cannot be done on this endpoint.
      */
-    public function all(Request $request)
+    public function all(Request $request): JsonResponse
     {
         $this->validate($request, $this->rules['all']);
 
@@ -50,16 +48,16 @@ class SearchApiController extends ApiController
         $this->resultsFormatter->format($results['results']->all(), $options);
 
         $data = (new ApiEntityListFormatter($results['results']->all()))
-            ->withType()->withTags()
+            ->withType()->withTags()->withParents()
             ->withField('preview_html', function (Entity $entity) {
                 return [
-                    'name'    => (string) $entity->getAttribute('preview_name'),
+                    'name' => (string) $entity->getAttribute('preview_name'),
                     'content' => (string) $entity->getAttribute('preview_content'),
                 ];
             })->format();
 
         return response()->json([
-            'data'  => $data,
+            'data' => $data,
             'total' => $results['total'],
         ]);
     }

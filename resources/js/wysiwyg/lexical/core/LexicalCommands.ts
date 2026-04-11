@@ -8,7 +8,6 @@
 
 import type {
   BaseSelection,
-  ElementFormatType,
   LexicalCommand,
   LexicalNode,
   TextFormatType,
@@ -79,6 +78,8 @@ export const KEY_ESCAPE_COMMAND: LexicalCommand<KeyboardEvent> =
   createCommand('KEY_ESCAPE_COMMAND');
 export const KEY_DELETE_COMMAND: LexicalCommand<KeyboardEvent> =
   createCommand('KEY_DELETE_COMMAND');
+export const KEY_AT_COMMAND: LexicalCommand<KeyboardEvent> =
+    createCommand('KEY_AT_COMMAND');
 export const KEY_TAB_COMMAND: LexicalCommand<KeyboardEvent> =
   createCommand('KEY_TAB_COMMAND');
 export const INSERT_TAB_COMMAND: LexicalCommand<void> =
@@ -91,8 +92,6 @@ export const OUTDENT_CONTENT_COMMAND: LexicalCommand<void> = createCommand(
 );
 export const DROP_COMMAND: LexicalCommand<DragEvent> =
   createCommand('DROP_COMMAND');
-export const FORMAT_ELEMENT_COMMAND: LexicalCommand<ElementFormatType> =
-  createCommand('FORMAT_ELEMENT_COMMAND');
 export const DRAGSTART_COMMAND: LexicalCommand<DragEvent> =
   createCommand('DRAGSTART_COMMAND');
 export const DRAGOVER_COMMAND: LexicalCommand<DragEvent> =

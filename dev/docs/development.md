@@ -3,11 +3,11 @@
 All development on BookStack is currently done on the `development` branch. 
 When it's time for a release the `development` branch is merged into release with built & minified CSS & JS then tagged at its version. Here are the current development requirements:
 
-* [Node.js](https://nodejs.org/en/) v18.0+
+* [Node.js](https://nodejs.org/en/) v22.0+
 
 ## Building CSS & JavaScript Assets
 
-This project uses SASS for CSS development and this is built, along with the JavaScript, using a range of npm scripts. The below npm commands can be used to install the dependencies & run the build tasks:
+This project uses SASS for CSS development which is built, along with the JavaScript, using a range of npm scripts. The below npm commands can be used to install the dependencies & run the build tasks:
 
 ``` bash
 # Install NPM Dependencies
@@ -82,7 +82,7 @@ If all the conditions are met, you can proceed with the following steps:
 
 1. **Copy `.env.example` to `.env`**, change `APP_KEY` to a random 32 char string and set `APP_ENV` to `local`.
 2. Make sure **port 8080 is unused** *or else* change `DEV_PORT` to a free port on your host.
-3. **Run `chgrp -R docker storage`**. The development container will chown the `storage` directory to the `www-data` user inside the container so BookStack can write to it. You need to change the group to your host's `docker` group here to not lose access to the `storage` directory.
+3. **Run `chgrp -R docker storage`**. The development container will chown the `storage`, `public/uploads` and `bootstrap/cache` directories to the `www-data` user inside the container so BookStack can write to it. You need to change the group to your host's `docker` group here to not lose access to the `storage` directory.
 4. **Run `docker-compose up`** and wait until the image is built and all database migrations have been done.
 5. You can now login with `admin@admin.com` and `password` as password on `localhost:8080` (or another port if specified).
 
@@ -113,4 +113,4 @@ docker-compose run app php vendor/bin/phpunit
 ### Debugging
 
 The docker-compose setup ships with Xdebug, which you can listen to on port 9090.
-NB : For some editors like Visual Studio Code, you might need to map your workspace folder to the /app folder within the docker container for this to work.
+NB: For some editors like Visual Studio Code, you might need to map your workspace folder to the /app folder within the docker container for this to work.

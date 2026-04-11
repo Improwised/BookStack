@@ -23,6 +23,7 @@ return [
     'notifications_desc' => 'Controle as notificações por e-mail que você recebe quando uma determinada atividade é executada no sistema.',
     'notifications_opt_own_page_changes' => 'Notificar quando houver alterações em páginas que eu possuo',
     'notifications_opt_own_page_comments' => 'Notificar comentários nas páginas que eu possuo',
+    'notifications_opt_comment_mentions' => 'Notify when I\'m mentioned in a comment',
     'notifications_opt_comment_replies' => 'Notificar ao responder aos meus comentários',
     'notifications_save' => 'Salvar Preferências',
     'notifications_update_success' => 'Preferências de notificação foram atualizadas!',
@@ -42,7 +43,7 @@ return [
     'profile_email_no_permission' => 'Infelizmente você não tem permissão para alterar seu endereço de e-mail. Se quiser alterar isso, você precisará pedir a um administrador para alterar isso para você.',
     'profile_avatar_desc' => 'Selecione uma imagem que será usada para representar você mesmo para outras pessoas no sistema. Idealmente, esta imagem deve ser quadrada e ter cerca de 256px de largura e altura.',
     'profile_admin_options' => 'Opções do administrador',
-    'profile_admin_options_desc' => 'Opções adicionais do nível administrador, como as que visam gerenciar as atribuições de papéis, podem ser encontradas para sua conta de usuário na área "Configurações > Usuários" do aplicativo.',
+    'profile_admin_options_desc' => 'Opções adicionais do nível administrador, como as que visam gerenciar as atribuições de perfis, podem ser encontradas para sua conta de usuário na área "Configurações > Usuários" do aplicativo.',
 
     'delete_account' => 'Deletar conta',
     'delete_my_account' => 'Deletar minha conta',

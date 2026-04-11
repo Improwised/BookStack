@@ -46,7 +46,7 @@ return [
     'bookshelf_create_from_book_notification'    => 'Kniha byla úspěšně převedena na polici',
     'bookshelf_update'                 => 'aktualizovat polici',
     'bookshelf_update_notification'    => 'Police byla úspěšně aktualizována',
-    'bookshelf_delete'                 => 'odstranit knihovnu',
+    'bookshelf_delete'                 => 'odstranil polici',
     'bookshelf_delete_notification'    => 'Police byla úspěšně odstraněna',
 
     // Revisions
@@ -84,6 +84,14 @@ return [
     'webhook_delete' => 'odstranil/a webhook',
     'webhook_delete_notification' => 'Webhook byl úspěšně odstraněn',
 
+    // Imports
+    'import_create' => 'vytvořil/a import',
+    'import_create_notification' => 'Import byl úspěšně nahrán',
+    'import_run' => 'aktualizoval/a import',
+    'import_run_notification' => 'Obsah byl úspěšně importován',
+    'import_delete' => 'odstranil/a import',
+    'import_delete_notification' => 'Import byl úspěšně odstraněn',
+
     // Users
     'user_create' => 'vytvořil uživatele',
     'user_create_notification' => 'Uživatel byl úspěšně vytvořen',
@@ -118,6 +126,14 @@ return [
     'comment_create'              => 'přidal komentář',
     'comment_update'              => 'aktualizoval komentář',
     'comment_delete'              => 'odstranil komentář',
+
+    // Sort Rules
+    'sort_rule_create' => 'vytvořil/a pravidlo řazení',
+    'sort_rule_create_notification' => 'Pravidlo řazení bylo úspěšně vytvořeno',
+    'sort_rule_update' => 'aktualizoval/a pravidlo řazení',
+    'sort_rule_update_notification' => 'Pravidlo řazení bylo úspěšně aktualizováno',
+    'sort_rule_delete' => 'odstranil/a pravidlo řazení',
+    'sort_rule_delete_notification' => 'Pravidlo řazení bylo úspěšně odstraněno',
 
     // Other
     'permissions_update'          => 'oprávnění upravena',

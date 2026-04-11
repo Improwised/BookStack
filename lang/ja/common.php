@@ -30,6 +30,8 @@ return [
     'create' => '作成',
     'update' => '更新',
     'edit' => '編集',
+    'archive' => 'アーカイブ',
+    'unarchive' => 'アーカイブ解除',
     'sort' => '並び順',
     'move' => '移動',
     'copy' => 'コピー',
@@ -109,5 +111,5 @@ return [
     'terms_of_service' => '利用規約',
 
     // OpenSearch
-    'opensearch_description' => 'Search :appName',
+    'opensearch_description' => ':appName を検索',
 ];

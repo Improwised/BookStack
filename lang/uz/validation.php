@@ -105,6 +105,12 @@ return [
     'url'                  => ':attribute URL formatida emas.',
     'uploaded'             => 'Faylni yuklashda xatolik. Server bunday hajmdagi faylllarni yuklamasligi mumkin.',
 
+    'zip_file' => ':attribute ZIP ichidagi faylga havola qilishi kerak.',
+    'zip_file_size' => ':attribute fayli :size MB dan oshmasligi kerak.',
+    'zip_file_mime' => ':attribute :validTypes turidagi faylga havola qilishi kerak, lekin :foundType turida keldi.',
+    'zip_model_expected' => 'Ma\'lumotlar obyekti kutilmoqda, ammo ":type" topildi.',
+    'zip_unique' => ':attribute ZIP ichidagi obyekt turi uchun noyob bo\'lishi kerak.',
+
     // Custom validation lines
     'custom' => [
         'password-confirm' => [

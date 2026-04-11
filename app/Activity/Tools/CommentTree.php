@@ -4,14 +4,20 @@ namespace BookStack\Activity\Tools;
 
 use BookStack\Activity\Models\Comment;
 use BookStack\Entities\Models\Page;
+use BookStack\Permissions\Permission;
 
 class CommentTree
 {
     /**
      * The built nested tree structure array.
-     * @var array{comment: Comment, depth: int, children: array}[]
+     * @var CommentTreeNode[]
      */
     protected array $tree;
+
+    /**
+     * A linear array of loaded comments.
+     * @var Comment[]
+     */
     protected array $comments;
 
     public function __construct(
@@ -28,7 +34,7 @@ class CommentTree
 
     public function empty(): bool
     {
-        return count($this->tree) === 0;
+        return count($this->getActive()) === 0;
     }
 
     public function count(): int
@@ -36,15 +42,41 @@ class CommentTree
         return count($this->comments);
     }
 
-    public function get(): array
+    public function getActive(): array
     {
-        return $this->tree;
+        return array_values(array_filter($this->tree, fn (CommentTreeNode $node) => !$node->comment->archived));
+    }
+
+    public function activeThreadCount(): int
+    {
+        return count($this->getActive());
+    }
+
+    public function getArchived(): array
+    {
+        return array_values(array_filter($this->tree, fn (CommentTreeNode $node) => $node->comment->archived));
+    }
+
+    public function archivedThreadCount(): int
+    {
+        return count($this->getArchived());
+    }
+
+    public function getCommentNodeForId(int $commentId): ?CommentTreeNode
+    {
+        foreach ($this->tree as $node) {
+            if ($node->comment->id === $commentId) {
+                return $node;
+            }
+        }
+
+        return null;
     }
 
     public function canUpdateAny(): bool
     {
         foreach ($this->comments as $comment) {
-            if (userCan('comment-update', $comment)) {
+            if (userCan(Permission::CommentUpdate, $comment)) {
                 return true;
             }
         }
@@ -52,8 +84,17 @@ class CommentTree
         return false;
     }
 
+    public function loadVisibleHtml(): void
+    {
+        foreach ($this->comments as $comment) {
+            $comment->setAttribute('html', $comment->safeHtml());
+            $comment->makeVisible('html');
+        }
+    }
+
     /**
      * @param Comment[] $comments
+     * @return CommentTreeNode[]
      */
     protected function createTree(array $comments): array
     {
@@ -77,28 +118,27 @@ class CommentTree
 
         $tree = [];
         foreach ($childMap[0] ?? [] as $childId) {
-            $tree[] = $this->createTreeForId($childId, 0, $byId, $childMap);
+            $tree[] = $this->createTreeNodeForId($childId, 0, $byId, $childMap);
         }
 
         return $tree;
     }
 
-    protected function createTreeForId(int $id, int $depth, array &$byId, array &$childMap): array
+    protected function createTreeNodeForId(int $id, int $depth, array &$byId, array &$childMap): CommentTreeNode
     {
         $childIds = $childMap[$id] ?? [];
         $children = [];
 
         foreach ($childIds as $childId) {
-            $children[] = $this->createTreeForId($childId, $depth + 1, $byId, $childMap);
+            $children[] = $this->createTreeNodeForId($childId, $depth + 1, $byId, $childMap);
         }
 
-        return [
-            'comment' => $byId[$id],
-            'depth' => $depth,
-            'children' => $children,
-        ];
+        return new CommentTreeNode($byId[$id], $depth, $children);
     }
 
+    /**
+     * @return Comment[]
+     */
     protected function loadComments(): array
     {
         if (!$this->enabled()) {

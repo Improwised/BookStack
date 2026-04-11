@@ -105,6 +105,19 @@ return [
     'app_down' => 'La aplicación :appName se encuentra caída en este momento',
     'back_soon' => 'Volverá a estar operativa pronto.',
 
+    // Import
+    'import_zip_cant_read' => 'No se pudo leer el archivo ZIP.',
+    'import_zip_cant_decode_data' => 'No se pudo encontrar y decodificar el archivo data.json. en el archivo ZIP.',
+    'import_zip_no_data' => 'Los datos del archivo ZIP no contienen ningún libro, capítulo o contenido de página.',
+    'import_zip_data_too_large' => 'El contenido del ZIP data.json excede el tamaño máximo de carga configurado.',
+    'import_validation_failed' => 'Error al validar la importación del ZIP con errores:',
+    'import_zip_failed_notification' => 'Error al importar archivo ZIP.',
+    'import_perms_books' => 'Le faltan los permisos necesarios para crear libros.',
+    'import_perms_chapters' => 'Le faltan los permisos necesarios para crear capítulos.',
+    'import_perms_pages' => 'Le faltan los permisos necesarios para crear páginas.',
+    'import_perms_images' => 'Le faltan los permisos necesarios para crear imágenes.',
+    'import_perms_attachments' => 'Le faltan los permisos necesarios para crear adjuntos.',
+
     // API errors
     'api_no_authorization_found' => 'No se encontró ningún token de autorización en la solicitud',
     'api_bad_authorization_format' => 'Se ha encontrado un token de autorización en la solicitud pero el formato era incorrecto',
@@ -112,6 +125,7 @@ return [
     'api_incorrect_token_secret' => 'El secreto proporcionado para el token API usado es incorrecto',
     'api_user_no_api_permission' => 'El propietario del token API usado no tiene permiso para hacer llamadas API',
     'api_user_token_expired' => 'El token de autorización usado ha caducado',
+    'api_cookie_auth_only_get' => 'Only GET requests are allowed when using the API with cookie-based authentication',
 
     // Settings & Maintenance
     'maintenance_test_email_failure' => 'Error al enviar un email de prueba:',

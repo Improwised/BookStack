@@ -105,6 +105,12 @@ return [
     'url'                  => ':attribute formaat is ongeldig.',
     'uploaded'             => 'Het bestand kon niet worden geüpload. De server accepteert mogelijk geen bestanden van deze grootte.',
 
+    'zip_file' => 'Het \':attribute\' veld moet verwijzen naar een bestand in de ZIP.',
+    'zip_file_size' => 'Het bestand :attribute mag niet groter zijn dan :size MB.',
+    'zip_file_mime' => 'Het \':attribute\' veld moet verwijzen naar een bestand met het type :validTypes, vond :foundType.',
+    'zip_model_expected' => 'Dataobject verwacht maar vond ":type".',
+    'zip_unique' => ':attribute moet uniek zijn voor het objecttype binnen de ZIP.',
+
     // Custom validation lines
     'custom' => [
         'password-confirm' => [
