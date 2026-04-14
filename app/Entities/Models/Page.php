@@ -4,6 +4,7 @@ namespace BookStack\Entities\Models;
 
 use BookStack\Entities\Tools\EntityCover;
 use BookStack\Entities\Tools\EntityDefaultTemplate;
+use BookStack\Entities\Tools\EntityHtmlDescription;
 use BookStack\Uploads\Image;
 use BookStack\Entities\Tools\PageContent;
 use BookStack\Permissions\PermissionApplicator;
@@ -33,10 +34,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Collection   $revisions
  * @property PageRevision $currentRevision
  */
-class Page extends BookChild implements HasDescriptionInterface, HasCoverInterface, HasDefaultTemplateInterface
+class Page extends BookChild implements HasDescriptionInterface, HasCoverInterface
 {
     use HasFactory;
-    use ContainerTrait;
+    // use ContainerTrait;
 
     public string $textField = 'text';
     public string $htmlField = 'html';
@@ -165,10 +166,11 @@ class Page extends BookChild implements HasDescriptionInterface, HasCoverInterfa
         }
     }
 
-    public function defaultTemplate(): EntityDefaultTemplate
+    public function descriptionInfo(): EntityHtmlDescription
     {
-        return new EntityDefaultTemplate($this);
+        return new EntityHtmlDescription($this);
     }
+
     
     public function cover(): BelongsTo
     {
