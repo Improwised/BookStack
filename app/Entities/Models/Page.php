@@ -36,8 +36,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Page extends BookChild implements HasDescriptionInterface, HasCoverInterface
 {
-
     use HasFactory;
+
     // use ContainerTrait;
 
     public string $textField = 'text';

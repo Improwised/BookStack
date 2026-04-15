@@ -126,17 +126,17 @@ class PageRepo
         $oldName = $page->name;
         $oldHtml = $page->html;
         $oldMarkdown = $page->markdown;
-        
+
         $this->updateTemplateStatusAndContentFromInput($page, $input);
         $page = $this->baseRepo->update($page, $input);
-        
+
         // Update with new details
         $page->revision_count++;
         $page->save();
-        
+
         // Remove all update drafts for this user and page.
         $this->revisionRepo->deleteDraftsForCurrentUser($page);
-        
+
         // Save a revision after updating
         $summary = trim($input['summary'] ?? '');
         $htmlChanged = isset($input['html']) && $input['html'] !== $oldHtml;
@@ -145,7 +145,7 @@ class PageRepo
         if ($htmlChanged || $nameChanged || $markdownChanged || $summary) {
             $this->revisionRepo->storeNewForPage($page, $summary);
         }
-            
+
         if (array_key_exists('image', $input)) {
             $this->baseRepo->updateCoverImage($page, $input['image'], $input['image'] === null);
         }
