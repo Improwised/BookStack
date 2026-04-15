@@ -36,16 +36,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Page extends BookChild implements HasDescriptionInterface, HasCoverInterface
 {
+
     use HasFactory;
     // use ContainerTrait;
 
     public string $textField = 'text';
     public string $htmlField = 'html';
-    protected $hidden = ['html', 'markdown', 'text', 'pivot', 'deleted_at',  'entity_id', 'entity_type'];
+    protected $hidden = ['html', 'markdown', 'text', 'pivot', 'deleted_at', 'entity_id', 'entity_type'];
     protected $fillable = ['name', 'priority'];
 
     protected $casts = [
-        'draft'    => 'boolean',
+        'draft' => 'boolean',
         'template' => 'boolean',
     ];
 
@@ -152,26 +153,12 @@ class Page extends BookChild implements HasDescriptionInterface, HasCoverInterfa
         return $refreshed;
     }
 
-    public function getPageCover(int $width = 440, int $height = 250): string
-    {
-        $default = setting()->getDefaultPageCoverImage();
-        if (!$this->image_id || !$this->cover) {
-            return $default;
-        }
-
-        try {
-            return $this->cover->getThumb($width, $height, false) ?? $default;
-        } catch (Exception $err) {
-            return $default;
-        }
-    }
 
     public function descriptionInfo(): EntityHtmlDescription
     {
         return new EntityHtmlDescription($this);
     }
 
-    
     public function cover(): BelongsTo
     {
         return $this->belongsTo(Image::class, 'image_id');

@@ -34,7 +34,7 @@ class EntityCover
      */
     public function getImage(): Image|null
     {
-        
+
         if ($this->entity->image_id === null) {
             return null;
         }

@@ -4,6 +4,7 @@ namespace Tests\Entity;
 
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Page;
+use BookStack\Entities\Repos\BaseRepo;
 use BookStack\Uploads\Image;
 use Carbon\Carbon;
 use Tests\TestCase;
