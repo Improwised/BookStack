@@ -45,7 +45,7 @@
 
                 @include('form.image-picker', [
                     'defaultImage' => url('/book_default_cover.png'),
-                    'currentImage' => (isset($page) && $page->cover) ? $page->getPageCover() : url('/book_default_cover.png') ,
+                    'currentImage' => (isset($page) && $page->cover) ? $page->coverInfo()->getUrl() : url('/book_default_cover.png') ,
                     'name' => 'image',
                     'imageClass' => 'cover'
                 ])

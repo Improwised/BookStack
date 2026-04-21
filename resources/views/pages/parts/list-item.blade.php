@@ -1,4 +1,4 @@
-<a href="{{ $page->getUrl() }}" class="chapter entity-list-item " data-entity-type="chapter" data-entity-id="{{$page->id}}">
+<a href="{{ $page->getUrl() }}" class="page entity-list-item " data-entity-type="page" data-entity-id="{{$page->id}}">
     <span class="icon text-page">@icon('page')</span>
     <div class="entity-list-item-image bg-page mr-xxs" style="background-image: url('{{$page->coverInfo()->getUrl()}}');width: 120px;">
         @icon('page')
