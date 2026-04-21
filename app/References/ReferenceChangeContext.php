@@ -11,7 +11,7 @@ class ReferenceChangeContext
      * @var array<array{0: Entity, 1: Entity}>
      */
     protected array $changes = [];
-    
+
     protected array $urlMap = [];
     protected array $permalinkMap = [];
 
@@ -19,7 +19,7 @@ class ReferenceChangeContext
     {
         $this->changes[] = [$oldEntity, $newEntity];
         $this->urlMap[$oldEntity->getUrl()] = $newEntity->getUrl();
-        
+
         if (method_exists($oldEntity, 'getPermalink') && method_exists($newEntity, 'getPermalink')) {
             $this->permalinkMap[$oldEntity->getPermalink()] = $newEntity->getPermalink();
         }
@@ -50,12 +50,12 @@ class ReferenceChangeContext
         }
         return null;
     }
-    
+
     public function getUrlMap(): array
     {
         return $this->urlMap;
     }
-    
+
     public function getPermalinkMap(): array
     {
         return $this->permalinkMap;
